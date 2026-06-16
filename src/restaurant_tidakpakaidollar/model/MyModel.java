@@ -8,7 +8,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
 
 /**
  *
@@ -29,7 +28,7 @@ public abstract class MyModel {
         if(MyModel.conn == null){ //jika belum ada koneksi
             try{
                 Class.forName("com.mysql.cj.jdbc.Driver").newInstance(); //isi dari jar
-                return DriverManager.getConnection("jdbc:mysql://localhost/ezparking_160424024",
+                return DriverManager.getConnection("jdbc:mysql://localhost/restaurant_tidakpakaidollar",
                 "root", ""); //memasukkan nama schemanya, user, dan password
             }catch (Exception ex){
                 System.out.println("Error di connection " + ex.getMessage());
@@ -41,5 +40,4 @@ public abstract class MyModel {
     public abstract void insertData();
     public abstract void updateData();
     public abstract void deleteData();
-    public abstract ArrayList<Object> viewListData();
 }
