@@ -16,11 +16,7 @@ public class Account extends MyModel {
     private String password;
     private String phone_number;
     private String fullname;
-    private Role role;
-    public enum Role{
-        ADMIN,
-        CUSTOMER
-    }
+    private String role;
     private Timestamp created_at;
     private Timestamp updated_at;
     
@@ -28,12 +24,13 @@ public class Account extends MyModel {
         super();
     }
     
-    public Account(String username, String password, String phone_number, String fullname, Role role) {
+    public Account(String username, String password, String phone_number, String fullname, String role) {
         super();
         this.username = username;
         this.password = password;
         this.phone_number = phone_number;
         this.fullname = fullname;
+        this.role = role;
     }
 
     public int getId() {
@@ -76,11 +73,11 @@ public class Account extends MyModel {
         this.fullname = fullname;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
@@ -105,8 +102,8 @@ public class Account extends MyModel {
         try {
             this.statement = MyModel.conn.createStatement();
             String query = "INSERT INTO account (username, password, phone_number, fullname, role, created_at, updated_at) " +
-                           "VALUES ('" + this.username + "', '" + this.password + "', '" + this.phone_number + "', '" +
-                           this.fullname + "', '" + this.role.name() + "', NOW(), NOW())";
+                           "VALUES ('" + this.username + "', '" + this.password + "', '" + this.phone_number + "', '" + 
+                           this.fullname + "', '" + this.role + "', NOW(), NOW())";
             this.statement.executeUpdate(query);
             System.out.println("Data account berhasil ditambahkan!");
         } catch (Exception e) {
@@ -118,10 +115,9 @@ public class Account extends MyModel {
     public void updateData() {
         try {
             this.statement = MyModel.conn.createStatement();
-            // Update berdasarkan id
             String query = "UPDATE account SET username = '" + this.username + "', password = '" + this.password + 
                            "', phone_number = '" + this.phone_number + "', fullname = '" + this.fullname + 
-                           "', role = '" + this.role.name() + "', updated_at = NOW() WHERE id = " + this.id;
+                           "', role = '" + this.role + "', updated_at = NOW() WHERE id = " + this.id;
             this.statement.executeUpdate(query);
             System.out.println("Data account berhasil diupdate!");
         } catch (Exception e) {

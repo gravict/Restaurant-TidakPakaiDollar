@@ -14,6 +14,13 @@ public class DetailOrder {
     private int amount;
     private int subtotal;
 
+    public DetailOrder(Menu menu, Reservation reservation, int amount, int subtotal) {
+        this.menu = menu;
+        this.reservation = reservation;
+        this.amount = amount;
+        this.subtotal = subtotal;
+    }
+    
     public Menu getMenu() {
         return menu;
     }
@@ -45,11 +52,4 @@ public class DetailOrder {
     public void setSubtotal(int subtotal) {
         this.subtotal = subtotal;
     }
-    
-    public DetailOrder(Menu menu, Reservation reservation, int amount, int subtotal) {
-        this.menu = menu;
-        this.reservation = reservation;
-        this.amount = amount;
-        this.subtotal = subtotal;
-    }
-}
+ }

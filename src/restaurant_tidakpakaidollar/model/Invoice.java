@@ -15,6 +15,12 @@ public class Invoice {
     private int total_purchases;
     private Timestamp transaction_date;
     private Reservation reservation;
+    
+    public Invoice(int total_purchases, Timestamp transaction_date, Reservation reservation) {
+        this.total_purchases = total_purchases;
+        this.transaction_date = transaction_date;
+        this.reservation = reservation;
+    }
 
     public int getId() {
         return id;
@@ -45,12 +51,6 @@ public class Invoice {
     }
 
     public void setReservation(Reservation reservation) {
-        this.reservation = reservation;
-    }
-    
-    public Invoice(int total_purchases, Timestamp transaction_date, Reservation reservation) {
-        this.total_purchases = total_purchases;
-        this.transaction_date = transaction_date;
         this.reservation = reservation;
     }
 }

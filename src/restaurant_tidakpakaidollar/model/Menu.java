@@ -13,15 +13,18 @@ import java.sql.Timestamp;
 public class Menu {
     private int id;
     private String name;
-    private Category category;
-    public enum Category{
-        FOOD,
-        DRINK
-    }
+    private String category;
     private int price;
     private String description;
     private Timestamp created_at;
     private Timestamp updated_at;
+    
+    public Menu(String name, String category, int price, String description) {
+        this.name = name;
+        this.category = category;
+        this.price = price;
+        this.description = description;
+    }
 
     public int getId() {
         return id;
@@ -39,11 +42,11 @@ public class Menu {
         this.name = name;
     }
 
-    public Category getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
@@ -77,12 +80,5 @@ public class Menu {
 
     public void setUpdated_at(Timestamp updated_at) {
         this.updated_at = updated_at;
-    }
-
-    public Menu(String name, Category category, int price, String description) {
-        this.name = name;
-        this.category = category;
-        this.price = price;
-        this.description = description;
     }
 }

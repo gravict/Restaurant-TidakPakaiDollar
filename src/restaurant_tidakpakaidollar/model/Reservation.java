@@ -14,24 +14,22 @@ import java.sql.Timestamp;
 public class Reservation {
     private int id;
     private Timestamp start_reservation;
-    private Reservation_status reservation_status;
-    public enum Reservation_status{
-        PENDING,
-        ACCEPTED,
-        REJECTED
-    }
-    private Order_status order_status;
-    public enum Order_status{
-        PENDING,
-        PREPARING,
-        READY,
-        SERVED
-    }
+    private String reservation_status;
+    private String order_status;
     private int number_guest;
     private Timestamp created_at;
     private Timestamp updated_at;
     private Account account;
     private RestaurantTable restaurant_table;
+    
+    public Reservation(Timestamp start_reservation, String reservation_status, String order_status, int number_guest, Account account, RestaurantTable restaurant_table) {
+        this.start_reservation = start_reservation;
+        this.reservation_status = reservation_status;
+        this.order_status = order_status;
+        this.number_guest = number_guest;
+        this.account = account;
+        this.restaurant_table = restaurant_table;
+    }
 
     public int getId() {
         return id;
@@ -49,19 +47,19 @@ public class Reservation {
         this.start_reservation = start_reservation;
     }
 
-    public Reservation_status getReservation_status() {
+    public String getReservation_status() {
         return reservation_status;
     }
 
-    public void setReservation_status(Reservation_status reservation_status) {
+    public void setReservation_status(String reservation_status) {
         this.reservation_status = reservation_status;
     }
 
-    public Order_status getOrder_status() {
+    public String getOrder_status() {
         return order_status;
     }
 
-    public void setOrder_status(Order_status order_status) {
+    public void setOrder_status(String order_status) {
         this.order_status = order_status;
     }
 
@@ -102,15 +100,6 @@ public class Reservation {
     }
 
     public void setRestaurant_table(RestaurantTable restaurant_table) {
-        this.restaurant_table = restaurant_table;
-    }
-    
-    public Reservation(Timestamp start_reservation, Reservation_status reservation_status, Order_status order_status, int number_guest, Account account, RestaurantTable restaurant_table) {
-        this.start_reservation = start_reservation;
-        this.reservation_status = reservation_status;
-        this.order_status = order_status;
-        this.number_guest = number_guest;
-        this.account = account;
         this.restaurant_table = restaurant_table;
     }
 }

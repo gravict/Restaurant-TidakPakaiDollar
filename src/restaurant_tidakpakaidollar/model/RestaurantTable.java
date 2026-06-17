@@ -14,15 +14,16 @@ public class RestaurantTable {
     private int id;
     private int number;
     private int capacity;
-    private Status status;
-    public enum Status{
-        AVAILABLE,
-        BOOKED,
-        USED
-    }
+    private String status;
     private Timestamp created_at;
     private Timestamp updated_at;
 
+    public RestaurantTable(int number, int capacity, String status) {
+        this.number = number;
+        this.capacity = capacity;
+        this.status = status;
+    }
+    
     public int getId() {
         return id;
     }
@@ -47,11 +48,11 @@ public class RestaurantTable {
         this.capacity = capacity;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -69,11 +70,5 @@ public class RestaurantTable {
 
     public void setUpdated_at(Timestamp updated_at) {
         this.updated_at = updated_at;
-    }
-
-    public RestaurantTable(int number, int capacity, Status status) {
-        this.number = number;
-        this.capacity = capacity;
-        this.status = status;
     }
 }
