@@ -107,7 +107,7 @@ public class Account extends MyModel {
             this.statement.executeUpdate(query);
             System.out.println("Data account berhasil ditambahkan!");
         } catch (Exception e) {
-            System.out.println("Error insertData: " + e.getMessage());
+            System.out.println("Error insertData Account: " + e.getMessage());
         }
     }
 
@@ -121,7 +121,7 @@ public class Account extends MyModel {
             this.statement.executeUpdate(query);
             System.out.println("Data account berhasil diupdate!");
         } catch (Exception e) {
-            System.out.println("Error updateData: " + e.getMessage());
+            System.out.println("Error updateData Account: " + e.getMessage());
         }
     }
 
@@ -133,7 +133,7 @@ public class Account extends MyModel {
             this.statement.executeUpdate(query);
             System.out.println("Data account berhasil dihapus!");
         } catch (Exception e) {
-            System.out.println("Error deleteData: " + e.getMessage());
+            System.out.println("Error deleteData Account: " + e.getMessage());
         }
     }
 

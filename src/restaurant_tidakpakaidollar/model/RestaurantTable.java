@@ -10,15 +10,20 @@ import java.sql.Timestamp;
  *
  * @author LEGION
  */
-public class RestaurantTable {
+public class RestaurantTable extends MyModel{
     private int id;
     private int number;
     private int capacity;
     private String status;
     private Timestamp created_at;
     private Timestamp updated_at;
+    
+    public RestaurantTable() {
+        super();
+    }
 
     public RestaurantTable(int number, int capacity, String status) {
+        super();
         this.number = number;
         this.capacity = capacity;
         this.status = status;
@@ -70,5 +75,44 @@ public class RestaurantTable {
 
     public void setUpdated_at(Timestamp updated_at) {
         this.updated_at = updated_at;
+    }
+    
+    @Override
+    public void insertData() {
+        try {
+            this.statement = MyModel.conn.createStatement();
+            // number dan capacity tidak butuh tanda kutip satu ('') karena tipe datanya INT (angka)
+            String query = "INSERT INTO restaurant_table (number, capacity, status, created_at, updated_at) " +
+                           "VALUES (" + this.number + ", " + this.capacity + ", '" + this.status + "', NOW(), NOW())";
+            this.statement.executeUpdate(query);
+            System.out.println("Data meja berhasil ditambahkan!");
+        } catch (Exception e) {
+            System.out.println("Error insertData RestaurantTable: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void updateData() {
+        try {
+            this.statement = MyModel.conn.createStatement();
+            String query = "UPDATE restaurant_table SET number = " + this.number + ", capacity = " + this.capacity + 
+                           ", status = '" + this.status + "', updated_at = NOW() WHERE id = " + this.id;
+            this.statement.executeUpdate(query);
+            System.out.println("Data meja berhasil diupdate!");
+        } catch (Exception e) {
+            System.out.println("Error updateData RestaurantTable: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void deleteData() {
+        try {
+            this.statement = MyModel.conn.createStatement();
+            String query = "DELETE FROM restaurant_table WHERE id = " + this.id;
+            this.statement.executeUpdate(query);
+            System.out.println("Data meja berhasil dihapus!");
+        } catch (Exception e) {
+            System.out.println("Error deleteData RestaurantTable: " + e.getMessage());
+        }
     }
 }

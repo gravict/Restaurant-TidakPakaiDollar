@@ -4,14 +4,13 @@
  */
 package restaurant_tidakpakaidollar.model;
 
-import restaurant_tidakpakaidollar.model.Account;
 import java.sql.Timestamp;
 
 /**
  *
  * @author LEGION
  */
-public class Reservation {
+public class Reservation extends MyModel {
     private int id;
     private Timestamp start_reservation;
     private String reservation_status;
@@ -22,7 +21,12 @@ public class Reservation {
     private Account account;
     private RestaurantTable restaurant_table;
     
+    public Reservation() {
+        super();
+    }
+    
     public Reservation(Timestamp start_reservation, String reservation_status, String order_status, int number_guest, Account account, RestaurantTable restaurant_table) {
+        super();
         this.start_reservation = start_reservation;
         this.reservation_status = reservation_status;
         this.order_status = order_status;
@@ -101,5 +105,47 @@ public class Reservation {
 
     public void setRestaurant_table(RestaurantTable restaurant_table) {
         this.restaurant_table = restaurant_table;
+    }
+    
+    @Override
+    public void insertData() {
+        try {
+            this.statement = MyModel.conn.createStatement();
+            String query = "INSERT INTO reservation (start_reservation, reservation_status, order_status, number_guest, account_id, restaurant_table_id, created_at, updated_at) " +
+                           "VALUES ('" + this.start_reservation + "', '" + this.reservation_status + "', '" + this.order_status + "', " + 
+                           this.number_guest + ", " + this.account.getId() + ", " + this.restaurant_table.getId() + ", NOW(), NOW())";
+            this.statement.executeUpdate(query);
+            System.out.println("Data reservasi berhasil ditambahkan!");
+        } catch (Exception e) {
+            System.out.println("Error insertData Reservation: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void updateData() {
+        try {
+            this.statement = MyModel.conn.createStatement();
+            String query = "UPDATE reservation SET start_reservation = '" + this.start_reservation + 
+                           "', reservation_status = '" + this.reservation_status + "', order_status = '" + this.order_status + 
+                           "', number_guest = " + this.number_guest + ", account_id = " + this.account.getId() + 
+                           ", restaurant_table_id = " + this.restaurant_table.getId() + 
+                           ", updated_at = NOW() WHERE id = " + this.id;
+            this.statement.executeUpdate(query);
+            System.out.println("Data reservasi berhasil diupdate!");
+        } catch (Exception e) {
+            System.out.println("Error updateData Reservation: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void deleteData() {
+        try {
+            this.statement = MyModel.conn.createStatement();
+            String query = "DELETE FROM reservation WHERE id = " + this.id;
+            this.statement.executeUpdate(query);
+            System.out.println("Data reservasi berhasil dihapus!");
+        } catch (Exception e) {
+            System.out.println("Error deleteData Reservation: " + e.getMessage());
+        }
     }
 }
