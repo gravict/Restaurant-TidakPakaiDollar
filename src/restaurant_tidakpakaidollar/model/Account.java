@@ -6,6 +6,7 @@ package restaurant_tidakpakaidollar.model;
 
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 /**
  *
@@ -26,6 +27,15 @@ public class Account extends MyModel {
     }
     
     public Account(String username, String password, String phone_number, String fullname, String role) {
+        super();
+        this.username = username;
+        this.password = password;
+        this.phone_number = phone_number;
+        this.fullname = fullname;
+        this.role = role;
+    }
+    
+    public Account(String username, String password, String phone_number, String fullname, String role, String repeatPassword) {
         super();
         this.username = username;
         this.password = password;
@@ -153,5 +163,33 @@ public class Account extends MyModel {
         } catch (Exception ex) {
             System.out.println("Error di delete data Account: " + ex.getMessage());
         }
+    }
+    
+    public ArrayList<Object> checkUsername() {
+        ArrayList<Object> collections = new ArrayList<>();
+        try {
+            if (!MyModel.conn.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                    "SELECT * FROM account WHERE username = ?");
+                sql.setString(1, this.username);
+                this.result = sql.executeQuery();
+                
+                while (this.result.next()) {
+                    Account temp = new Account(
+                            this.result.getString("username"),
+                            this.result.getString("password"),
+                            this.result.getString("phone_number"),
+                            this.result.getString("fullname"),
+                            this.result.getString("role")
+                    );
+                    temp.setId(this.result.getInt("id"));
+                    collections.add(temp);
+                }
+                sql.close();
+            }
+        } catch (Exception e) {
+            System.out.println("Error checkUsername: " + e.getMessage());
+        }
+        return collections;
     }
 }
