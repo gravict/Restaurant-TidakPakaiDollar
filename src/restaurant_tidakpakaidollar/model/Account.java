@@ -4,6 +4,7 @@
  */
 package restaurant_tidakpakaidollar.model;
 
+import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 
 /**
@@ -100,41 +101,57 @@ public class Account extends MyModel {
     @Override
     public void insertData() {
         try {
-            this.statement = MyModel.conn.createStatement();
-            String query = "INSERT INTO account (username, password, phone_number, fullname, role, created_at, updated_at) " +
-                           "VALUES ('" + this.username + "', '" + this.password + "', '" + this.phone_number + "', '" + 
-                           this.fullname + "', '" + this.role + "', NOW(), NOW())";
-            this.statement.executeUpdate(query);
-            System.out.println("Data account berhasil ditambahkan!");
-        } catch (Exception e) {
-            System.out.println("Error insertData Account: " + e.getMessage());
+            if (!MyModel.conn.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                    "INSERT INTO account (username, password, phone_number, fullname, role, created_at, updated_at) VALUES (?, ?, ?, ?, ?, NOW(), NOW())");
+                sql.setString(1, this.username);
+                sql.setString(2, this.password);
+                sql.setString(3, this.phone_number);
+                sql.setString(4, this.fullname);
+                sql.setString(5, this.role);
+                sql.executeUpdate();
+                System.out.println("Data account berhasil ditambahkan!");
+                sql.close();
+            }
+        } catch (Exception ex) {
+            System.out.println("Error di insert data Account: " + ex.getMessage());
         }
     }
 
     @Override
     public void updateData() {
         try {
-            this.statement = MyModel.conn.createStatement();
-            String query = "UPDATE account SET username = '" + this.username + "', password = '" + this.password + 
-                           "', phone_number = '" + this.phone_number + "', fullname = '" + this.fullname + 
-                           "', role = '" + this.role + "', updated_at = NOW() WHERE id = " + this.id;
-            this.statement.executeUpdate(query);
-            System.out.println("Data account berhasil diupdate!");
-        } catch (Exception e) {
-            System.out.println("Error updateData Account: " + e.getMessage());
+            if (!MyModel.conn.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                    "UPDATE account SET username = ?, password = ?, phone_number = ?, fullname = ?, role = ?, updated_at = NOW() WHERE id = ?");
+                sql.setString(1, this.username);
+                sql.setString(2, this.password);
+                sql.setString(3, this.phone_number);
+                sql.setString(4, this.fullname);
+                sql.setString(5, this.role);
+                sql.setInt(6, this.id);
+                sql.executeUpdate();
+                System.out.println("Data account berhasil diupdate!");
+                sql.close();
+            }
+        } catch (Exception ex) {
+            System.out.println("Error di update data Account: " + ex.getMessage());
         }
     }
 
     @Override
     public void deleteData() {
         try {
-            this.statement = MyModel.conn.createStatement();
-            String query = "DELETE FROM account WHERE id = " + this.id;
-            this.statement.executeUpdate(query);
-            System.out.println("Data account berhasil dihapus!");
-        } catch (Exception e) {
-            System.out.println("Error deleteData Account: " + e.getMessage());
+            if (!MyModel.conn.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                    "DELETE FROM account WHERE id = ?");
+                sql.setInt(1, this.id);
+                sql.executeUpdate();
+                System.out.println("Data account berhasil dihapus!");
+                sql.close();
+            }
+        } catch (Exception ex) {
+            System.out.println("Error di delete data Account: " + ex.getMessage());
         }
     }
-
 }

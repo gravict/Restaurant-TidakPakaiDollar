@@ -4,6 +4,7 @@
  */
 package restaurant_tidakpakaidollar.model;
 
+import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 
 /**
@@ -91,40 +92,55 @@ public class Menu extends MyModel {
     @Override
     public void insertData() {
         try {
-            this.statement = MyModel.conn.createStatement();
-            String query = "INSERT INTO menu (name, category, price, description, created_at, updated_at) "
-                    + "VALUES ('" + this.name + "', '" + this.category + "', " + this.price + ", '"
-                    + this.description + "', NOW(), NOW())";
-            this.statement.executeUpdate(query);
-            System.out.println("Data menu berhasil ditambahkan!");
-        } catch (Exception e) {
-            System.out.println("Error insertData Menu: " + e.getMessage());
+            if (!MyModel.conn.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                    "INSERT INTO menu (name, category, price, description, created_at, updated_at) VALUES (?, ?, ?, ?, NOW(), NOW())");
+                sql.setString(1, this.name);
+                sql.setString(2, this.category);
+                sql.setInt(3, this.price);
+                sql.setString(4, this.description);
+                sql.executeUpdate();
+                System.out.println("Data menu berhasil ditambahkan!");
+                sql.close();
+            }
+        } catch (Exception ex) {
+            System.out.println("Error di insert data Menu: " + ex.getMessage());
         }
     }
 
     @Override
     public void updateData() {
         try {
-            this.statement = MyModel.conn.createStatement();
-            String query = "UPDATE menu SET name = '" + this.name + "', category = '" + this.category
-                    + "', price = " + this.price + ", description = '" + this.description
-                    + "', updated_at = NOW() WHERE id = " + this.id;
-            this.statement.executeUpdate(query);
-            System.out.println("Data menu berhasil diupdate!");
-        } catch (Exception e) {
-            System.out.println("Error updateData Menu: " + e.getMessage());
+            if (!MyModel.conn.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                    "UPDATE menu SET name = ?, category = ?, price = ?, description = ?, updated_at = NOW() WHERE id = ?");
+                sql.setString(1, this.name);
+                sql.setString(2, this.category);
+                sql.setInt(3, this.price);
+                sql.setString(4, this.description);
+                sql.setInt(5, this.id);
+                sql.executeUpdate();
+                System.out.println("Data menu berhasil diupdate!");
+                sql.close();
+            }
+        } catch (Exception ex) {
+            System.out.println("Error di update data Menu: " + ex.getMessage());
         }
     }
 
     @Override
     public void deleteData() {
         try {
-            this.statement = MyModel.conn.createStatement();
-            String query = "DELETE FROM menu WHERE id = " + this.id;
-            this.statement.executeUpdate(query);
-            System.out.println("Data menu berhasil dihapus!");
-        } catch (Exception e) {
-            System.out.println("Error deleteData Menu: " + e.getMessage());
+            if (!MyModel.conn.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                    "DELETE FROM menu WHERE id = ?");
+                sql.setInt(1, this.id);
+                sql.executeUpdate();
+                System.out.println("Data menu berhasil dihapus!");
+                sql.close();
+            }
+        } catch (Exception ex) {
+            System.out.println("Error di delete data Menu: " + ex.getMessage());
         }
     }
 }

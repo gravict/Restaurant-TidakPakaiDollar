@@ -4,6 +4,7 @@
  */
 package restaurant_tidakpakaidollar.model;
 
+import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 
 /**
@@ -80,39 +81,53 @@ public class RestaurantTable extends MyModel{
     @Override
     public void insertData() {
         try {
-            this.statement = MyModel.conn.createStatement();
-            // number dan capacity tidak butuh tanda kutip satu ('') karena tipe datanya INT (angka)
-            String query = "INSERT INTO restaurant_table (number, capacity, status, created_at, updated_at) " +
-                           "VALUES (" + this.number + ", " + this.capacity + ", '" + this.status + "', NOW(), NOW())";
-            this.statement.executeUpdate(query);
-            System.out.println("Data meja berhasil ditambahkan!");
-        } catch (Exception e) {
-            System.out.println("Error insertData RestaurantTable: " + e.getMessage());
+            if (!MyModel.conn.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                    "INSERT INTO restaurant_table (number, capacity, status, created_at, updated_at) VALUES (?, ?, ?, NOW(), NOW())");
+                sql.setInt(1, this.number);
+                sql.setInt(2, this.capacity);
+                sql.setString(3, this.status);
+                sql.executeUpdate();
+                System.out.println("Data meja berhasil ditambahkan!");
+                sql.close();
+            }
+        } catch (Exception ex) {
+            System.out.println("Error di insert data RestaurantTable: " + ex.getMessage());
         }
     }
 
     @Override
     public void updateData() {
         try {
-            this.statement = MyModel.conn.createStatement();
-            String query = "UPDATE restaurant_table SET number = " + this.number + ", capacity = " + this.capacity + 
-                           ", status = '" + this.status + "', updated_at = NOW() WHERE id = " + this.id;
-            this.statement.executeUpdate(query);
-            System.out.println("Data meja berhasil diupdate!");
-        } catch (Exception e) {
-            System.out.println("Error updateData RestaurantTable: " + e.getMessage());
+            if (!MyModel.conn.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                    "UPDATE restaurant_table SET number = ?, capacity = ?, status = ?, updated_at = NOW() WHERE id = ?");
+                sql.setInt(1, this.number);
+                sql.setInt(2, this.capacity);
+                sql.setString(3, this.status);
+                sql.setInt(4, this.id);
+                sql.executeUpdate();
+                System.out.println("Data meja berhasil diupdate!");
+                sql.close();
+            }
+        } catch (Exception ex) {
+            System.out.println("Error di update data RestaurantTable: " + ex.getMessage());
         }
     }
 
     @Override
     public void deleteData() {
         try {
-            this.statement = MyModel.conn.createStatement();
-            String query = "DELETE FROM restaurant_table WHERE id = " + this.id;
-            this.statement.executeUpdate(query);
-            System.out.println("Data meja berhasil dihapus!");
-        } catch (Exception e) {
-            System.out.println("Error deleteData RestaurantTable: " + e.getMessage());
+            if (!MyModel.conn.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                    "DELETE FROM restaurant_table WHERE id = ?");
+                sql.setInt(1, this.id);
+                sql.executeUpdate();
+                System.out.println("Data meja berhasil dihapus!");
+                sql.close();
+            }
+        } catch (Exception ex) {
+            System.out.println("Error di delete data RestaurantTable: " + ex.getMessage());
         }
     }
 }

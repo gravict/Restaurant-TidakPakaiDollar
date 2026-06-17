@@ -4,6 +4,7 @@
  */
 package restaurant_tidakpakaidollar.model;
 
+import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 
 /**
@@ -110,42 +111,59 @@ public class Reservation extends MyModel {
     @Override
     public void insertData() {
         try {
-            this.statement = MyModel.conn.createStatement();
-            String query = "INSERT INTO reservation (start_reservation, reservation_status, order_status, number_guest, account_id, restaurant_table_id, created_at, updated_at) " +
-                           "VALUES ('" + this.start_reservation + "', '" + this.reservation_status + "', '" + this.order_status + "', " + 
-                           this.number_guest + ", " + this.account.getId() + ", " + this.restaurant_table.getId() + ", NOW(), NOW())";
-            this.statement.executeUpdate(query);
-            System.out.println("Data reservasi berhasil ditambahkan!");
-        } catch (Exception e) {
-            System.out.println("Error insertData Reservation: " + e.getMessage());
+            if (!MyModel.conn.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                    "INSERT INTO reservation (start_reservation, reservation_status, order_status, number_guest, account_id, restaurant_table_id, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW())");
+                sql.setTimestamp(1, this.start_reservation);
+                sql.setString(2, this.reservation_status);
+                sql.setString(3, this.order_status);
+                sql.setInt(4, this.number_guest);
+                sql.setInt(5, this.account.getId());
+                sql.setInt(6, this.restaurant_table.getId());
+                sql.executeUpdate();
+                System.out.println("Data reservasi berhasil ditambahkan!");
+                sql.close();
+            }
+        } catch (Exception ex) {
+            System.out.println("Error di insert data Reservation: " + ex.getMessage());
         }
     }
 
     @Override
     public void updateData() {
         try {
-            this.statement = MyModel.conn.createStatement();
-            String query = "UPDATE reservation SET start_reservation = '" + this.start_reservation + 
-                           "', reservation_status = '" + this.reservation_status + "', order_status = '" + this.order_status + 
-                           "', number_guest = " + this.number_guest + ", account_id = " + this.account.getId() + 
-                           ", restaurant_table_id = " + this.restaurant_table.getId() + 
-                           ", updated_at = NOW() WHERE id = " + this.id;
-            this.statement.executeUpdate(query);
-            System.out.println("Data reservasi berhasil diupdate!");
-        } catch (Exception e) {
-            System.out.println("Error updateData Reservation: " + e.getMessage());
+            if (!MyModel.conn.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                    "UPDATE reservation SET start_reservation = ?, reservation_status = ?, order_status = ?, number_guest = ?, account_id = ?, restaurant_table_id = ?, updated_at = NOW() WHERE id = ?");
+                sql.setTimestamp(1, this.start_reservation);
+                sql.setString(2, this.reservation_status);
+                sql.setString(3, this.order_status);
+                sql.setInt(4, this.number_guest);
+                sql.setInt(5, this.account.getId());
+                sql.setInt(6, this.restaurant_table.getId());
+                sql.setInt(7, this.id);
+                sql.executeUpdate();
+                System.out.println("Data reservasi berhasil diupdate!");
+                sql.close();
+            }
+        } catch (Exception ex) {
+            System.out.println("Error di update data Reservation: " + ex.getMessage());
         }
     }
 
     @Override
     public void deleteData() {
         try {
-            this.statement = MyModel.conn.createStatement();
-            String query = "DELETE FROM reservation WHERE id = " + this.id;
-            this.statement.executeUpdate(query);
-            System.out.println("Data reservasi berhasil dihapus!");
-        } catch (Exception e) {
-            System.out.println("Error deleteData Reservation: " + e.getMessage());
+            if (!MyModel.conn.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                    "DELETE FROM reservation WHERE id = ?");
+                sql.setInt(1, this.id);
+                sql.executeUpdate();
+                System.out.println("Data reservasi berhasil dihapus!");
+                sql.close();
+            }
+        } catch (Exception ex) {
+            System.out.println("Error di delete data Reservation: " + ex.getMessage());
         }
     }
 }

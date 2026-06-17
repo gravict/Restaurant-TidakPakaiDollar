@@ -4,6 +4,8 @@
  */
 package restaurant_tidakpakaidollar.model;
 
+import java.sql.PreparedStatement;
+
 /**
  *
  * @author LEGION
@@ -61,40 +63,55 @@ public class DetailOrder extends MyModel {
     @Override
     public void insertData() {
         try {
-            this.statement = MyModel.conn.createStatement();
-            String query = "INSERT INTO detail_order (menu_id, reservation_id, amount, subtotal) " +
-                           "VALUES (" + this.menu.getId() + ", " + this.reservation.getId() + ", " + 
-                           this.amount + ", " + this.subtotal + ")";
-            this.statement.executeUpdate(query);
-            System.out.println("Data detail pesanan berhasil ditambahkan!");
-        } catch (Exception e) {
-            System.out.println("Error insertData DetailOrder: " + e.getMessage());
+            if (!MyModel.conn.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                    "INSERT INTO detail_order (menu_id, reservation_id, amount, subtotal) VALUES (?, ?, ?, ?)");
+                sql.setInt(1, this.menu.getId());
+                sql.setInt(2, this.reservation.getId());
+                sql.setInt(3, this.amount);
+                sql.setInt(4, this.subtotal);
+                sql.executeUpdate();
+                System.out.println("Data detail pesanan berhasil ditambahkan!");
+                sql.close();
+            }
+        } catch (Exception ex) {
+            System.out.println("Error di insert data DetailOrder: " + ex.getMessage());
         }
     }
 
     @Override
     public void updateData() {
         try {
-            this.statement = MyModel.conn.createStatement();
-            String query = "UPDATE detail_order SET amount = " + this.amount + ", subtotal = " + this.subtotal + 
-                           " WHERE menu_id = " + this.menu.getId() + " AND reservation_id = " + this.reservation.getId();
-            this.statement.executeUpdate(query);
-            System.out.println("Data detail pesanan berhasil diupdate!");
-        } catch (Exception e) {
-            System.out.println("Error updateData DetailOrder: " + e.getMessage());
+            if (!MyModel.conn.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                    "UPDATE detail_order SET amount = ?, subtotal = ? WHERE menu_id = ? AND reservation_id = ?");
+                sql.setInt(1, this.amount);
+                sql.setInt(2, this.subtotal);
+                sql.setInt(3, this.menu.getId());
+                sql.setInt(4, this.reservation.getId());
+                sql.executeUpdate();
+                System.out.println("Data detail pesanan berhasil diupdate!");
+                sql.close();
+            }
+        } catch (Exception ex) {
+            System.out.println("Error di update data DetailOrder: " + ex.getMessage());
         }
     }
 
     @Override
     public void deleteData() {
         try {
-            this.statement = MyModel.conn.createStatement();
-            String query = "DELETE FROM detail_order WHERE menu_id = " + this.menu.getId() + 
-                           " AND reservation_id = " + this.reservation.getId();
-            this.statement.executeUpdate(query);
-            System.out.println("Data detail pesanan berhasil dihapus!");
-        } catch (Exception e) {
-            System.out.println("Error deleteData DetailOrder: " + e.getMessage());
+            if (!MyModel.conn.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                    "DELETE FROM detail_order WHERE menu_id = ? AND reservation_id = ?");
+                sql.setInt(1, this.menu.getId());
+                sql.setInt(2, this.reservation.getId());
+                sql.executeUpdate();
+                System.out.println("Data detail pesanan berhasil dihapus!");
+                sql.close();
+            }
+        } catch (Exception ex) {
+            System.out.println("Error di delete data DetailOrder: " + ex.getMessage());
         }
     }
  }

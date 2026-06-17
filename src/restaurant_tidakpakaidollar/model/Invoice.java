@@ -4,6 +4,7 @@
  */
 package restaurant_tidakpakaidollar.model;
 
+import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 
 /**
@@ -62,39 +63,53 @@ public class Invoice extends MyModel{
     @Override
     public void insertData() {
         try {
-            this.statement = MyModel.conn.createStatement();
-            String query = "INSERT INTO invoice (total_purchases, transaction_date, reservation_id) " +
-                           "VALUES (" + this.total_purchases + ", '" + this.transaction_date + "', " + this.reservation.getId() + ")";
-            this.statement.executeUpdate(query);
-            System.out.println("Data invoice berhasil ditambahkan!");
-        } catch (Exception e) {
-            System.out.println("Error insertData Invoice: " + e.getMessage());
+            if (!MyModel.conn.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                    "INSERT INTO invoice (total_purchases, transaction_date, reservation_id) VALUES (?, ?, ?)");
+                sql.setInt(1, this.total_purchases);
+                sql.setTimestamp(2, this.transaction_date);
+                sql.setInt(3, this.reservation.getId());
+                sql.executeUpdate();
+                System.out.println("Data invoice berhasil ditambahkan!");
+                sql.close();
+            }
+        } catch (Exception ex) {
+            System.out.println("Error di insert data Invoice: " + ex.getMessage());
         }
     }
 
     @Override
     public void updateData() {
         try {
-            this.statement = MyModel.conn.createStatement();
-            String query = "UPDATE invoice SET total_purchases = " + this.total_purchases + 
-                           ", transaction_date = '" + this.transaction_date + "', reservation_id = " + this.reservation.getId() + 
-                           " WHERE id = " + this.id;
-            this.statement.executeUpdate(query);
-            System.out.println("Data invoice berhasil diupdate!");
-        } catch (Exception e) {
-            System.out.println("Error updateData Invoice: " + e.getMessage());
+            if (!MyModel.conn.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                    "UPDATE invoice SET total_purchases = ?, transaction_date = ?, reservation_id = ? WHERE id = ?");
+                sql.setInt(1, this.total_purchases);
+                sql.setTimestamp(2, this.transaction_date);
+                sql.setInt(3, this.reservation.getId());
+                sql.setInt(4, this.id);
+                sql.executeUpdate();
+                System.out.println("Data invoice berhasil diupdate!");
+                sql.close();
+            }
+        } catch (Exception ex) {
+            System.out.println("Error di update data Invoice: " + ex.getMessage());
         }
     }
 
     @Override
     public void deleteData() {
         try {
-            this.statement = MyModel.conn.createStatement();
-            String query = "DELETE FROM invoice WHERE id = " + this.id;
-            this.statement.executeUpdate(query);
-            System.out.println("Data invoice berhasil dihapus!");
-        } catch (Exception e) {
-            System.out.println("Error deleteData Invoice: " + e.getMessage());
+            if (!MyModel.conn.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                    "DELETE FROM invoice WHERE id = ?");
+                sql.setInt(1, this.id);
+                sql.executeUpdate();
+                System.out.println("Data invoice berhasil dihapus!");
+                sql.close();
+            }
+        } catch (Exception ex) {
+            System.out.println("Error di delete data Invoice: " + ex.getMessage());
         }
     }
 }
