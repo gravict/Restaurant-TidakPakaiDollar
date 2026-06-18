@@ -25,12 +25,12 @@ public class Menu extends MyModel {
         super();
     }
 
-    public Menu(String name, String category, int price, String description) {
+    public Menu(String _name, String _category, int _price, String _description) {
         super();
-        this.name = name;
-        this.category = category;
-        this.price = price;
-        this.description = description;
+        this.name = _name;
+        this.category = _category;
+        this.price = _price;
+        this.description = _description;
     }
 
     public int getId() {

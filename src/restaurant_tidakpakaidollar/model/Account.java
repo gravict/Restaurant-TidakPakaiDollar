@@ -26,22 +26,22 @@ public class Account extends MyModel {
         super();
     }
     
-    public Account(String username, String password, String phone_number, String fullname, String role) {
+    public Account(String _username, String _password, String _phone_number, String _fullname, String _role) {
         super();
-        this.username = username;
-        this.password = password;
-        this.phone_number = phone_number;
-        this.fullname = fullname;
-        this.role = role;
+        this.username = _username;
+        this.password = _password;
+        this.phone_number = _phone_number;
+        this.fullname = _fullname;
+        this.role = _role;
     }
     
-    public Account(String username, String password, String phone_number, String fullname, String role, String repeatPassword) {
+    public Account(String _username, String _password, String _phone_number, String _fullname, String _role, String _repeatPassword) {
         super();
-        this.username = username;
-        this.password = password;
-        this.phone_number = phone_number;
-        this.fullname = fullname;
-        this.role = role;
+        this.username = _username;
+        this.password = _password;
+        this.phone_number = _phone_number;
+        this.fullname = _fullname;
+        this.role = _role;
     }
 
     public int getId() {

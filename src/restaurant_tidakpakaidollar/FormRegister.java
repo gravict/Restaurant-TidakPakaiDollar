@@ -26,56 +26,56 @@ public class FormRegister extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabelRegister = new javax.swing.JLabel();
-        jLabelUsername = new javax.swing.JLabel();
-        jTextFieldUsername = new javax.swing.JTextField();
-        jLabelRepeatPassword = new javax.swing.JLabel();
-        jPasswordFieldRepeatPassword = new javax.swing.JPasswordField();
-        jButtonCreate = new javax.swing.JButton();
-        jLabelNamaLengkap = new javax.swing.JLabel();
-        jTextFieldNamaLengkap = new javax.swing.JTextField();
-        jLabelNomorTelepon = new javax.swing.JLabel();
-        jTextFieldNomorTelepon = new javax.swing.JTextField();
-        jLabelPassword = new javax.swing.JLabel();
-        jPasswordFieldPassword = new javax.swing.JPasswordField();
+        lblRegister = new javax.swing.JLabel();
+        lblUsername = new javax.swing.JLabel();
+        txtUsername = new javax.swing.JTextField();
+        lblRepeatPassword = new javax.swing.JLabel();
+        txtRepeatPassword = new javax.swing.JPasswordField();
+        btnCreate = new javax.swing.JButton();
+        lblNamaLengkap = new javax.swing.JLabel();
+        txtNamaLengkap = new javax.swing.JTextField();
+        lblNomorTelepon = new javax.swing.JLabel();
+        txtNomorTelepon = new javax.swing.JTextField();
+        lblPassword = new javax.swing.JLabel();
+        txtPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabelRegister.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabelRegister.setText("Register Akun");
+        lblRegister.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblRegister.setText("Register Akun");
 
-        jLabelUsername.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabelUsername.setText("Username");
+        lblUsername.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblUsername.setText("Username");
 
-        jTextFieldUsername.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtUsername.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        jLabelRepeatPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabelRepeatPassword.setText("Repeat Password");
+        lblRepeatPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblRepeatPassword.setText("Repeat Password");
 
-        jPasswordFieldRepeatPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtRepeatPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        jButtonCreate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButtonCreate.setText("Create");
-        jButtonCreate.addActionListener(new java.awt.event.ActionListener() {
+        btnCreate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnCreate.setText("Create");
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCreateActionPerformed(evt);
+                btnCreateActionPerformed(evt);
             }
         });
 
-        jLabelNamaLengkap.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabelNamaLengkap.setText("Nama Lengkap");
+        lblNamaLengkap.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblNamaLengkap.setText("Nama Lengkap");
 
-        jTextFieldNamaLengkap.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtNamaLengkap.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        jLabelNomorTelepon.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabelNomorTelepon.setText("No. Handphone");
+        lblNomorTelepon.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblNomorTelepon.setText("No. Handphone");
 
-        jTextFieldNomorTelepon.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtNomorTelepon.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        jLabelPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabelPassword.setText("Password");
+        lblPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblPassword.setText("Password");
 
-        jPasswordFieldPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -89,74 +89,74 @@ public class FormRegister extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(148, 148, 148)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldNamaLengkap, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextFieldNomorTelepon, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabelNomorTelepon)
-                            .addComponent(jLabelNamaLengkap, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNamaLengkap, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNomorTelepon, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lblNomorTelepon)
+                            .addComponent(lblNamaLengkap, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButtonCreate))
+                                .addComponent(btnCreate))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabelRepeatPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblRepeatPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPasswordFieldRepeatPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txtRepeatPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(99, 99, 99)
-                        .addComponent(jLabelRegister)
+                        .addComponent(lblRegister)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabelUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(12, 12, 12))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabelPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPasswordFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(9, 9, 9)
-                .addComponent(jLabelRegister)
+                .addComponent(lblRegister)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelUsername)
-                    .addComponent(jTextFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblUsername)
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelPassword)
-                    .addComponent(jPasswordFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblPassword)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelRepeatPassword)
-                    .addComponent(jPasswordFieldRepeatPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblRepeatPassword)
+                    .addComponent(txtRepeatPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelNamaLengkap)
-                    .addComponent(jTextFieldNamaLengkap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblNamaLengkap)
+                    .addComponent(txtNamaLengkap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelNomorTelepon)
-                    .addComponent(jTextFieldNomorTelepon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblNomorTelepon)
+                    .addComponent(txtNomorTelepon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButtonCreate)
+                .addComponent(btnCreate)
                 .addGap(30, 30, 30))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateActionPerformed
-        String username = jTextFieldUsername.getText();
-        String password = new String(jPasswordFieldPassword.getPassword());
-        String repeatPassword = new String(jPasswordFieldRepeatPassword.getPassword());
-        String fullname = jTextFieldNamaLengkap.getText();
-        String phone = jTextFieldNomorTelepon.getText();
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
+        String username = txtUsername.getText();
+        String password = new String(txtPassword.getPassword());
+        String repeatPassword = new String(txtRepeatPassword.getPassword());
+        String fullname = txtNamaLengkap.getText();
+        String phone = txtNomorTelepon.getText();
 
         if (username.isEmpty() || password.isEmpty() || repeatPassword.isEmpty() || fullname.isEmpty() || phone.isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this, "Semua kolom harus diisi!", "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
@@ -181,7 +181,7 @@ public class FormRegister extends javax.swing.JFrame {
             loginForm.setVisible(true);
             this.dispose(); // Menutup form register
         }
-    }//GEN-LAST:event_jButtonCreateActionPerformed
+    }//GEN-LAST:event_btnCreateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -219,17 +219,17 @@ public class FormRegister extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonCreate;
-    private javax.swing.JLabel jLabelNamaLengkap;
-    private javax.swing.JLabel jLabelNomorTelepon;
-    private javax.swing.JLabel jLabelPassword;
-    private javax.swing.JLabel jLabelRegister;
-    private javax.swing.JLabel jLabelRepeatPassword;
-    private javax.swing.JLabel jLabelUsername;
-    private javax.swing.JPasswordField jPasswordFieldPassword;
-    private javax.swing.JPasswordField jPasswordFieldRepeatPassword;
-    private javax.swing.JTextField jTextFieldNamaLengkap;
-    private javax.swing.JTextField jTextFieldNomorTelepon;
-    private javax.swing.JTextField jTextFieldUsername;
+    private javax.swing.JButton btnCreate;
+    private javax.swing.JLabel lblNamaLengkap;
+    private javax.swing.JLabel lblNomorTelepon;
+    private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblRegister;
+    private javax.swing.JLabel lblRepeatPassword;
+    private javax.swing.JLabel lblUsername;
+    private javax.swing.JTextField txtNamaLengkap;
+    private javax.swing.JTextField txtNomorTelepon;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JPasswordField txtRepeatPassword;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

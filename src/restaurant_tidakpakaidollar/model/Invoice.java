@@ -21,11 +21,11 @@ public class Invoice extends MyModel{
         super();
     }
     
-    public Invoice(int total_purchases, Timestamp transaction_date, Reservation reservation) {
+    public Invoice(int _total_purchases, Timestamp _transaction_date, Reservation _reservation) {
         super();
-        this.total_purchases = total_purchases;
-        this.transaction_date = transaction_date;
-        this.reservation = reservation;
+        this.total_purchases = _total_purchases;
+        this.transaction_date = _transaction_date;
+        this.reservation = _reservation;
     }
 
     public int getId() {

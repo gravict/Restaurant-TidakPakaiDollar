@@ -20,12 +20,12 @@ public class DetailOrder extends MyModel {
         super();
     }
     
-    public DetailOrder(Menu menu, Reservation reservation, int amount, int subtotal) {
+    public DetailOrder(Menu _menu, Reservation _reservation, int _amount, int _subtotal) {
         super();
-        this.menu = menu;
-        this.reservation = reservation;
-        this.amount = amount;
-        this.subtotal = subtotal;
+        this.menu = _menu;
+        this.reservation = _reservation;
+        this.amount = _amount;
+        this.subtotal = _subtotal;
     }
     
     public Menu getMenu() {

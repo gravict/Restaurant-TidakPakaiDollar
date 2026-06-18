@@ -26,14 +26,14 @@ public class Reservation extends MyModel {
         super();
     }
     
-    public Reservation(Timestamp start_reservation, String reservation_status, String order_status, int number_guest, Account account, RestaurantTable restaurant_table) {
+    public Reservation(Timestamp _start_reservation, String _reservation_status, String _order_status, int _number_guest, Account _account, RestaurantTable _restaurant_table) {
         super();
-        this.start_reservation = start_reservation;
-        this.reservation_status = reservation_status;
-        this.order_status = order_status;
-        this.number_guest = number_guest;
-        this.account = account;
-        this.restaurant_table = restaurant_table;
+        this.start_reservation = _start_reservation;
+        this.reservation_status = _reservation_status;
+        this.order_status = _order_status;
+        this.number_guest = _number_guest;
+        this.account = _account;
+        this.restaurant_table = _restaurant_table;
     }
 
     public int getId() {

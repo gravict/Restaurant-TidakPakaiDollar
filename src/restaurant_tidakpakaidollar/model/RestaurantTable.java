@@ -23,11 +23,11 @@ public class RestaurantTable extends MyModel{
         super();
     }
 
-    public RestaurantTable(int number, int capacity, String status) {
+    public RestaurantTable(int _number, int _capacity, String _status) {
         super();
-        this.number = number;
-        this.capacity = capacity;
-        this.status = status;
+        this.number = _number;
+        this.capacity = _capacity;
+        this.status = _status;
     }
     
     public int getId() {
