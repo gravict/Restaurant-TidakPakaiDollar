@@ -24,18 +24,24 @@ public abstract class MyModel {
         this.result = null;
     }
     
-    public Connection _getConnection(){
-        if(MyModel.conn == null){ //jika belum ada koneksi
-            try{
-                Class.forName("com.mysql.cj.jdbc.Driver").newInstance(); //isi dari jar
-                return DriverManager.getConnection("jdbc:mysql://localhost/restaurant_tidakpakaidollar",
-                "root", ""); //memasukkan nama schemanya, user, dan password
-            }catch (Exception ex){
-                System.out.println("Error di connection " + ex.getMessage());
-            }
-        }
-        return MyModel.conn;
+    public Connection _getConnection() {
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+
+        String url = "jdbc:mysql://tidakpakedollar.mysql.database.azure.com:3306/restaurant_tidakpakaidollar"
+                   + "?useSSL=false"
+                   + "&serverTimezone=Asia/Jakarta";
+
+        String user = "cipenk";
+        String password = "TidakPakeDollar_123";
+
+        return DriverManager.getConnection(url, user, password);
+
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        return null;
     }
+}
     
     public abstract void insertData();
     public abstract void updateData();

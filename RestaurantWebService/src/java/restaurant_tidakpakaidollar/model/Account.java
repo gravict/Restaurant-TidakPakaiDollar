@@ -113,7 +113,7 @@ public class Account extends MyModel {
         try {
             if (!MyModel.conn.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
-                    "INSERT INTO account (username, password, phone_number, fullname, role, created_at, updated_at) VALUES (?, ?, ?, ?, ?, NOW(), NOW())");
+                    "INSERT INTO account (username, password, phone_number, fullname, role, created_at, updated_at) VALUES (?, ?, ?, ?, ?, UTC_TIMESTAMP() + INTERVAL 7 HOUR, UTC_TIMESTAMP() + INTERVAL 7 HOUR)");
                 sql.setString(1, this.username);
                 sql.setString(2, this.password);
                 sql.setString(3, this.phone_number);
