@@ -1,0 +1,52 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/WebServices/WebService.java to edit this template
+ */
+package com.restaurant.services;
+
+import javax.jws.WebService;
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import restaurant_tidakpakaidollar.model.Account;
+
+/**
+ *
+ * @author LEGION
+ */
+@WebService(serviceName = "AccountWS")
+public class AccountWS {
+
+    /**
+     * This is a sample web service operation
+     */
+    @WebMethod(operationName = "hello")
+    public String hello(@WebParam(name = "name") String txt) {
+        return "Hello " + txt + " !";
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "checkLoginDB")
+    public Boolean checkLoginDB(@WebParam(name = "username") String username, @WebParam(name = "password") String password) {
+        Account model = new Account();
+        return model.checkLogin(username, password);
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "registerDB")
+    public Boolean registerDB(@WebParam(name = "username") String username, 
+                              @WebParam(name = "password") String password,
+                              @WebParam(name = "fullname") String fullname,
+                              @WebParam(name = "phone") String phone) {
+    Account model = new Account(username, password, phone, fullname, "CUSTOMER");
+    if (!model.checkUsername().isEmpty()) {
+            return false;
+        }
+        
+        model.insertData();
+        return true;
+    }
+}
