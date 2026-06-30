@@ -113,7 +113,7 @@ public class Account extends MyModel {
         try {
             if (!MyModel.conn.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
-                    "INSERT INTO account (username, password, phone_number, fullname, role, created_at, updated_at) VALUES (?, ?, ?, ?, ?, UTC_TIMESTAMP() + INTERVAL 7 HOUR, UTC_TIMESTAMP() + INTERVAL 7 HOUR)");
+                    "INSERT INTO account (username, password, phone_number, fullname, role, created_at, updated_at) VALUES (?, SHA2(?,256), ?, ?, ?, UTC_TIMESTAMP() + INTERVAL 7 HOUR, UTC_TIMESTAMP() + INTERVAL 7 HOUR)");
                 sql.setString(1, this.username);
                 sql.setString(2, this.password);
                 sql.setString(3, this.phone_number);
@@ -133,7 +133,7 @@ public class Account extends MyModel {
         try {
             if (!MyModel.conn.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
-                    "UPDATE account SET username = ?, password = ?, phone_number = ?, fullname = ?, role = ?, updated_at = NOW() WHERE id = ?");
+                    "UPDATE account SET username = ?, password = SHA2(?,256), phone_number = ?, fullname = ?, role = ?, updated_at = NOW() WHERE id = ?");
                 sql.setString(1, this.username);
                 sql.setString(2, this.password);
                 sql.setString(3, this.phone_number);
@@ -208,7 +208,7 @@ public class Account extends MyModel {
                 cekSql.close();
                 
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
-                    "INSERT INTO account(username, password) VALUES(?,?)"
+                    "INSERT INTO account(username, password) VALUES(?,SHA2(?,256))"
                 );
                 sql.setString(1, username);
                 sql.setString(2, password);
@@ -228,7 +228,7 @@ public class Account extends MyModel {
         try {
             if (!MyModel.conn.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
-                    "SELECT * FROM account WHERE username = ? AND password = ?"
+                    "SELECT * FROM account WHERE username = ? AND password = SHA2(?,256)"
                 );
                 sql.setString(1, username);
                 sql.setString(2, password);

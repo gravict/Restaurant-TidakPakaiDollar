@@ -4,6 +4,8 @@
  */
 package restaurant_tidakpakaidollar;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author LEGION
@@ -51,6 +53,11 @@ public class FormLogin extends javax.swing.JFrame {
 
         btnLogin.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnLogin.setText("Login");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
 
         btnRegister.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnRegister.setText("Register");
@@ -115,6 +122,21 @@ public class FormLogin extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnRegisterActionPerformed
 
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        // TODO add your handling code here:
+        String username = txtUsername.getText();
+        String password = String.valueOf(txtPasswordLogin.getPassword());
+        if (username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Username or Password is Empty");
+        } else {
+            if (checkLoginDB(username, password)) {
+                JOptionPane.showMessageDialog(this, "Success Login");
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed Login");
+            }
+        }
+    }//GEN-LAST:event_btnLoginActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -159,4 +181,10 @@ public class FormLogin extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtPasswordLogin;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
+
+    private static Boolean checkLoginDB(java.lang.String username, java.lang.String password) {
+        com.restaurant.services.AccountWS_Service service = new com.restaurant.services.AccountWS_Service();
+        com.restaurant.services.AccountWS port = service.getAccountWSPort();
+        return port.checkLoginDB(username, password);
+    }
 }
