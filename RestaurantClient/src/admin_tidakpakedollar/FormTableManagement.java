@@ -26,7 +26,7 @@ public class FormTableManagement extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPaneTableManagement = new javax.swing.JScrollPane();
         tableTableManagement = new javax.swing.JTable();
         lblTableManagement = new javax.swing.JLabel();
         buttonExit = new javax.swing.JButton();
@@ -61,7 +61,7 @@ public class FormTableManagement extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tableTableManagement);
+        jScrollPaneTableManagement.setViewportView(tableTableManagement);
 
         lblTableManagement.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblTableManagement.setText("Table Management");
@@ -85,7 +85,7 @@ public class FormTableManagement extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(18, 18, 18)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPaneTableManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(20, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
@@ -99,7 +99,7 @@ public class FormTableManagement extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(97, 97, 97)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPaneTableManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(97, Short.MAX_VALUE)))
         );
 
@@ -143,7 +143,7 @@ public class FormTableManagement extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonExit;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPaneTableManagement;
     private javax.swing.JLabel lblTableManagement;
     private javax.swing.JTable tableTableManagement;
     // End of variables declaration//GEN-END:variables

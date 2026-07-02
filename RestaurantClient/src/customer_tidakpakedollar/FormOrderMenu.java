@@ -28,7 +28,7 @@ public class FormOrderMenu extends javax.swing.JFrame {
 
         btnExit = new javax.swing.JButton();
         lblCreateOrder = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPaneDaftarMenu = new javax.swing.JScrollPane();
         tblMenu = new javax.swing.JTable();
         btnKode = new javax.swing.JLabel();
         lblKeranjangPesanan = new javax.swing.JLabel();
@@ -41,7 +41,7 @@ public class FormOrderMenu extends javax.swing.JFrame {
         spinnerKode = new javax.swing.JSpinner();
         txtNamaMenu = new javax.swing.JTextField();
         txtHarga = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPaneKeranjangPesanan = new javax.swing.JScrollPane();
         tblKeranjang = new javax.swing.JTable();
         lblCari = new javax.swing.JLabel();
         txtCariMenu = new javax.swing.JTextField();
@@ -86,9 +86,9 @@ public class FormOrderMenu extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tblMenu);
+        jScrollPaneDaftarMenu.setViewportView(tblMenu);
 
-        btnKode.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnKode.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnKode.setText("Kode");
 
         lblKeranjangPesanan.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -97,13 +97,13 @@ public class FormOrderMenu extends javax.swing.JFrame {
         lblDaftarMenu.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblDaftarMenu.setText("Daftar Menu");
 
-        btnJumlah.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnJumlah.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnJumlah.setText("Jumlah");
 
-        lblHarga.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblHarga.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblHarga.setText("Harga");
 
-        lblNamaMenu.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblNamaMenu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblNamaMenu.setText("Nama Menu");
 
         btnTambahOrder.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -145,9 +145,9 @@ public class FormOrderMenu extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(tblKeranjang);
+        jScrollPaneKeranjangPesanan.setViewportView(tblKeranjang);
 
-        lblCari.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblCari.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblCari.setText("Cari");
 
         txtCariMenu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -189,13 +189,13 @@ public class FormOrderMenu extends javax.swing.JFrame {
                         .addComponent(lblTotal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnPesan))
-                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPaneKeranjangPesanan)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnJumlah)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(spinnerJumlah, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
+                                .addComponent(spinnerJumlah, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnKode)
                                 .addGap(22, 22, 22)
@@ -223,7 +223,7 @@ public class FormOrderMenu extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(22, 22, 22)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPaneDaftarMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(506, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
@@ -259,7 +259,7 @@ public class FormOrderMenu extends javax.swing.JFrame {
                                 .addComponent(btnTambahOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(3, 3, 3)))))
                 .addGap(19, 19, 19)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPaneKeranjangPesanan, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnExit)
@@ -271,7 +271,7 @@ public class FormOrderMenu extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(131, 131, 131)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPaneDaftarMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(60, Short.MAX_VALUE)))
         );
 
@@ -321,8 +321,8 @@ public class FormOrderMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnPesan;
     private javax.swing.JButton btnTambahOrder;
     private javax.swing.JComboBox<String> cmbKategori;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPaneDaftarMenu;
+    private javax.swing.JScrollPane jScrollPaneKeranjangPesanan;
     private javax.swing.JLabel lblCari;
     private javax.swing.JLabel lblCreateOrder;
     private javax.swing.JLabel lblDaftarMenu;

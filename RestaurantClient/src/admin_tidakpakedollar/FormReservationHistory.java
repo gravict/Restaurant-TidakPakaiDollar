@@ -26,7 +26,7 @@ public class FormReservationHistory extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPaneReservationHistory = new javax.swing.JScrollPane();
         tableUpcomingReservation = new javax.swing.JTable();
         lblFilter = new javax.swing.JLabel();
         btnExit = new javax.swing.JButton();
@@ -63,7 +63,7 @@ public class FormReservationHistory extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tableUpcomingReservation);
+        jScrollPaneReservationHistory.setViewportView(tableUpcomingReservation);
 
         lblFilter.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblFilter.setText("Filter:");
@@ -85,7 +85,7 @@ public class FormReservationHistory extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(btnExit)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 585, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPaneReservationHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 585, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblFilter)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -106,7 +106,7 @@ public class FormReservationHistory extends javax.swing.JFrame {
                     .addComponent(cmbFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFilter))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPaneReservationHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnExit)
                 .addGap(29, 29, 29))
@@ -153,7 +153,7 @@ public class FormReservationHistory extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExit;
     private javax.swing.JComboBox<String> cmbFilter;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPaneReservationHistory;
     private javax.swing.JLabel lblFilter;
     private javax.swing.JLabel lblReservationHistory;
     private javax.swing.JTable tableUpcomingReservation;

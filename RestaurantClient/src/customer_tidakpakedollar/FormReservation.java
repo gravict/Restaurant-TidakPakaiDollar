@@ -26,11 +26,11 @@ public class FormReservation extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPaneReservationHistory = new javax.swing.JScrollPane();
         tblReservationHistory = new javax.swing.JTable();
         lblUpcomingReservation = new javax.swing.JLabel();
         lblReservationHistory = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPaneUpcomingReservation = new javax.swing.JScrollPane();
         tblUpcomingReservation = new javax.swing.JTable();
         btnExit = new javax.swing.JButton();
 
@@ -64,7 +64,7 @@ public class FormReservation extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tblReservationHistory);
+        jScrollPaneReservationHistory.setViewportView(tblReservationHistory);
 
         lblUpcomingReservation.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblUpcomingReservation.setText("Upcoming Reservation");
@@ -100,7 +100,7 @@ public class FormReservation extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(tblUpcomingReservation);
+        jScrollPaneUpcomingReservation.setViewportView(tblUpcomingReservation);
 
         btnExit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnExit.setText("Exit");
@@ -113,10 +113,10 @@ public class FormReservation extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnExit)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPaneUpcomingReservation, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblReservationHistory)
                     .addComponent(lblUpcomingReservation)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPaneReservationHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -125,11 +125,11 @@ public class FormReservation extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(lblUpcomingReservation)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPaneUpcomingReservation, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblReservationHistory)
                 .addGap(12, 12, 12)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPaneReservationHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnExit)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -175,8 +175,8 @@ public class FormReservation extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExit;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPaneReservationHistory;
+    private javax.swing.JScrollPane jScrollPaneUpcomingReservation;
     private javax.swing.JLabel lblReservationHistory;
     private javax.swing.JLabel lblUpcomingReservation;
     private javax.swing.JTable tblReservationHistory;

@@ -28,7 +28,7 @@ public class FormMenuManagement extends javax.swing.JFrame {
 
         btnExit = new javax.swing.JButton();
         lblMenuManagement = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPaneMenuManagement = new javax.swing.JScrollPane();
         tableMenuManagement = new javax.swing.JTable();
         lblNewMenu = new javax.swing.JLabel();
         btnNewMenu = new javax.swing.JButton();
@@ -69,7 +69,7 @@ public class FormMenuManagement extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tableMenuManagement);
+        jScrollPaneMenuManagement.setViewportView(tableMenuManagement);
 
         lblNewMenu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblNewMenu.setText("Add New Menu");
@@ -85,7 +85,7 @@ public class FormMenuManagement extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnExit)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 666, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPaneMenuManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 666, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(23, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -109,7 +109,7 @@ public class FormMenuManagement extends javax.swing.JFrame {
                     .addComponent(lblNewMenu)
                     .addComponent(btnNewMenu))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPaneMenuManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnExit)
                 .addGap(29, 29, 29))
@@ -156,7 +156,7 @@ public class FormMenuManagement extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnNewMenu;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPaneMenuManagement;
     private javax.swing.JLabel lblMenuManagement;
     private javax.swing.JLabel lblNewMenu;
     private javax.swing.JTable tableMenuManagement;
