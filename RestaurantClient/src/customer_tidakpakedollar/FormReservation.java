@@ -27,17 +27,17 @@ public class FormReservation extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tableUpcomingReservation = new javax.swing.JTable();
-        label1 = new javax.swing.JLabel();
-        label2 = new javax.swing.JLabel();
+        tblReservationHistory = new javax.swing.JTable();
+        lblUpcomingReservation = new javax.swing.JLabel();
+        lblReservationHistory = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tableUpcomingReservation1 = new javax.swing.JTable();
-        buttonExit = new javax.swing.JButton();
+        tblUpcomingReservation = new javax.swing.JTable();
+        btnExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        tableUpcomingReservation.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        tableUpcomingReservation.setModel(new javax.swing.table.DefaultTableModel(
+        tblReservationHistory.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tblReservationHistory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -64,16 +64,16 @@ public class FormReservation extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tableUpcomingReservation);
+        jScrollPane1.setViewportView(tblReservationHistory);
 
-        label1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        label1.setText("Upcoming Reservation");
+        lblUpcomingReservation.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblUpcomingReservation.setText("Upcoming Reservation");
 
-        label2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        label2.setText("Reservation History");
+        lblReservationHistory.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblReservationHistory.setText("Reservation History");
 
-        tableUpcomingReservation1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        tableUpcomingReservation1.setModel(new javax.swing.table.DefaultTableModel(
+        tblUpcomingReservation.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tblUpcomingReservation.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -100,10 +100,10 @@ public class FormReservation extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(tableUpcomingReservation1);
+        jScrollPane2.setViewportView(tblUpcomingReservation);
 
-        buttonExit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        buttonExit.setText("Exit");
+        btnExit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnExit.setText("Exit");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -112,10 +112,10 @@ public class FormReservation extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonExit)
+                    .addComponent(btnExit)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label2)
-                    .addComponent(label1)
+                    .addComponent(lblReservationHistory)
+                    .addComponent(lblUpcomingReservation)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
@@ -123,16 +123,16 @@ public class FormReservation extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(label1)
+                .addComponent(lblUpcomingReservation)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(label2)
+                .addComponent(lblReservationHistory)
                 .addGap(12, 12, 12)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(buttonExit)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addComponent(btnExit)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -174,12 +174,12 @@ public class FormReservation extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonExit;
+    private javax.swing.JButton btnExit;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel label1;
-    private javax.swing.JLabel label2;
-    private javax.swing.JTable tableUpcomingReservation;
-    private javax.swing.JTable tableUpcomingReservation1;
+    private javax.swing.JLabel lblReservationHistory;
+    private javax.swing.JLabel lblUpcomingReservation;
+    private javax.swing.JTable tblReservationHistory;
+    private javax.swing.JTable tblUpcomingReservation;
     // End of variables declaration//GEN-END:variables
 }

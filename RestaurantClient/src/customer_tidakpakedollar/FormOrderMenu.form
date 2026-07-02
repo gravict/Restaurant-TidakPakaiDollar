@@ -28,57 +28,57 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
-                      <Component id="label6" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblDaftarMenu" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="buttonExit" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnExit" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="label10" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblCari" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="comboBoxKategori" min="-2" pref="128" max="-2" attributes="0"/>
+                      <Component id="cmbKategori" min="-2" pref="128" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="textCariMenu" min="-2" pref="155" max="-2" attributes="0"/>
+                      <Component id="txtCariMenu" min="-2" pref="155" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="buttonHitung1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnHitung" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="labelTotal" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblTotal" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="buttonPesan" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnPesan" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane2" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="label7" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnJumlah" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="spinnerJumlah" pref="79" max="32767" attributes="0"/>
+                              <Component id="spinnerJumlah" pref="85" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="label4" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnKode" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                              <Component id="spinnerKode1" max="32767" attributes="0"/>
+                              <Component id="spinnerKode" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="label9" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="label8" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblNamaMenu" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblHarga" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="textMenu" min="-2" pref="107" max="-2" attributes="0"/>
-                                  <Component id="textHarga" min="-2" pref="107" max="-2" attributes="0"/>
+                                  <Component id="txtNamaMenu" min="-2" pref="107" max="-2" attributes="0"/>
+                                  <Component id="txtHarga" min="-2" pref="107" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="buttonTambahOrder" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnTambahOrder" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="label5" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblKeranjangPesanan" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="148" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -87,8 +87,8 @@
               <EmptySpace min="15" pref="15" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="371" max="-2" attributes="0"/>
-              <Component id="label3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="355" max="-2" attributes="0"/>
+              <Component id="lblCreateOrder" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
@@ -105,48 +105,54 @@
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Component id="label3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-                      <Component id="buttonTambahOrder" min="-2" pref="60" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblCreateOrder" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="label6" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="label5" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblDaftarMenu" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblKeranjangPesanan" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="label4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="spinnerKode1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="label9" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textMenu" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="label10" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textCariMenu" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="comboBoxKategori" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="label7" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="label8" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="spinnerJumlah" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textHarga" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="btnKode" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="spinnerKode" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblNamaMenu" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtNamaMenu" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblCari" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtCariMenu" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cmbKategori" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="btnJumlah" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblHarga" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="spinnerJumlah" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtHarga" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="btnTambahOrder" min="-2" pref="60" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
               <Component id="jScrollPane2" min="-2" pref="168" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="buttonExit" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnExit" min="-2" max="-2" attributes="0"/>
                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                      <Component id="buttonPesan" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="buttonHitung1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelTotal" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnPesan" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnHitung" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblTotal" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="16" max="32767" attributes="0"/>
+              <EmptySpace pref="21" max="32767" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
@@ -159,7 +165,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="buttonExit">
+    <Component class="javax.swing.JButton" name="btnExit">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>
@@ -167,10 +173,10 @@
         <Property name="text" type="java.lang.String" value="Exit"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="label3">
+    <Component class="javax.swing.JLabel" name="lblCreateOrder">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="18" style="1"/>
+          <Font name="Segoe UI" size="24" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Create Order"/>
       </Properties>
@@ -182,7 +188,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="tableMenu">
+        <Component class="javax.swing.JTable" name="tblMenu">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="0"/>
@@ -203,7 +209,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="label4">
+    <Component class="javax.swing.JLabel" name="btnKode">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>
@@ -211,7 +217,7 @@
         <Property name="text" type="java.lang.String" value="Kode"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="label5">
+    <Component class="javax.swing.JLabel" name="lblKeranjangPesanan">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>
@@ -219,7 +225,7 @@
         <Property name="text" type="java.lang.String" value="Keranjang Pesanan"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="label6">
+    <Component class="javax.swing.JLabel" name="lblDaftarMenu">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>
@@ -227,7 +233,7 @@
         <Property name="text" type="java.lang.String" value="Daftar Menu"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="label7">
+    <Component class="javax.swing.JLabel" name="btnJumlah">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>
@@ -235,7 +241,7 @@
         <Property name="text" type="java.lang.String" value="Jumlah"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="label8">
+    <Component class="javax.swing.JLabel" name="lblHarga">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>
@@ -243,7 +249,7 @@
         <Property name="text" type="java.lang.String" value="Harga"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="label9">
+    <Component class="javax.swing.JLabel" name="lblNamaMenu">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>
@@ -251,7 +257,7 @@
         <Property name="text" type="java.lang.String" value="Nama Menu"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="buttonTambahOrder">
+    <Component class="javax.swing.JButton" name="btnTambahOrder">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>
@@ -266,21 +272,21 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JSpinner" name="spinnerKode1">
+    <Component class="javax.swing.JSpinner" name="spinnerKode">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="textMenu">
+    <Component class="javax.swing.JTextField" name="txtNamaMenu">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="textHarga">
+    <Component class="javax.swing.JTextField" name="txtHarga">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>
@@ -294,7 +300,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="tableKeranjang">
+        <Component class="javax.swing.JTable" name="tblKeranjang">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="0"/>
@@ -317,7 +323,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="label10">
+    <Component class="javax.swing.JLabel" name="lblCari">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>
@@ -325,14 +331,14 @@
         <Property name="text" type="java.lang.String" value="Cari"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="textCariMenu">
+    <Component class="javax.swing.JTextField" name="txtCariMenu">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="comboBoxKategori">
+    <Component class="javax.swing.JComboBox" name="cmbKategori">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>
@@ -348,7 +354,7 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="buttonPesan">
+    <Component class="javax.swing.JButton" name="btnPesan">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>
@@ -356,7 +362,7 @@
         <Property name="text" type="java.lang.String" value="Pesan"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="buttonHitung1">
+    <Component class="javax.swing.JButton" name="btnHitung">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>
@@ -364,7 +370,7 @@
         <Property name="text" type="java.lang.String" value="Hitung"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="labelTotal">
+    <Component class="javax.swing.JLabel" name="lblTotal">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>

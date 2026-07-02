@@ -26,40 +26,40 @@ public class FormOrderMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonExit = new javax.swing.JButton();
-        label3 = new javax.swing.JLabel();
+        btnExit = new javax.swing.JButton();
+        lblCreateOrder = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tableMenu = new javax.swing.JTable();
-        label4 = new javax.swing.JLabel();
-        label5 = new javax.swing.JLabel();
-        label6 = new javax.swing.JLabel();
-        label7 = new javax.swing.JLabel();
-        label8 = new javax.swing.JLabel();
-        label9 = new javax.swing.JLabel();
-        buttonTambahOrder = new javax.swing.JButton();
+        tblMenu = new javax.swing.JTable();
+        btnKode = new javax.swing.JLabel();
+        lblKeranjangPesanan = new javax.swing.JLabel();
+        lblDaftarMenu = new javax.swing.JLabel();
+        btnJumlah = new javax.swing.JLabel();
+        lblHarga = new javax.swing.JLabel();
+        lblNamaMenu = new javax.swing.JLabel();
+        btnTambahOrder = new javax.swing.JButton();
         spinnerJumlah = new javax.swing.JSpinner();
-        spinnerKode1 = new javax.swing.JSpinner();
-        textMenu = new javax.swing.JTextField();
-        textHarga = new javax.swing.JTextField();
+        spinnerKode = new javax.swing.JSpinner();
+        txtNamaMenu = new javax.swing.JTextField();
+        txtHarga = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tableKeranjang = new javax.swing.JTable();
-        label10 = new javax.swing.JLabel();
-        textCariMenu = new javax.swing.JTextField();
-        comboBoxKategori = new javax.swing.JComboBox<>();
-        buttonPesan = new javax.swing.JButton();
-        buttonHitung1 = new javax.swing.JButton();
-        labelTotal = new javax.swing.JLabel();
+        tblKeranjang = new javax.swing.JTable();
+        lblCari = new javax.swing.JLabel();
+        txtCariMenu = new javax.swing.JTextField();
+        cmbKategori = new javax.swing.JComboBox<>();
+        btnPesan = new javax.swing.JButton();
+        btnHitung = new javax.swing.JButton();
+        lblTotal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        buttonExit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        buttonExit.setText("Exit");
+        btnExit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnExit.setText("Exit");
 
-        label3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        label3.setText("Create Order");
+        lblCreateOrder.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblCreateOrder.setText("Create Order");
 
-        tableMenu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        tableMenu.setModel(new javax.swing.table.DefaultTableModel(
+        tblMenu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tblMenu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -86,39 +86,39 @@ public class FormOrderMenu extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tableMenu);
+        jScrollPane1.setViewportView(tblMenu);
 
-        label4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        label4.setText("Kode");
+        btnKode.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnKode.setText("Kode");
 
-        label5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        label5.setText("Keranjang Pesanan");
+        lblKeranjangPesanan.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblKeranjangPesanan.setText("Keranjang Pesanan");
 
-        label6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        label6.setText("Daftar Menu");
+        lblDaftarMenu.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblDaftarMenu.setText("Daftar Menu");
 
-        label7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        label7.setText("Jumlah");
+        btnJumlah.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnJumlah.setText("Jumlah");
 
-        label8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        label8.setText("Harga");
+        lblHarga.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblHarga.setText("Harga");
 
-        label9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        label9.setText("Nama Menu");
+        lblNamaMenu.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblNamaMenu.setText("Nama Menu");
 
-        buttonTambahOrder.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        buttonTambahOrder.setText("Tambah");
+        btnTambahOrder.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnTambahOrder.setText("Tambah");
 
         spinnerJumlah.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        spinnerKode1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        spinnerKode.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        textMenu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtNamaMenu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        textHarga.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtHarga.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        tableKeranjang.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        tableKeranjang.setModel(new javax.swing.table.DefaultTableModel(
+        tblKeranjang.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tblKeranjang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -145,24 +145,24 @@ public class FormOrderMenu extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(tableKeranjang);
+        jScrollPane2.setViewportView(tblKeranjang);
 
-        label10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        label10.setText("Cari");
+        lblCari.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblCari.setText("Cari");
 
-        textCariMenu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtCariMenu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        comboBoxKategori.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        comboBoxKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Makanan", "Minuman" }));
+        cmbKategori.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        cmbKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Makanan", "Minuman" }));
 
-        buttonPesan.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        buttonPesan.setText("Pesan");
+        btnPesan.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnPesan.setText("Pesan");
 
-        buttonHitung1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        buttonHitung1.setText("Hitung");
+        btnHitung.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnHitung.setText("Hitung");
 
-        labelTotal.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        labelTotal.setText("Total: Rp.XXXXXX");
+        lblTotal.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTotal.setText("Total: Rp.XXXXXX");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -173,52 +173,52 @@ public class FormOrderMenu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(115, 115, 115)
-                        .addComponent(label6))
-                    .addComponent(buttonExit)
+                        .addComponent(lblDaftarMenu))
+                    .addComponent(btnExit)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(label10)
+                        .addComponent(lblCari)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(comboBoxKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(textCariMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtCariMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(buttonHitung1)
+                        .addComponent(btnHitung)
                         .addGap(18, 18, 18)
-                        .addComponent(labelTotal)
+                        .addComponent(lblTotal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(buttonPesan))
+                        .addComponent(btnPesan))
                     .addComponent(jScrollPane2)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(label7)
+                                .addComponent(btnJumlah)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(spinnerJumlah, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
+                                .addComponent(spinnerJumlah, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(label4)
+                                .addComponent(btnKode)
                                 .addGap(22, 22, 22)
-                                .addComponent(spinnerKode1)))
+                                .addComponent(spinnerKode)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(label9, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(label8, javax.swing.GroupLayout.Alignment.TRAILING))
+                                    .addComponent(lblNamaMenu)
+                                    .addComponent(lblHarga))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(textMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(textHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(buttonTambahOrder))
+                                    .addComponent(txtNamaMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnTambahOrder))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(label5)
+                                .addComponent(lblKeranjangPesanan)
                                 .addGap(148, 148, 148)))))
                 .addGap(15, 15, 15))
             .addGroup(layout.createSequentialGroup()
-                .addGap(371, 371, 371)
-                .addComponent(label3)
+                .addGap(355, 355, 355)
+                .addComponent(lblCreateOrder)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -231,40 +231,43 @@ public class FormOrderMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(label3)
-                        .addGap(51, 51, 51)
-                        .addComponent(buttonTambahOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap()
+                        .addComponent(lblCreateOrder))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(43, 43, 43)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(label6)
-                            .addComponent(label5))
+                            .addComponent(lblDaftarMenu)
+                            .addComponent(lblKeranjangPesanan))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(label4)
-                            .addComponent(spinnerKode1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label9)
-                            .addComponent(textMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label10)
-                            .addComponent(textCariMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboBoxKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(label7)
-                            .addComponent(label8)
-                            .addComponent(spinnerJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnKode)
+                                    .addComponent(spinnerKode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblNamaMenu)
+                                    .addComponent(txtNamaMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblCari)
+                                    .addComponent(txtCariMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmbKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnJumlah)
+                                    .addComponent(lblHarga)
+                                    .addComponent(spinnerJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnTambahOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(3, 3, 3)))))
+                .addGap(19, 19, 19)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonExit)
+                    .addComponent(btnExit)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(buttonPesan)
-                        .addComponent(buttonHitung1)
-                        .addComponent(labelTotal)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                        .addComponent(btnPesan)
+                        .addComponent(btnHitung)
+                        .addComponent(lblTotal)))
+                .addContainerGap(21, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(131, 131, 131)
@@ -311,28 +314,28 @@ public class FormOrderMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonExit;
-    private javax.swing.JButton buttonHitung1;
-    private javax.swing.JButton buttonPesan;
-    private javax.swing.JButton buttonTambahOrder;
-    private javax.swing.JComboBox<String> comboBoxKategori;
+    private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnHitung;
+    private javax.swing.JLabel btnJumlah;
+    private javax.swing.JLabel btnKode;
+    private javax.swing.JButton btnPesan;
+    private javax.swing.JButton btnTambahOrder;
+    private javax.swing.JComboBox<String> cmbKategori;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel label10;
-    private javax.swing.JLabel label3;
-    private javax.swing.JLabel label4;
-    private javax.swing.JLabel label5;
-    private javax.swing.JLabel label6;
-    private javax.swing.JLabel label7;
-    private javax.swing.JLabel label8;
-    private javax.swing.JLabel label9;
-    private javax.swing.JLabel labelTotal;
+    private javax.swing.JLabel lblCari;
+    private javax.swing.JLabel lblCreateOrder;
+    private javax.swing.JLabel lblDaftarMenu;
+    private javax.swing.JLabel lblHarga;
+    private javax.swing.JLabel lblKeranjangPesanan;
+    private javax.swing.JLabel lblNamaMenu;
+    private javax.swing.JLabel lblTotal;
     private javax.swing.JSpinner spinnerJumlah;
-    private javax.swing.JSpinner spinnerKode1;
-    private javax.swing.JTable tableKeranjang;
-    private javax.swing.JTable tableMenu;
-    private javax.swing.JTextField textCariMenu;
-    private javax.swing.JTextField textHarga;
-    private javax.swing.JTextField textMenu;
+    private javax.swing.JSpinner spinnerKode;
+    private javax.swing.JTable tblKeranjang;
+    private javax.swing.JTable tblMenu;
+    private javax.swing.JTextField txtCariMenu;
+    private javax.swing.JTextField txtHarga;
+    private javax.swing.JTextField txtNamaMenu;
     // End of variables declaration//GEN-END:variables
 }

@@ -26,18 +26,18 @@ public class FormReservationManagement extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonExit = new javax.swing.JButton();
-        label3 = new javax.swing.JLabel();
+        btnExit = new javax.swing.JButton();
+        lblReservationManagement = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableReservation = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        buttonExit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        buttonExit.setText("Exit");
+        btnExit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnExit.setText("Exit");
 
-        label3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        label3.setText("Reservation Management");
+        lblReservationManagement.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblReservationManagement.setText("Reservation Management");
 
         tableReservation.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tableReservation.setModel(new javax.swing.table.DefaultTableModel(
@@ -76,23 +76,23 @@ public class FormReservationManagement extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonExit)
+                    .addComponent(btnExit)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(26, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(label3)
-                .addGap(256, 256, 256))
+                .addComponent(lblReservationManagement)
+                .addGap(215, 215, 215))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(label3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addContainerGap(35, Short.MAX_VALUE)
+                .addComponent(lblReservationManagement)
+                .addGap(28, 28, 28)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(buttonExit)
+                .addComponent(btnExit)
                 .addGap(29, 29, 29))
         );
 
@@ -135,9 +135,9 @@ public class FormReservationManagement extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonExit;
+    private javax.swing.JButton btnExit;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel label3;
+    private javax.swing.JLabel lblReservationManagement;
     private javax.swing.JTable tableReservation;
     // End of variables declaration//GEN-END:variables
 }

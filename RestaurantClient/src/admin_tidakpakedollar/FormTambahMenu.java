@@ -26,50 +26,50 @@ public class FormTambahMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        label3 = new javax.swing.JLabel();
-        label4 = new javax.swing.JLabel();
-        label5 = new javax.swing.JLabel();
-        label6 = new javax.swing.JLabel();
-        label7 = new javax.swing.JLabel();
-        textMenu = new javax.swing.JTextField();
-        comboBoxKategori = new javax.swing.JComboBox<>();
-        textHarga = new javax.swing.JTextField();
+        lblNama = new javax.swing.JLabel();
+        lblTambahMenu = new javax.swing.JLabel();
+        lblDeskripsi = new javax.swing.JLabel();
+        lblKategori = new javax.swing.JLabel();
+        lblHarga = new javax.swing.JLabel();
+        txtNamaMenu = new javax.swing.JTextField();
+        cmbKategori = new javax.swing.JComboBox<>();
+        txtHarga = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        textDeskripsi = new javax.swing.JTextPane();
-        buttonExit = new javax.swing.JButton();
-        buttonTambah = new javax.swing.JButton();
+        txtDeskripsi = new javax.swing.JTextPane();
+        btnExit = new javax.swing.JButton();
+        btnTambah = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        label3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        label3.setText("Nama");
+        lblNama.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblNama.setText("Nama");
 
-        label4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        label4.setText("Tambah Menu");
+        lblTambahMenu.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblTambahMenu.setText("Tambah Menu");
 
-        label5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        label5.setText("Deskripsi");
+        lblDeskripsi.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblDeskripsi.setText("Deskripsi");
 
-        label6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        label6.setText("Kategori");
+        lblKategori.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblKategori.setText("Kategori");
 
-        label7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        label7.setText("Harga");
+        lblHarga.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblHarga.setText("Harga");
 
-        textMenu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtNamaMenu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        comboBoxKategori.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        comboBoxKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Makanan", "Minuman" }));
+        cmbKategori.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        cmbKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Makanan", "Minuman" }));
 
-        textHarga.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtHarga.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        jScrollPane1.setViewportView(textDeskripsi);
+        jScrollPane1.setViewportView(txtDeskripsi);
 
-        buttonExit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        buttonExit.setText("Exit");
+        btnExit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnExit.setText("Exit");
 
-        buttonTambah.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        buttonTambah.setText("Tambah");
+        btnTambah.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnTambah.setText("Tambah");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -79,61 +79,62 @@ public class FormTambahMenu extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(buttonExit)
+                        .addComponent(btnExit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(buttonTambah))
+                        .addComponent(btnTambah))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(label3))
-                            .addComponent(label6, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(comboBoxKategori, 0, 224, Short.MAX_VALUE)
-                            .addComponent(textMenu)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(label5)
-                            .addComponent(label7, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addComponent(textHarga))))
-                .addGap(17, 17, 17))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(label4)
-                .addGap(106, 106, 106))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblKategori)
+                                    .addComponent(lblNama))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblTambahMenu)
+                                        .addGap(0, 69, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(cmbKategori, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(txtNamaMenu)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblHarga)
+                                    .addComponent(lblDeskripsi))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1)
+                                    .addComponent(txtHarga))))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(label4)
+                .addComponent(lblTambahMenu)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label3)
-                    .addComponent(textMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblNama)
+                    .addComponent(txtNamaMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label6)
-                    .addComponent(comboBoxKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblKategori)
+                    .addComponent(cmbKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label5)
+                    .addComponent(lblDeskripsi)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label7))
+                    .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblHarga))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonExit)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(buttonTambah)))
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnExit)
+                    .addComponent(btnTambah))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         pack();
@@ -175,17 +176,17 @@ public class FormTambahMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonExit;
-    private javax.swing.JButton buttonTambah;
-    private javax.swing.JComboBox<String> comboBoxKategori;
+    private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnTambah;
+    private javax.swing.JComboBox<String> cmbKategori;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel label3;
-    private javax.swing.JLabel label4;
-    private javax.swing.JLabel label5;
-    private javax.swing.JLabel label6;
-    private javax.swing.JLabel label7;
-    private javax.swing.JTextPane textDeskripsi;
-    private javax.swing.JTextField textHarga;
-    private javax.swing.JTextField textMenu;
+    private javax.swing.JLabel lblDeskripsi;
+    private javax.swing.JLabel lblHarga;
+    private javax.swing.JLabel lblKategori;
+    private javax.swing.JLabel lblNama;
+    private javax.swing.JLabel lblTambahMenu;
+    private javax.swing.JTextPane txtDeskripsi;
+    private javax.swing.JTextField txtHarga;
+    private javax.swing.JTextField txtNamaMenu;
     // End of variables declaration//GEN-END:variables
 }

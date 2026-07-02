@@ -31,8 +31,8 @@ public class FormDashboardCustomer extends javax.swing.JFrame {
         jPopupMenu2 = new javax.swing.JPopupMenu();
         jSeparator1 = new javax.swing.JSeparator();
         jMenu5 = new javax.swing.JMenu();
-        labelName = new javax.swing.JLabel();
-        jMenuBar2 = new javax.swing.JMenuBar();
+        lblName = new javax.swing.JLabel();
+        menuNavBar = new javax.swing.JMenuBar();
         menuReservation = new javax.swing.JMenu();
         menuReservationHistory = new javax.swing.JMenu();
         menuNewReservation = new javax.swing.JMenu();
@@ -45,8 +45,8 @@ public class FormDashboardCustomer extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        labelName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        labelName.setText("Welcome, XXXXXXX");
+        lblName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblName.setText("Welcome, XXXXXXX");
 
         menuReservation.setText("Reservation");
         menuReservation.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -59,17 +59,17 @@ public class FormDashboardCustomer extends javax.swing.JFrame {
         menuNewReservation.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         menuReservation.add(menuNewReservation);
 
-        jMenuBar2.add(menuReservation);
+        menuNavBar.add(menuReservation);
 
         menuProfil.setText("Profil");
         menuProfil.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMenuBar2.add(menuProfil);
+        menuNavBar.add(menuProfil);
 
         menuLogOut.setText("Logout");
         menuLogOut.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMenuBar2.add(menuLogOut);
+        menuNavBar.add(menuLogOut);
 
-        setJMenuBar(jMenuBar2);
+        setJMenuBar(menuNavBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -77,14 +77,14 @@ public class FormDashboardCustomer extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(labelName)
+                .addComponent(lblName)
                 .addContainerGap(197, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(labelName)
+                .addComponent(lblName)
                 .addContainerGap(121, Short.MAX_VALUE))
         );
 
@@ -129,12 +129,12 @@ public class FormDashboardCustomer extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel labelName;
+    private javax.swing.JLabel lblName;
     private javax.swing.JMenu menuLogOut;
+    private javax.swing.JMenuBar menuNavBar;
     private javax.swing.JMenu menuNewReservation;
     private javax.swing.JMenu menuProfil;
     private javax.swing.JMenu menuReservation;

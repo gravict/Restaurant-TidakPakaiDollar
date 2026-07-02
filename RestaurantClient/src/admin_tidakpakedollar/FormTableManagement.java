@@ -28,7 +28,7 @@ public class FormTableManagement extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tableTableManagement = new javax.swing.JTable();
-        label3 = new javax.swing.JLabel();
+        lblTableManagement = new javax.swing.JLabel();
         buttonExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -63,8 +63,8 @@ public class FormTableManagement extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tableTableManagement);
 
-        label3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        label3.setText("Table Management");
+        lblTableManagement.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblTableManagement.setText("Table Management");
 
         buttonExit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         buttonExit.setText("Exit");
@@ -74,13 +74,14 @@ public class FormTableManagement extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(buttonExit)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(194, Short.MAX_VALUE)
-                .addComponent(label3)
-                .addGap(189, 189, 189))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(buttonExit))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(162, 162, 162)
+                        .addComponent(lblTableManagement)))
+                .addContainerGap(168, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(18, 18, 18)
@@ -90,9 +91,9 @@ public class FormTableManagement extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(label3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 383, Short.MAX_VALUE)
+                .addGap(37, 37, 37)
+                .addComponent(lblTableManagement)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 380, Short.MAX_VALUE)
                 .addComponent(buttonExit)
                 .addGap(42, 42, 42))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,7 +144,7 @@ public class FormTableManagement extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonExit;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel label3;
+    private javax.swing.JLabel lblTableManagement;
     private javax.swing.JTable tableTableManagement;
     // End of variables declaration//GEN-END:variables
 }

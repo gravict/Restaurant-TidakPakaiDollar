@@ -26,7 +26,7 @@ public class FormDashboardAdmin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        labelName = new javax.swing.JLabel();
+        lblName = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
         menuReservation = new javax.swing.JMenu();
         menuReservationManagement = new javax.swing.JMenu();
@@ -38,8 +38,8 @@ public class FormDashboardAdmin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        labelName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        labelName.setText("Welcome, XXXXXXX");
+        lblName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblName.setText("Welcome, XXXXXXX");
 
         menuReservation.setText("Reservation");
         menuReservation.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -78,14 +78,14 @@ public class FormDashboardAdmin extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(labelName)
+                .addComponent(lblName)
                 .addContainerGap(250, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(labelName)
+                .addComponent(lblName)
                 .addContainerGap(222, Short.MAX_VALUE))
         );
 
@@ -129,7 +129,7 @@ public class FormDashboardAdmin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JLabel labelName;
+    private javax.swing.JLabel lblName;
     private javax.swing.JMenu menuFood;
     private javax.swing.JMenu menuLogOut;
     private javax.swing.JMenu menuOrder;
