@@ -110,6 +110,7 @@ public class FormOrderMenu extends javax.swing.JFrame {
         btnTambahOrder.setText("Tambah");
 
         spinnerJumlah.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        spinnerJumlah.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         spinnerKode.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 

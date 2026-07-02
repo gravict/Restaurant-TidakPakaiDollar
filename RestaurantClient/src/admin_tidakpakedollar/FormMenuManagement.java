@@ -32,6 +32,9 @@ public class FormMenuManagement extends javax.swing.JFrame {
         tableMenuManagement = new javax.swing.JTable();
         lblNewMenu = new javax.swing.JLabel();
         btnNewMenu = new javax.swing.JButton();
+        lblCari = new javax.swing.JLabel();
+        txtCariMenu = new javax.swing.JTextField();
+        cmbKategori = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,27 +80,41 @@ public class FormMenuManagement extends javax.swing.JFrame {
         btnNewMenu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnNewMenu.setText("+");
 
+        lblCari.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblCari.setText("Cari");
+
+        txtCariMenu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        cmbKategori.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        cmbKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Makanan", "Minuman" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblMenuManagement)
+                .addGap(233, 233, 233))
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnExit)
-                    .addComponent(jScrollPaneMenuManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 666, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblCari)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmbKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtCariMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblNewMenu)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnNewMenu)
                         .addGap(29, 29, 29))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblMenuManagement)
-                        .addGap(233, 233, 233))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnExit)
+                            .addComponent(jScrollPaneMenuManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 666, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(23, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,7 +124,10 @@ public class FormMenuManagement extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNewMenu)
-                    .addComponent(btnNewMenu))
+                    .addComponent(btnNewMenu)
+                    .addComponent(lblCari)
+                    .addComponent(txtCariMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPaneMenuManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -156,9 +176,12 @@ public class FormMenuManagement extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnNewMenu;
+    private javax.swing.JComboBox<String> cmbKategori;
     private javax.swing.JScrollPane jScrollPaneMenuManagement;
+    private javax.swing.JLabel lblCari;
     private javax.swing.JLabel lblMenuManagement;
     private javax.swing.JLabel lblNewMenu;
     private javax.swing.JTable tableMenuManagement;
+    private javax.swing.JTextField txtCariMenu;
     // End of variables declaration//GEN-END:variables
 }

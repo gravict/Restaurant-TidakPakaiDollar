@@ -26,64 +26,90 @@ public class FormNewReservation extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        spinnerTanggal2 = new javax.swing.JSpinner();
         lblCreateNewReservation = new javax.swing.JLabel();
-        lblSelectDate = new javax.swing.JLabel();
+        lblSelectTime = new javax.swing.JLabel();
         lblGuest = new javax.swing.JLabel();
-        cmbTanggal = new javax.swing.JComboBox<>();
-        cmbBulan = new javax.swing.JComboBox<>();
+        cmbJam = new javax.swing.JComboBox<>();
         spinnerGuest = new javax.swing.JSpinner();
+        lblSelectTime1 = new javax.swing.JLabel();
+        spinnerTanggal = new javax.swing.JSpinner();
+        lblWIB = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblCreateNewReservation.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblCreateNewReservation.setText("Create New Reservation");
 
-        lblSelectDate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblSelectDate.setText("Select Date :");
+        lblSelectTime.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblSelectTime.setText("Select Date");
 
         lblGuest.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblGuest.setText("Number of Guest :");
+        lblGuest.setText("Number of Guest");
+
+        cmbJam.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10.00", "11.00", "12.00", "13.00", "14.00", "15.00", "16.00", "17.00", "18.00", "19.00", "20.00" }));
+
+        spinnerGuest.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+
+        lblSelectTime1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblSelectTime1.setText("Select Time");
+
+        spinnerTanggal.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null, java.util.Calendar.MONTH));
+        spinnerTanggal.setEditor(new javax.swing.JSpinner.DateEditor(spinnerTanggal, "dd MMMM yyyy"));
+
+        lblWIB.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblWIB.setText("WIB");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblSelectDate)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
-                                .addComponent(cmbTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cmbBulan, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblGuest)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(spinnerGuest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(1, 1, 1)
+                        .addComponent(lblSelectTime))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(lblCreateNewReservation)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(lblGuest)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(lblSelectTime1)
+                                .addGap(58, 58, 58)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(spinnerGuest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cmbJam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblWIB))
+                            .addComponent(spinnerTanggal))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(58, Short.MAX_VALUE)
+                .addComponent(lblCreateNewReservation)
+                .addGap(40, 40, 40))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap()
                 .addComponent(lblCreateNewReservation)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSelectDate)
-                    .addComponent(cmbTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbBulan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblSelectTime)
+                    .addComponent(spinnerTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbJam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSelectTime1)
+                    .addComponent(lblWIB))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblGuest)
                     .addComponent(spinnerGuest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -125,11 +151,14 @@ public class FormNewReservation extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cmbBulan;
-    private javax.swing.JComboBox<String> cmbTanggal;
+    private javax.swing.JComboBox<String> cmbJam;
     private javax.swing.JLabel lblCreateNewReservation;
     private javax.swing.JLabel lblGuest;
-    private javax.swing.JLabel lblSelectDate;
+    private javax.swing.JLabel lblSelectTime;
+    private javax.swing.JLabel lblSelectTime1;
+    private javax.swing.JLabel lblWIB;
     private javax.swing.JSpinner spinnerGuest;
+    private javax.swing.JSpinner spinnerTanggal;
+    private javax.swing.JSpinner spinnerTanggal2;
     // End of variables declaration//GEN-END:variables
 }
