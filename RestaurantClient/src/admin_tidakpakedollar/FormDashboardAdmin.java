@@ -5,20 +5,50 @@
 package admin_tidakpakedollar;
 
 import com.restaurant.services.*;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Nicholas
  */
-public class FormDashboardAdmin extends javax.swing.JFrame {
+public class FormDashboardAdmin extends javax.swing.JFrame implements Runnable {
 
     /**
      * Creates new form FormDashboardAdmin
      */
     Account user;
+    Socket clientSocket;
+    Thread t;
+    BufferedReader in;
+    DataOutputStream out;
+    
     public FormDashboardAdmin(Account a) {
         initComponents();
         user = a;
+        try {
+            initComponents();
+            setLocationRelativeTo(null);
+            clientSocket = new Socket("localhost", 6000);
+            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            out = new DataOutputStream(clientSocket.getOutputStream());
+            
+            lblName.setText("Welcome, admin " + user.getFullname());
+
+            if (t == null) {
+                t = new Thread(this, "Admin");
+                t.start();
+            }
+             
+        } catch (Exception ex) {
+            System.out.println("Error di constructor admin: " + ex);
+        }
     }
 
     /**
@@ -43,7 +73,6 @@ public class FormDashboardAdmin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblName.setText("Welcome, XXXXXXX");
 
         menuReservation.setText("Reservation");
         menuReservation.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -83,14 +112,14 @@ public class FormDashboardAdmin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(lblName)
-                .addContainerGap(250, Short.MAX_VALUE))
+                .addContainerGap(410, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(lblName)
-                .addContainerGap(222, Short.MAX_VALUE))
+                .addContainerGap(247, Short.MAX_VALUE))
         );
 
         pack();
@@ -143,4 +172,29 @@ public class FormDashboardAdmin extends javax.swing.JFrame {
     private javax.swing.JMenu menuReservationManagement;
     private javax.swing.JMenu menuTable;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void run() {
+        sendMessage(user.getUsername() + ";LOGIN");
+        while (true) {
+            try {
+                getMessage();
+            } catch (Exception ex) {
+                System.out.println("Error di admin : " + ex);
+            }
+        }
+    }
+    
+    private void getMessage() throws IOException {
+        String chatServer;
+        chatServer = in.readLine();
+    }
+
+    public void sendMessage(String message) {
+        try {
+            out.writeBytes(user.getUsername() + ": " + message + "\n");
+        } catch (Exception e) {
+            System.out.println("Error di send message admin");
+        }
+    }
 }
