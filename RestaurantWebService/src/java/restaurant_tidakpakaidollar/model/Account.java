@@ -223,10 +223,11 @@ public class Account extends MyModel {
         }
         return false;
     }
-    public boolean checkLogin(String username, String password){
-        boolean flag = false;
+    public Account checkLogin(String username, String password){
+        Account a = null;
         try {
             if (!MyModel.conn.isClosed()) {
+                
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
                     "SELECT * FROM account WHERE username = ? AND password = SHA2(?,256)"
                 );
@@ -235,20 +236,18 @@ public class Account extends MyModel {
 
                 this.result = sql.executeQuery();
                 if (this.result.next()) {
-                    flag = true; // user berhasil ditemukan
-                    
-                    PreparedStatement updateSql = (PreparedStatement) MyModel.conn.prepareStatement(
-                        "UPDATE account SET login_at = CURRENT_TIMESTAMP WHERE username = ?"
-                    );
-                    updateSql.setString(1, username);
-                    updateSql.executeUpdate();
-                    updateSql.close();
+                    a = new Account();
+                    a.setId(result.getInt("id"));
+                    a.setUsername(result.getString("username"));
+                    a.setPhone_number(result.getString("phone_number"));
+                    a.setFullname(result.getString("fullname"));
+                    a.setRole(result.getString("role"));
                 }
                 sql.close();
             }
         } catch (Exception ex) {
             System.out.println("Error di checkLogin data: " + ex.getMessage());
         }
-        return flag;
+        return a;
     }
 }

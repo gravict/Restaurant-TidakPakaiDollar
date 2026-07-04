@@ -4,6 +4,8 @@
  */
 package admin_tidakpakedollar;
 
+import com.restaurant.services.*;
+
 /**
  *
  * @author Nicholas
@@ -13,8 +15,10 @@ public class FormDashboardAdmin extends javax.swing.JFrame {
     /**
      * Creates new form FormDashboardAdmin
      */
-    public FormDashboardAdmin() {
+    Account user;
+    public FormDashboardAdmin(Account a) {
         initComponents();
+        user = a;
     }
 
     /**
@@ -122,7 +126,8 @@ public class FormDashboardAdmin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormDashboardAdmin().setVisible(true);
+                Account a = new Account();
+                new FormDashboardAdmin(a).setVisible(true);
             }
         });
     }

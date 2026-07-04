@@ -4,6 +4,9 @@
  */
 package restaurant_tidakpakaidollar;
 
+import admin_tidakpakedollar.*;
+import com.restaurant.services.Account;
+import customer_tidakpakedollar.*;
 import javax.swing.JOptionPane;
 
 /**
@@ -129,10 +132,21 @@ public class FormLogin extends javax.swing.JFrame {
         if (username.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Username or Password is Empty");
         } else {
-            if (checkLoginDB(username, password)) {
-                JOptionPane.showMessageDialog(this, "Success Login");
-            } else {
+            Account user = checkLogin(username, password);
+            if (user == null) {
                 JOptionPane.showMessageDialog(this, "Failed Login");
+            } else {                
+                JOptionPane.showMessageDialog(this, "Success Login");
+                if (user.getRole().equals("CUSTOMER")) {
+                    FormDashboardCustomer dashboardForm = new FormDashboardCustomer(user);
+                    dashboardForm.setVisible(true);
+                    this.dispose();
+                }
+                else if (user.getRole().equals("ADMIN")) {
+                    FormDashboardAdmin dashboardForm = new FormDashboardAdmin(user);
+                    dashboardForm.setVisible(true);
+                    this.dispose();
+                }
             }
         }
     }//GEN-LAST:event_btnLoginActionPerformed
@@ -182,9 +196,11 @@ public class FormLogin extends javax.swing.JFrame {
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 
-    private static Boolean checkLoginDB(java.lang.String username, java.lang.String password) {
+    private static Account checkLogin(java.lang.String username, java.lang.String password) {
         com.restaurant.services.AccountWS_Service service = new com.restaurant.services.AccountWS_Service();
         com.restaurant.services.AccountWS port = service.getAccountWSPort();
-        return port.checkLoginDB(username, password);
+        return port.checkLogin(username, password);
     }
+
+    
 }

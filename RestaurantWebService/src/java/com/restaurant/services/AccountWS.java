@@ -15,6 +15,7 @@ import restaurant_tidakpakaidollar.model.Account;
  */
 @WebService(serviceName = "AccountWS")
 public class AccountWS {
+    Account model = new Account();
 
     /**
      * This is a sample web service operation
@@ -22,16 +23,7 @@ public class AccountWS {
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
         return "Hello " + txt + " !";
-    }
-
-    /**
-     * Web service operation
-     */
-    @WebMethod(operationName = "checkLoginDB")
-    public Boolean checkLoginDB(@WebParam(name = "username") String username, @WebParam(name = "password") String password) {
-        Account model = new Account();
-        return model.checkLogin(username, password);
-    }
+    }   
 
     /**
      * Web service operation
@@ -41,12 +33,21 @@ public class AccountWS {
                               @WebParam(name = "password") String password,
                               @WebParam(name = "fullname") String fullname,
                               @WebParam(name = "phone") String phone) {
-    Account model = new Account(username, password, phone, fullname, "CUSTOMER");
+    model = new Account(username, password, phone, fullname, "CUSTOMER");
     if (!model.checkUsername().isEmpty()) {
             return false;
         }
         
         model.insertData();
         return true;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "CheckLogin")
+    public Account CheckLogin(@WebParam(name = "username") String username, @WebParam(name = "password") String password) {
+        //TODO write your implementation code here:
+        return model.checkLogin(username, password);
     }
 }

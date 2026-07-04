@@ -3,18 +3,50 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package customer_tidakpakedollar;
-
+import com.restaurant.services.*;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Giffert
  */
-public class FormDashboardCustomer extends javax.swing.JFrame {
+public class FormDashboardCustomer extends javax.swing.JFrame implements Runnable{
 
     /**
      * Creates new form FormDashboardCustomer
      */
-    public FormDashboardCustomer() {
+    Account user;
+    Socket clientSocket;
+    Thread t;
+    BufferedReader in;
+    DataOutputStream out;
+    public FormDashboardCustomer(Account a) {
         initComponents();
+        user = a;
+        try {
+            initComponents();
+            setLocationRelativeTo(null);
+            clientSocket = new Socket("localhost", 6000);
+            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            out = new DataOutputStream(clientSocket.getOutputStream());
+            
+            lblName.setText("Welcome, " + user.getFullname());
+
+            if (t == null) {
+                t = new Thread(this, "Client");
+                t.start();
+            }
+
+        } catch (Exception ex) {
+            System.out.println("Error di constructor client: " + ex);
+        }
+        
     }
 
     /**
@@ -46,7 +78,7 @@ public class FormDashboardCustomer extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblName.setText("Welcome, XXXXXXX");
+        lblName.setText("       ");
 
         menuReservation.setText("Reservation");
         menuReservation.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -78,7 +110,7 @@ public class FormDashboardCustomer extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(lblName)
-                .addContainerGap(197, Short.MAX_VALUE))
+                .addContainerGap(321, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,7 +153,8 @@ public class FormDashboardCustomer extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormDashboardCustomer().setVisible(true);
+                Account a = new Account();
+                new FormDashboardCustomer(a).setVisible(true);
             }
         });
     }
@@ -140,4 +173,29 @@ public class FormDashboardCustomer extends javax.swing.JFrame {
     private javax.swing.JMenu menuReservation;
     private javax.swing.JMenu menuReservationHistory;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void run() {
+        sendMessage(user.getUsername() + ";LOGIN");
+        while (true) {
+            try {
+                getMessage();
+            } catch (Exception ex) {
+                System.out.println("Error di client : " + ex);
+            }
+        }
+    }
+    
+    private void getMessage() throws IOException {
+        String chatServer;
+        chatServer = in.readLine();
+    }
+
+    public void sendMessage(String message) {
+        try {
+            out.writeBytes(user.getUsername() + ": " + message + "\n");
+        } catch (Exception e) {
+            System.out.println("Error di send message client");
+        }
+    }
 }
