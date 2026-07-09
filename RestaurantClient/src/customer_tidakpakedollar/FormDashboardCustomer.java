@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package customer_tidakpakedollar;
-import com.restaurant.services.*;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -12,41 +11,37 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import restaurant_tidakpakaidollar.*;
 /**
  *
  * @author Giffert
  */
-public class FormDashboardCustomer extends javax.swing.JFrame implements Runnable{
+public class FormDashboardCustomer extends javax.swing.JFrame {
 
     /**
      * Creates new form FormDashboardCustomer
      */
-    Account user;
+    String currentUsername;
     Socket clientSocket;
-    Thread t;
     BufferedReader in;
     DataOutputStream out;
-    public FormDashboardCustomer(Account a) {
+    public FormDashboardCustomer() {
         initComponents();
-        user = a;
-        try {
-            initComponents();
-            setLocationRelativeTo(null);
-            clientSocket = new Socket("localhost", 6000);
-            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            out = new DataOutputStream(clientSocket.getOutputStream());
-            
-            lblName.setText("Welcome, " + user.getFullname());
-
-            if (t == null) {
-                t = new Thread(this, "Client");
-                t.start();
-            }
-
-        } catch (Exception ex) {
-            System.out.println("Error di constructor client: " + ex);
-        }
         
+    }
+    public FormDashboardCustomer(String username, Socket pClientSocket, BufferedReader pIn, DataOutputStream pOut) {
+        initComponents();
+        try {
+            currentUsername = username;            
+            setLocationRelativeTo(null);
+            clientSocket = pClientSocket;
+            in = pIn;
+            out = pOut;
+            lblName.setText("Welcome, " + username);
+            
+        } catch (Exception ex) {
+            System.out.println("Error di constructor FormDashboardCustomer: " + ex);
+        }        
     }
 
     /**
@@ -63,17 +58,22 @@ public class FormDashboardCustomer extends javax.swing.JFrame implements Runnabl
         jPopupMenu2 = new javax.swing.JPopupMenu();
         jSeparator1 = new javax.swing.JSeparator();
         jMenu5 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         lblName = new javax.swing.JLabel();
         menuNavBar = new javax.swing.JMenuBar();
         menuReservation = new javax.swing.JMenu();
-        menuReservationHistory = new javax.swing.JMenu();
-        menuNewReservation = new javax.swing.JMenu();
+        menuItemReservationHis = new javax.swing.JMenuItem();
+        menuItemNewReservation = new javax.swing.JMenuItem();
         menuProfil = new javax.swing.JMenu();
+        menuItemProfil = new javax.swing.JMenuItem();
         menuLogOut = new javax.swing.JMenu();
+        menuItemLogout = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
         jMenu5.setText("jMenu5");
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,22 +83,52 @@ public class FormDashboardCustomer extends javax.swing.JFrame implements Runnabl
         menuReservation.setText("Reservation");
         menuReservation.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        menuReservationHistory.setText("Reservation History");
-        menuReservationHistory.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        menuReservation.add(menuReservationHistory);
+        menuItemReservationHis.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        menuItemReservationHis.setText("Reservation History");
+        menuItemReservationHis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemReservationHisActionPerformed(evt);
+            }
+        });
+        menuReservation.add(menuItemReservationHis);
 
-        menuNewReservation.setText("New Reservation");
-        menuNewReservation.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        menuReservation.add(menuNewReservation);
+        menuItemNewReservation.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        menuItemNewReservation.setText("New Reservation");
+        menuItemNewReservation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemNewReservationActionPerformed(evt);
+            }
+        });
+        menuReservation.add(menuItemNewReservation);
 
         menuNavBar.add(menuReservation);
 
         menuProfil.setText("Profil");
         menuProfil.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        menuItemProfil.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        menuItemProfil.setText("Profil");
+        menuItemProfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemProfilActionPerformed(evt);
+            }
+        });
+        menuProfil.add(menuItemProfil);
+
         menuNavBar.add(menuProfil);
 
         menuLogOut.setText("Logout");
         menuLogOut.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        menuItemLogout.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        menuItemLogout.setText("Logout");
+        menuItemLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemLogoutActionPerformed(evt);
+            }
+        });
+        menuLogOut.add(menuItemLogout);
+
         menuNavBar.add(menuLogOut);
 
         setJMenuBar(menuNavBar);
@@ -122,6 +152,43 @@ public class FormDashboardCustomer extends javax.swing.JFrame implements Runnabl
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void menuItemLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemLogoutActionPerformed
+        int confirm = JOptionPane.showConfirmDialog(this,"Are you sure want to logout?",
+                "Logout Confirmation",JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                sendMessageToServer("LOGOUT");
+                clientSocket.close();
+                
+                FormLogin login = new FormLogin();
+                login.setVisible(true);
+                this.dispose();
+            } catch (IOException ex) {
+                Logger.getLogger(FormDashboardCustomer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_menuItemLogoutActionPerformed
+
+    private void menuItemProfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemProfilActionPerformed
+        try {
+            // TODO add your handling code here:
+            FormProfil profilForm = new FormProfil(currentUsername, clientSocket, in, out);
+            profilForm.setVisible(true);
+            this.dispose();
+        } catch (IOException ex) {
+            Logger.getLogger(FormDashboardCustomer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_menuItemProfilActionPerformed
+
+    private void menuItemReservationHisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemReservationHisActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuItemReservationHisActionPerformed
+
+    private void menuItemNewReservationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemNewReservationActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuItemNewReservationActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,8 +220,7 @@ public class FormDashboardCustomer extends javax.swing.JFrame implements Runnabl
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Account a = new Account();
-                new FormDashboardCustomer(a).setVisible(true);
+                new FormDashboardCustomer().setVisible(true);
             }
         });
     }
@@ -162,38 +228,28 @@ public class FormDashboardCustomer extends javax.swing.JFrame implements Runnabl
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblName;
+    private javax.swing.JMenuItem menuItemLogout;
+    private javax.swing.JMenuItem menuItemNewReservation;
+    private javax.swing.JMenuItem menuItemProfil;
+    private javax.swing.JMenuItem menuItemReservationHis;
     private javax.swing.JMenu menuLogOut;
     private javax.swing.JMenuBar menuNavBar;
-    private javax.swing.JMenu menuNewReservation;
     private javax.swing.JMenu menuProfil;
     private javax.swing.JMenu menuReservation;
-    private javax.swing.JMenu menuReservationHistory;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public void run() {
-        sendMessage(user.getUsername() + ";LOGIN");
-        while (true) {
-            try {
-                getMessage();
-            } catch (Exception ex) {
-                System.out.println("Error di client : " + ex);
-            }
-        }
-    }
     
-    private void getMessage() throws IOException {
-        String chatServer;
-        chatServer = in.readLine();
+    private String getMessageFromServer() throws IOException {
+        return in.readLine();
     }
 
-    public void sendMessage(String message) {
+    public void sendMessageToServer(String message) {
         try {
-            out.writeBytes(user.getUsername() + ": " + message + "\n");
+            out.writeBytes(message + "\n");
         } catch (Exception e) {
             System.out.println("Error di send message client");
         }

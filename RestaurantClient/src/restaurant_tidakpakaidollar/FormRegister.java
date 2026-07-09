@@ -4,6 +4,15 @@
  */
 package restaurant_tidakpakaidollar;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author LEGION
@@ -13,8 +22,18 @@ public class FormRegister extends javax.swing.JFrame {
     /**
      * Creates new form FormRegister
      */
+    Socket clientSocket;
+    BufferedReader in;
+    DataOutputStream out;
     public FormRegister() {
         initComponents();
+    }
+    public FormRegister(Socket pClientSocket, BufferedReader pIn, DataOutputStream pOut) throws IOException {
+        initComponents();
+        setLocationRelativeTo(null);
+        clientSocket = pClientSocket;
+        in = pIn;
+        out = pOut;
     }
 
     /**
@@ -177,30 +196,44 @@ public class FormRegister extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(this, "Password does not match!", "Failed", javax.swing.JOptionPane.ERROR_MESSAGE);
             return;
         }
-
         try {
-            boolean isSuccess = registerDB(username, password, fullname, phone);
-            
-            if (isSuccess) {
+            String register = "GET_REGISTER;" + username + ";" + password + ";" + fullname + ";" + phone;
+            sendMessageToServer(register);
+            String response = getMessageFromServer();
+            if (response.equals("REGISTER_FAILED")) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Username already used, please change with another username", "Failed", javax.swing.JOptionPane.ERROR_MESSAGE);
+            } else if (response.equals("REGISTER_SUCCESS")) {
                 javax.swing.JOptionPane.showMessageDialog(this, "New account registration was successful, Please Re-Login", "Message", javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 FormLogin loginForm = new FormLogin();
                 loginForm.setVisible(true);
-                this.dispose(); 
-            } else {
-                javax.swing.JOptionPane.showMessageDialog(this, "Username already used, please change with another username", "Failed", javax.swing.JOptionPane.ERROR_MESSAGE);
-            }
+                this.dispose();
+            }           
         } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, "Error connecting to Web Service: " + ex.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // TODO add your handling code here:
-        FormLogin loginForm = new FormLogin();
-        loginForm.setVisible(true);
-        this.dispose();
+        try {
+            // TODO add your handling code here:
+            FormLogin loginForm = new FormLogin(clientSocket, in, out);
+            loginForm.setVisible(true);
+            this.dispose();
+        } catch (IOException ex) {
+            Logger.getLogger(FormRegister.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnLoginActionPerformed
+    private String getMessageFromServer() throws IOException {
+        return in.readLine();
+    }
 
+    public void sendMessageToServer(String message) {
+        try {
+            out.writeBytes(message + "\n");
+        } catch (Exception e) {
+            System.out.println("Error di send message client");
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -252,10 +285,6 @@ public class FormRegister extends javax.swing.JFrame {
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 
-    private static Boolean registerDB(java.lang.String username, java.lang.String password, java.lang.String fullname, java.lang.String phone) {
-        com.restaurant.services.AccountWS_Service service = new com.restaurant.services.AccountWS_Service();
-        com.restaurant.services.AccountWS port = service.getAccountWSPort();
-        return port.registerDB(username, password, fullname, phone);
-    }
+    
 
 }

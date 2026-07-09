@@ -5,8 +5,14 @@
 package restaurant_tidakpakaidollar;
 
 import admin_tidakpakedollar.*;
-import com.restaurant.services.Account;
 import customer_tidakpakedollar.*;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,8 +24,20 @@ public class FormLogin extends javax.swing.JFrame {
     /**
      * Creates new form FormLogin
      */
-    public FormLogin() {
+    Socket clientSocket;
+    BufferedReader in;
+    DataOutputStream out;
+    public FormLogin() throws IOException {
         initComponents();
+        clientSocket = new Socket("localhost", 6000);
+        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        out = new DataOutputStream(clientSocket.getOutputStream());
+    }
+    public FormLogin(Socket pClientSocket, BufferedReader pIn, DataOutputStream pOut) throws IOException {
+        initComponents();
+        clientSocket = pClientSocket;
+        in = pIn;
+        out = pOut;
     }
 
     /**
@@ -39,7 +57,7 @@ public class FormLogin extends javax.swing.JFrame {
         btnLogin = new javax.swing.JButton();
         btnRegister = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         lblLogin.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblLogin.setText("Restaurant Login");
@@ -120,9 +138,13 @@ public class FormLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-        FormRegister registerForm = new FormRegister();
-        registerForm.setVisible(true);
-        this.dispose();
+        try {
+            FormRegister registerForm = new FormRegister(clientSocket, in, out);
+            registerForm.setVisible(true);
+            this.dispose();
+        } catch (IOException ex) {
+            Logger.getLogger(FormLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
@@ -132,21 +154,28 @@ public class FormLogin extends javax.swing.JFrame {
         if (username.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Username or Password is Empty");
         } else {
-            Account user = checkLogin(username, password);
-            if (user == null) {
-                JOptionPane.showMessageDialog(this, "Failed Login");
-            } else {                
-                JOptionPane.showMessageDialog(this, "Success Login");
-                if (user.getRole().equals("CUSTOMER")) {
-                    FormDashboardCustomer dashboardForm = new FormDashboardCustomer(user);
-                    dashboardForm.setVisible(true);
-                    this.dispose();
+            String login = "GET_LOGIN;" + username + ";" + password;
+            sendMessageToServer(login);
+            try {
+                String response = getMessageFromServer();
+                if (response.equals("LOGIN_FAILED")) {
+                    JOptionPane.showMessageDialog(this, "Failed Login");
+                } else if (response.contains("LOGIN_SUCCESS")){
+                    JOptionPane.showMessageDialog(this, "Success Login");
+                    String role = response.split(";")[1];
+                    if (role.equals("CUSTOMER")) {
+                        FormDashboardCustomer dashboardForm = new FormDashboardCustomer(txtUsername.getText(), clientSocket, in, out);
+                        dashboardForm.setVisible(true);
+                        this.dispose();
+                    }
+                    else if (role.equals("ADMIN")) {
+                        FormDashboardAdmin dashboardForm = new FormDashboardAdmin(txtUsername.getText(), clientSocket, in, out);
+                        dashboardForm.setVisible(true);
+                        this.dispose();
+                    }
                 }
-                else if (user.getRole().equals("ADMIN")) {
-                    FormDashboardAdmin dashboardForm = new FormDashboardAdmin(user);
-                    dashboardForm.setVisible(true);
-                    this.dispose();
-                }
+            } catch (IOException ex) {
+                Logger.getLogger(FormLogin.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_btnLoginActionPerformed
@@ -181,7 +210,11 @@ public class FormLogin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormLogin().setVisible(true);
+                try {
+                    new FormLogin().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(FormLogin.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -196,10 +229,16 @@ public class FormLogin extends javax.swing.JFrame {
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 
-    private static Account checkLogin(java.lang.String username, java.lang.String password) {
-        com.restaurant.services.AccountWS_Service service = new com.restaurant.services.AccountWS_Service();
-        com.restaurant.services.AccountWS port = service.getAccountWSPort();
-        return port.checkLogin(username, password);
+    private String getMessageFromServer() throws IOException {
+        return in.readLine();
+    }
+
+    public void sendMessageToServer(String message) {
+        try {
+            out.writeBytes(message + "\n");
+        } catch (Exception e) {
+            System.out.println("Error di send message client");
+        }
     }
 
     

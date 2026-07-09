@@ -4,6 +4,7 @@
  */
 package restaurantserver;
 
+import com.restaurant.services.*;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -41,10 +42,36 @@ public class HandleSocket extends Thread{
         {
             try {
                 String chat = in.readLine();
-                if (chat.contains(";LOGIN")) {
-                    System.out.println(chat.split(":")[0] + " LOG IN");
-                    
-                } else {
+                if (chat.contains("GET_LOGIN;")) {
+                    String[] users = chat.split(";");
+                    String role = checkLogin(users[1], users[2]);
+                    if(role.equals("")) {
+                        out.writeBytes("LOGIN_FAILED\n");
+                    }
+                    else {
+                        out.writeBytes("LOGIN_SUCCESS;" + role + "\n");
+                    }
+                }
+                else if (chat.contains("GET_REGISTER;")) {
+                    String[] users = chat.split(";");
+                    if(registerDB(users[1], users[2], users[3], users[4])) {
+                        out.writeBytes("REGISTER_SUCCESS\n");
+                    }
+                    else {
+                        out.writeBytes("REGISTER_FAILED\n");
+                    }
+                }
+                else if (chat.contains("GET_DETAILS")) {
+                    out.writeBytes(getDetails(chat.split(";")[1]) + "\n");
+                }
+                else if (chat.contains(";LOGIN")) {
+                    System.out.println(chat.split(";")[0] + " LOG IN");                    
+                } 
+                else if (chat.contains("LOGOUT")) {
+                    server.removeClient(client);
+                    System.out.println("Client logout: " + client.getInetAddress());
+                } 
+                else {
                     
                 }
             } catch (IOException ex) {
@@ -52,5 +79,26 @@ public class HandleSocket extends Thread{
             }
             
         }
+    } 
+
+    private static Boolean registerDB(java.lang.String username, java.lang.String password, java.lang.String fullname, java.lang.String phone) {
+        com.restaurant.services.AccountWS_Service service = new com.restaurant.services.AccountWS_Service();
+        com.restaurant.services.AccountWS port = service.getAccountWSPort();
+        return port.registerDB(username, password, fullname, phone);
     }
+
+    private static String checkLogin(java.lang.String username, java.lang.String password) {
+        com.restaurant.services.AccountWS_Service service = new com.restaurant.services.AccountWS_Service();
+        com.restaurant.services.AccountWS port = service.getAccountWSPort();
+        return port.checkLogin(username, password);
+    }
+
+    private static String getDetails(java.lang.String username) {
+        com.restaurant.services.AccountWS_Service service = new com.restaurant.services.AccountWS_Service();
+        com.restaurant.services.AccountWS port = service.getAccountWSPort();
+        return port.getDetails(username);
+    }
+    
+    
+    
 }

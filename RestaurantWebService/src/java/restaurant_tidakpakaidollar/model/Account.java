@@ -148,6 +148,31 @@ public class Account extends MyModel {
             System.out.println("Error di update data Account: " + ex.getMessage());
         }
     }
+    
+    public String getDetails(String pUsername) {
+        String profiles = "";
+        try {    
+            if (!MyModel.conn.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                        "SELECT * FROM account WHERE username = ?");
+                System.out.println(pUsername);
+                sql.setString(1, pUsername);
+                this.result = sql.executeQuery();
+                
+                if (this.result.next()) {
+                    profiles = this.result.getInt("id") + ";" + 
+                            this.result.getString("fullname") + ";" + 
+                            this.result.getString("phone_number");
+                }                      
+                sql.close();
+            }
+            
+        } catch (Exception ex) {
+            System.out.println("Error di getDetails Account: " + ex.getMessage());
+        }
+        System.out.println(profiles);
+        return profiles;
+    }
 
     @Override
     public void deleteData() {
@@ -223,8 +248,8 @@ public class Account extends MyModel {
         }
         return false;
     }
-    public Account checkLogin(String username, String password){
-        Account a = null;
+    public String checkLogin(String username, String password){
+        String role = "";
         try {
             if (!MyModel.conn.isClosed()) {
                 
@@ -236,18 +261,13 @@ public class Account extends MyModel {
 
                 this.result = sql.executeQuery();
                 if (this.result.next()) {
-                    a = new Account();
-                    a.setId(result.getInt("id"));
-                    a.setUsername(result.getString("username"));
-                    a.setPhone_number(result.getString("phone_number"));
-                    a.setFullname(result.getString("fullname"));
-                    a.setRole(result.getString("role"));
+                    role = result.getString("role");
                 }
                 sql.close();
             }
         } catch (Exception ex) {
             System.out.println("Error di checkLogin data: " + ex.getMessage());
         }
-        return a;
+        return role;
     }
 }

@@ -14,6 +14,7 @@ import java.util.ArrayList;
  *
  * @author Giffert
  */
+
 public class RestaurantServer implements Runnable{
     String chatClient, chatServer;
     Socket incoming;
@@ -43,6 +44,16 @@ public class RestaurantServer implements Runnable{
     }
     public static void main(String[] args) {
          new RestaurantServer();
+    }
+    
+    public void removeClient(Socket pSocket) {
+        for (HandleSocket h : clients) {
+            if (h.client.equals(pSocket)) {
+                clients.remove(h);
+                break;
+            }
+        }
+        System.out.println("jumlah client: " + clients.size());
     }
 
     @Override

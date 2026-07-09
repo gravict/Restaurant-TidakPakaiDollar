@@ -45,9 +45,20 @@ public class AccountWS {
     /**
      * Web service operation
      */
-    @WebMethod(operationName = "CheckLogin")
-    public Account CheckLogin(@WebParam(name = "username") String username, @WebParam(name = "password") String password) {
+    @WebMethod(operationName = "checkLogin")
+    public String checkLogin(@WebParam(name = "username") String username, @WebParam(name = "password") String password) {
         //TODO write your implementation code here:
         return model.checkLogin(username, password);
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getDetails")
+    public String getDetails(@WebParam(name = "username") String username) {
+        //TODO write your implementation code here:
+        return model.getDetails(username);
+    }
+
+    
 }
