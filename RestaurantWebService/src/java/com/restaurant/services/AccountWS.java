@@ -15,45 +15,45 @@ import restaurant_tidakpakaidollar.model.Account;
  */
 @WebService(serviceName = "AccountWS")
 public class AccountWS {
+
     Account model = new Account();
 
-    /**
-     * This is a sample web service operation
-     */
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
         return "Hello " + txt + " !";
-    }   
+    }
 
-    /**
-     * Web service operation
-     */
     @WebMethod(operationName = "registerDB")
-    public Boolean registerDB(@WebParam(name = "username") String username, 
-                              @WebParam(name = "password") String password,
-                              @WebParam(name = "fullname") String fullname,
-                              @WebParam(name = "phone") String phone) {
-    model = new Account(username, password, phone, fullname, "CUSTOMER");
-    if (!model.checkUsername().isEmpty()) {
+    public Boolean registerDB(@WebParam(name = "username") String username,
+            @WebParam(name = "password") String password,
+            @WebParam(name = "fullname") String fullname,
+            @WebParam(name = "phone") String phone) {
+        model = new Account(username, password, phone, fullname, "CUSTOMER");
+        if (!model.checkUsername().isEmpty()) {
             return false;
         }
-        
         model.insertData();
         return true;
     }
 
-    /**
-     * Web service operation
-     */
     @WebMethod(operationName = "checkLogin")
     public String checkLogin(@WebParam(name = "username") String username, @WebParam(name = "password") String password) {
         //TODO write your implementation code here:
         return model.checkLogin(username, password);
     }
 
-    /**
-     * Web service operation
-     */
+    @WebMethod(operationName = "updateProfile")
+    public String updateProfile(
+            @WebParam(name = "id") int id,
+            @WebParam(name = "username") String username,
+            @WebParam(name = "fullname") String fullname,
+            @WebParam(name = "phone") String phone,
+            @WebParam(name = "oldPassword") String oldPassword,
+            @WebParam(name = "newPassword") String newPassword) {
+
+        return model.updateProfile(id, username, fullname, phone, oldPassword, newPassword);
+    }
+
     @WebMethod(operationName = "getDetails")
     public String getDetails(@WebParam(name = "username") String username) {
         //TODO write your implementation code here:

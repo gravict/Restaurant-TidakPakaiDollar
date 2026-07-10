@@ -201,7 +201,36 @@ public class FormProfil extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
-        // TODO add your handling code here:
+        String fullName = txtNamaLengkap.getText().trim();
+        String phone = txtNomorTelepon.getText().trim();
+        String username = txtUsername.getText().trim();
+        String newPassword = new String(txtPassword.getPassword()); // txtPassword = New Password
+        String oldPassword = new String(txtRepeatPassword.getPassword()); // txtRepeatPassword = Old Password
+
+        if (fullName.isEmpty() || phone.isEmpty() || username.isEmpty() || oldPassword.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Harap isi Nama Lengkap, No. Handphone, Username, dan Old Password!",
+                    "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            String request = "UPDATE_PROFILE;" + id + ";" + username + ";" + fullName + ";" + phone + ";" + oldPassword + ";" + newPassword;
+            sendMessageToServer(request);
+
+            String response = getMessageFromServer();
+
+            if (response.equals("UPDATE_SUCCESS")) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Profil berhasil diperbarui!", "Sukses", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                currentUsername = username;
+            } else if (response.equals("WRONG_PASSWORD")) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Password lama salah! Pembaruan dibatalkan.", "Gagal", javax.swing.JOptionPane.ERROR_MESSAGE);
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Gagal memperbarui profil!", "Gagal", javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (java.io.IOException ex) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Terjadi kesalahan koneksi: " + ex.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnChangeActionPerformed
 
     /**

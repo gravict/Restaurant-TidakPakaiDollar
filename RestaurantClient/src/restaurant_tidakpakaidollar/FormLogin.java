@@ -171,7 +171,7 @@ public class FormLogin extends javax.swing.JFrame {
         String username = txtUsername.getText();
         String password = String.valueOf(txtPasswordLogin.getPassword());
         if (username.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Username or Password is Empty");
+            JOptionPane.showMessageDialog(this, "Username atau Password kosong");
         } else {
             String login = "GET_LOGIN;" + username + ";" + password;
             sendMessageToServer(login);
@@ -179,11 +179,11 @@ public class FormLogin extends javax.swing.JFrame {
                 String response = getMessageFromServer();
                 if (response.equals("LOGIN_FAILED")) 
                 {
-                    JOptionPane.showMessageDialog(this, "Failed Login");
+                    JOptionPane.showMessageDialog(this, "Login Gagal");
                 } 
                 else if (response.contains("LOGIN_SUCCESS")){ 
-                    sendMessageToServer(username + ";LOGIN");
-                    JOptionPane.showMessageDialog(this, "Success Login");
+                    // sendMessageToServer(username + ";LOGIN");
+                    JOptionPane.showMessageDialog(this, "Login Sukses");
                     String role = response.split(";")[1];
                     if (role.equals("CUSTOMER")) {
                         FormDashboardCustomer dashboardForm = new FormDashboardCustomer(Integer.parseInt(response.split(";")[2]), txtUsername.getText(), clientSocket, in, out);

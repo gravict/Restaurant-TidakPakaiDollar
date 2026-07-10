@@ -138,18 +138,13 @@
     <Component class="javax.swing.JComboBox" name="cmbJam">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="11">
+          <StringArray count="6">
             <StringItem index="0" value="10:00"/>
-            <StringItem index="1" value="11:00"/>
-            <StringItem index="2" value="12:00"/>
-            <StringItem index="3" value="13:00"/>
-            <StringItem index="4" value="14:00"/>
-            <StringItem index="5" value="15:00"/>
-            <StringItem index="6" value="16:00"/>
-            <StringItem index="7" value="17:00"/>
-            <StringItem index="8" value="18:00"/>
-            <StringItem index="9" value="19:00"/>
-            <StringItem index="10" value="20:00"/>
+            <StringItem index="1" value="12:00"/>
+            <StringItem index="2" value="14:00"/>
+            <StringItem index="3" value="16:00"/>
+            <StringItem index="4" value="18:00"/>
+            <StringItem index="5" value="20:00"/>
           </StringArray>
         </Property>
       </Properties>

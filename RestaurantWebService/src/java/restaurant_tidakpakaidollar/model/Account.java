@@ -248,31 +248,80 @@ public class Account extends MyModel {
         }
         return false;
     }
-    public String checkLogin(String username, String password){
-        int pId = 0;
-        String pRole = "";
+    public String checkLogin(String username, String password) {
         try {
             if (!MyModel.conn.isClosed()) {
-                
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
-                    "SELECT * FROM account WHERE username = ? AND password = SHA2(?,256)"
+                        "SELECT * FROM account WHERE username = ? AND password = SHA2(?,256)"
                 );
                 sql.setString(1, username);
                 sql.setString(2, password);
 
                 this.result = sql.executeQuery();
+
+                // Jika data ditemukan, langsung kembalikan role dan id
                 if (this.result.next()) {
-                    pId = result.getInt("id");
-                    pRole = result.getString("role");
+                    int pId = result.getInt("id");
+                    String pRole = result.getString("role");
+                    sql.close();
+
+                    return pRole + ";" + pId;
                 }
                 sql.close();
             }
         } catch (Exception ex) {
             System.out.println("Error di checkLogin data: " + ex.getMessage());
         }
-        return pRole + ";" + pId;
-    }
+    
+    // Jika tidak ditemukan atau terjadi error, kembalikan string kosong
+    return ""; 
+}
+    public String updateProfile(int pId, String pUsername, String pFullname, String pPhone, String pOldPass, String pNewPass) {
+        try {
+            if (!MyModel.conn.isClosed()) {
+                PreparedStatement checkSql = MyModel.conn.prepareStatement("SELECT * FROM account WHERE id = ? AND password = SHA2(?,256)");
+                checkSql.setInt(1, pId);
+                checkSql.setString(2, pOldPass);
+                this.result = checkSql.executeQuery();
 
+                if (!this.result.next()) {
+                    checkSql.close();
+                    return "WRONG_PASSWORD";
+                }
+                checkSql.close();
+
+                String query;
+                PreparedStatement updateSql;
+
+                if (pNewPass == null || pNewPass.isEmpty()) {
+                    query = "UPDATE account SET username = ?, fullname = ?, phone_number = ?, updated_at = NOW() WHERE id = ?";
+                    updateSql = MyModel.conn.prepareStatement(query);
+                    updateSql.setString(1, pUsername);
+                    updateSql.setString(2, pFullname);
+                    updateSql.setString(3, pPhone);
+                    updateSql.setInt(4, pId);
+                } else {
+                    query = "UPDATE account SET username = ?, fullname = ?, phone_number = ?, password = SHA2(?,256), updated_at = NOW() WHERE id = ?";
+                    updateSql = MyModel.conn.prepareStatement(query);
+                    updateSql.setString(1, pUsername);
+                    updateSql.setString(2, pFullname);
+                    updateSql.setString(3, pPhone);
+                    updateSql.setString(4, pNewPass);
+                    updateSql.setInt(5, pId);
+                }
+
+                int row = updateSql.executeUpdate();
+                updateSql.close();
+
+                if (row > 0) {
+                    return "UPDATE_SUCCESS";
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error di updateProfile Account Model: " + e.getMessage());
+        }
+        return "UPDATE_FAILED";
+    }
     @Override
     public String viewListData() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

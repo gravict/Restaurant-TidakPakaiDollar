@@ -59,7 +59,18 @@ public class RestaurantServer implements Runnable{
             {
                 return "LOGIN_SUCCESS;" + user;
             }
-        } 
+        }
+        else if (request.contains("UPDATE_PROFILE;")) {
+            String[] data = request.split(";");
+            int id = Integer.parseInt(data[1]); // Ambil ID
+            String newUsername = data[2];       // Ambil Username Baru
+            String fullname = data[3];
+            String phone = data[4];
+            String oldPass = data[5];
+            String newPass = (data.length > 6) ? data[6] : "";
+
+            return updateProfileDB(id, newUsername, fullname, phone, oldPass, newPass);
+        }
         else if (request.contains("GET_REGISTER;")) 
         {
             String[] users = request.split(";");
@@ -94,8 +105,6 @@ public class RestaurantServer implements Runnable{
                 return getMenuFiltered(menus[1], menus[2]);
             }
         }
-        
-        
         else if (request.contains(";LOGIN")) 
         {
             System.out.println(request.split(";")[0] + " LOG IN");
@@ -150,7 +159,11 @@ public class RestaurantServer implements Runnable{
         com.restaurant.services.AccountWS port = service.getAccountWSPort();
         return port.checkLogin(username, password);
     }
-
+    private static String updateProfileDB(int id, String username, String fullname, String phone, String oldPass, String newPass) {
+        com.restaurant.services.AccountWS_Service service = new com.restaurant.services.AccountWS_Service();
+        com.restaurant.services.AccountWS port = service.getAccountWSPort();
+        return port.updateProfile(id, username, fullname, phone, oldPass, newPass);
+    }
     private static String getDetails(java.lang.String username) {
         com.restaurant.services.AccountWS_Service service = new com.restaurant.services.AccountWS_Service();
         com.restaurant.services.AccountWS port = service.getAccountWSPort();

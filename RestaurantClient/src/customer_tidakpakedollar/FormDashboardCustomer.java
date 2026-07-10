@@ -174,7 +174,6 @@ public class FormDashboardCustomer extends javax.swing.JFrame {
 
     private void menuItemProfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemProfilActionPerformed
         try {
-            // TODO add your handling code here:
             FormProfil profilForm = new FormProfil(currentUsername, clientSocket, in, out);
             profilForm.setVisible(true);
             this.dispose();

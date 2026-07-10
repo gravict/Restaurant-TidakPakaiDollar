@@ -81,7 +81,7 @@ public class FormNewReservation extends javax.swing.JFrame implements Runnable{
         lblGuest.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblGuest.setText("Number of Guest");
 
-        cmbJam.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00" }));
+        cmbJam.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10:00", "12:00", "14:00", "16:00", "18:00", "20:00" }));
 
         spinnerGuest.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
@@ -195,7 +195,7 @@ public class FormNewReservation extends javax.swing.JFrame implements Runnable{
             Timestamp currentTime = new java.sql.Timestamp(System.currentTimeMillis());
             if (tanggalReservasi.before(currentTime)) {
             javax.swing.JOptionPane.showMessageDialog(this, 
-                "Maaf, Anda tidak bisa melakukan reservasi untuk tanggal yang sudah berlalu.", 
+                "Maaf, Anda tidak bisa melakukan reservasi untuk waktu yang sudah berlalu.", 
                 "Peringatan Reservasi", 
                 javax.swing.JOptionPane.WARNING_MESSAGE); 
             return;
