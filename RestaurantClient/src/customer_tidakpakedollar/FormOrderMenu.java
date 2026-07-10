@@ -4,6 +4,15 @@
  */
 package customer_tidakpakedollar;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Nicholas
@@ -13,8 +22,43 @@ public class FormOrderMenu extends javax.swing.JFrame {
     /**
      * Creates new form FormOrderMenu
      */
+    int currentUserId;
+    String currentUsername;
+    int reservationId;
+    Socket clientSocket;
+    BufferedReader in;
+    DataOutputStream out;
+    String response;
+    
+    String[][] allMenu;
     public FormOrderMenu() {
         initComponents();
+    }
+    public FormOrderMenu(int userId, String username, int pReservationId, Socket pClientSocket, BufferedReader pIn, DataOutputStream pOut) throws IOException {
+        initComponents();
+        currentUserId = userId;
+        currentUsername = username;
+        reservationId = pReservationId;
+        setLocationRelativeTo(null);
+        clientSocket = pClientSocket;
+        in = pIn;
+        out = pOut;
+        
+        String request = "GET_MENU";
+        sendMessageToServer(request);
+        
+        String menus = getMessageFromServer();
+        
+        String[] menuItem = menus.split("#");
+        allMenu = new String[menuItem.length][5];
+        
+        for (int i = 0; i < menuItem.length; i++) {
+            String menuItemDetail[] = menuItem[i].split(";");
+            for (int j = 0; j < 5; j++) {
+                allMenu[i][j] = menuItemDetail[j];
+            }
+        }        
+        refreshTable();
     }
 
     /**
@@ -26,7 +70,6 @@ public class FormOrderMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnExit = new javax.swing.JButton();
         lblCreateOrder = new javax.swing.JLabel();
         jScrollPaneDaftarMenu = new javax.swing.JScrollPane();
         tblMenu = new javax.swing.JTable();
@@ -49,11 +92,11 @@ public class FormOrderMenu extends javax.swing.JFrame {
         btnPesan = new javax.swing.JButton();
         btnHitung = new javax.swing.JButton();
         lblTotal = new javax.swing.JLabel();
+        btnCari = new javax.swing.JButton();
+        lblCari1 = new javax.swing.JLabel();
+        cmbCari = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        btnExit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnExit.setText("Exit");
 
         lblCreateOrder.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblCreateOrder.setText("Create Order");
@@ -108,6 +151,11 @@ public class FormOrderMenu extends javax.swing.JFrame {
 
         btnTambahOrder.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnTambahOrder.setText("Tambah");
+        btnTambahOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTambahOrderActionPerformed(evt);
+            }
+        });
 
         spinnerJumlah.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         spinnerJumlah.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
@@ -152,37 +200,76 @@ public class FormOrderMenu extends javax.swing.JFrame {
         lblCari.setText("Cari");
 
         txtCariMenu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtCariMenu.setEnabled(false);
 
         cmbKategori.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         cmbKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Makanan", "Minuman" }));
 
         btnPesan.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnPesan.setText("Pesan");
+        btnPesan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesanActionPerformed(evt);
+            }
+        });
 
         btnHitung.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnHitung.setText("Hitung");
+        btnHitung.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHitungActionPerformed(evt);
+            }
+        });
 
         lblTotal.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTotal.setText("Total: Rp.XXXXXX");
+
+        btnCari.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnCari.setText("Cari");
+        btnCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCariActionPerformed(evt);
+            }
+        });
+
+        lblCari1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblCari1.setText("Cari Berdasarkan");
+
+        cmbCari.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        cmbCari.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Kategori", "Nama" }));
+        cmbCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbCariActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(136, 136, 136)
+                        .addComponent(lblDaftarMenu)
+                        .addGap(133, 133, 133))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(115, 115, 115)
-                        .addComponent(lblDaftarMenu))
-                    .addComponent(btnExit)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblCari)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmbKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCariMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(lblCari1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cmbCari, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCari))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(lblCari)
+                                .addGap(18, 18, 18)
+                                .addComponent(cmbKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtCariMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPaneDaftarMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnHitung)
@@ -190,13 +277,13 @@ public class FormOrderMenu extends javax.swing.JFrame {
                         .addComponent(lblTotal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnPesan))
-                    .addComponent(jScrollPaneKeranjangPesanan)
+                    .addComponent(jScrollPaneKeranjangPesanan, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnJumlah)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(spinnerJumlah, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
+                                .addComponent(spinnerJumlah))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnKode)
                                 .addGap(22, 22, 22)
@@ -221,19 +308,24 @@ public class FormOrderMenu extends javax.swing.JFrame {
                 .addGap(355, 355, 355)
                 .addComponent(lblCreateOrder)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(22, 22, 22)
-                    .addComponent(jScrollPaneDaftarMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(506, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(lblCreateOrder))
+                        .addComponent(lblCreateOrder)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnCari)
+                            .addComponent(cmbCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCari1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblCari)
+                            .addComponent(txtCariMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(43, 43, 43)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -246,10 +338,7 @@ public class FormOrderMenu extends javax.swing.JFrame {
                                     .addComponent(btnKode)
                                     .addComponent(spinnerKode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblNamaMenu)
-                                    .addComponent(txtNamaMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblCari)
-                                    .addComponent(txtCariMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cmbKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtNamaMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(btnJumlah)
@@ -258,27 +347,109 @@ public class FormOrderMenu extends javax.swing.JFrame {
                                     .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(btnTambahOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(3, 3, 3)))))
-                .addGap(19, 19, 19)
-                .addComponent(jScrollPaneKeranjangPesanan, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnExit)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnPesan)
-                        .addComponent(btnHitung)
-                        .addComponent(lblTotal)))
-                .addContainerGap(21, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(131, 131, 131)
-                    .addComponent(jScrollPaneDaftarMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(60, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPaneKeranjangPesanan, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnPesan)
+                            .addComponent(btnHitung)
+                            .addComponent(lblTotal)))
+                    .addComponent(jScrollPaneDaftarMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
+        try {
+            String filterBy = "", value = "";
+            if (cmbCari.getSelectedIndex() == 0) {
+                filterBy = "category";
+                value = cmbKategori.getSelectedItem().toString();
+                if (value == "Makanan") 
+                {
+                    value = "FOOD";
+                }
+                else 
+                {
+                    value = "DRINK";
+                }
+            } else if (cmbCari.getSelectedIndex() == 1) {
+                filterBy = "name";
+                value = txtCariMenu.getText();
+            }
+            
+            String request = "GET_MENU;" + filterBy + ";" + value;
+            sendMessageToServer(request);
+            
+            String menus = getMessageFromServer();
+            String[] menuItem = menus.split("#");
+            allMenu = new String[menuItem.length][5];
+            
+            for (int i = 0; i < menuItem.length; i++) {
+                String menuItemDetail[] = menuItem[i].split(";");
+                for (int j = 0; j < 5; j++) {
+                    allMenu[i][j] = menuItemDetail[j];
+                }
+            }
+            refreshTable();
+        } catch (IOException ex) {
+            Logger.getLogger(FormOrderMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnCariActionPerformed
+
+    private void btnHitungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHitungActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnHitungActionPerformed
+
+    private void btnTambahOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahOrderActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTambahOrderActionPerformed
+
+    private void btnPesanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPesanActionPerformed
+
+    private void cmbCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCariActionPerformed
+        if (cmbCari.getSelectedIndex() == 0) {
+            cmbKategori.setEnabled(true);
+            txtCariMenu.setEnabled(false);
+        } else if (cmbCari.getSelectedIndex() == 1) {
+            cmbKategori.setEnabled(false);
+            txtCariMenu.setEnabled(true);
+        }
+    }//GEN-LAST:event_cmbCariActionPerformed
+    
+    public void refreshTable() {
+
+        DefaultTableModel model = (DefaultTableModel) tblMenu.getModel();
+        model.setRowCount(0);
+
+        Object[] rowData = new Object[5];
+        
+        for (int i = 0; i < allMenu.length; i++) {
+            for (int j = 0; j < 5; j++) {
+                rowData[j] = allMenu[i][j];
+            }
+            model.addRow(rowData);
+        }
+    }
+    
+    private String getMessageFromServer() throws IOException {
+        return in.readLine();
+    }
+
+    public void sendMessageToServer(String message) {
+        try {
+            out.writeBytes(message + "\n");
+        } catch (Exception e) {
+            System.out.println("Error di send message client");
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -315,16 +486,18 @@ public class FormOrderMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnCari;
     private javax.swing.JButton btnHitung;
     private javax.swing.JLabel btnJumlah;
     private javax.swing.JLabel btnKode;
     private javax.swing.JButton btnPesan;
     private javax.swing.JButton btnTambahOrder;
+    private javax.swing.JComboBox<String> cmbCari;
     private javax.swing.JComboBox<String> cmbKategori;
     private javax.swing.JScrollPane jScrollPaneDaftarMenu;
     private javax.swing.JScrollPane jScrollPaneKeranjangPesanan;
     private javax.swing.JLabel lblCari;
+    private javax.swing.JLabel lblCari1;
     private javax.swing.JLabel lblCreateOrder;
     private javax.swing.JLabel lblDaftarMenu;
     private javax.swing.JLabel lblHarga;

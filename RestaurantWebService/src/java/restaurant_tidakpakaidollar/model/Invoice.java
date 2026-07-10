@@ -6,6 +6,7 @@ package restaurant_tidakpakaidollar.model;
 
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 /**
  *
@@ -111,5 +112,10 @@ public class Invoice extends MyModel{
         } catch (Exception ex) {
             System.out.println("Error di delete data Invoice: " + ex.getMessage());
         }
+    }
+
+    @Override
+    public String viewListData() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

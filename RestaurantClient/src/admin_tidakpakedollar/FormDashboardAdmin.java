@@ -23,6 +23,7 @@ public class FormDashboardAdmin extends javax.swing.JFrame {
     /**
      * Creates new form FormDashboardAdmin
      */
+    int currentUserId;
     String currentUsername;
     Socket clientSocket;
     BufferedReader in;
@@ -30,10 +31,11 @@ public class FormDashboardAdmin extends javax.swing.JFrame {
     public FormDashboardAdmin() {
         initComponents();
     }
-    public FormDashboardAdmin(String username, Socket pClientSocket, BufferedReader pIn, DataOutputStream pOut) 
+    public FormDashboardAdmin(int userId, String username, Socket pClientSocket, BufferedReader pIn, DataOutputStream pOut) 
     {
         initComponents();
         try {
+            currentUserId = userId;
             currentUsername = username;            
             setLocationRelativeTo(null);
             clientSocket = pClientSocket;

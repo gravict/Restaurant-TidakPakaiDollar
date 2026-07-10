@@ -2,4 +2,8 @@
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
     <system systemId="http://localhost:8080/RestaurantWebService/AccountWS?wsdl" uri="wsdl/localhost_8080/RestaurantWebService/AccountWS.wsdl"/>
     <system systemId="http://localhost:8080/RestaurantWebService/AccountWS?xsd=1" uri="wsdl/localhost_8080/RestaurantWebService/AccountWS.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/RestaurantWebService/ReservationWS?wsdl" uri="wsdl/localhost_8080/RestaurantWebService/ReservationWS.wsdl"/>
+    <system systemId="http://localhost:8080/RestaurantWebService/ReservationWS?xsd=1" uri="wsdl/localhost_8080/RestaurantWebService/ReservationWS.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/RestaurantWebService/MenuWS?wsdl" uri="wsdl/localhost_8080/RestaurantWebService/MenuWS.wsdl"/>
+    <system systemId="http://localhost:8080/RestaurantWebService/MenuWS?xsd=1" uri="wsdl/localhost_8080/RestaurantWebService/MenuWS.xsd_1.xsd"/>
 </catalog>

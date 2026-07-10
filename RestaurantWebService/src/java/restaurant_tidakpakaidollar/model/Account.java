@@ -249,7 +249,8 @@ public class Account extends MyModel {
         return false;
     }
     public String checkLogin(String username, String password){
-        String role = "";
+        int pId = 0;
+        String pRole = "";
         try {
             if (!MyModel.conn.isClosed()) {
                 
@@ -261,13 +262,19 @@ public class Account extends MyModel {
 
                 this.result = sql.executeQuery();
                 if (this.result.next()) {
-                    role = result.getString("role");
+                    pId = result.getInt("id");
+                    pRole = result.getString("role");
                 }
                 sql.close();
             }
         } catch (Exception ex) {
             System.out.println("Error di checkLogin data: " + ex.getMessage());
         }
-        return role;
+        return pRole + ";" + pId;
+    }
+
+    @Override
+    public String viewListData() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

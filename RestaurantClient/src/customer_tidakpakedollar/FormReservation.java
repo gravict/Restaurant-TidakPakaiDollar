@@ -34,7 +34,7 @@ public class FormReservation extends javax.swing.JFrame {
         tblUpcomingReservation = new javax.swing.JTable();
         btnExit = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         tblReservationHistory.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tblReservationHistory.setModel(new javax.swing.table.DefaultTableModel(

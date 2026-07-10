@@ -33,5 +33,39 @@
         <delete dir="${build.generated.dir}/jax-wsCache/AccountWS"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/com/restaurant/services"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-AccountWS"/>
+    <target name="wsimport-client-ReservationWS" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/ReservationWS"/>
+        <property name="wsdl-ReservationWS" location="xml-resources/web-service-references/ReservationWS/wsdl/localhost_8080/RestaurantWebService/ReservationWS.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/ReservationWS" destdir="${build.generated.dir}/jax-wsCache/ReservationWS" wsdl="${wsdl-ReservationWS}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/RestaurantWebService/ReservationWS?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-ReservationWS}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/ReservationWS"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/ReservationWS">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-ReservationWS" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/ReservationWS"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/restaurant/services"/>
+    </target>
+    <target name="wsimport-client-MenuWS" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/MenuWS"/>
+        <property name="wsdl-MenuWS" location="xml-resources/web-service-references/MenuWS/wsdl/localhost_8080/RestaurantWebService/MenuWS.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/MenuWS" destdir="${build.generated.dir}/jax-wsCache/MenuWS" wsdl="${wsdl-MenuWS}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/RestaurantWebService/MenuWS?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-MenuWS}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/MenuWS"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/MenuWS">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-MenuWS" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/MenuWS"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/restaurant/services"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-AccountWS, wsimport-client-ReservationWS, wsimport-client-MenuWS"/>
 </project>

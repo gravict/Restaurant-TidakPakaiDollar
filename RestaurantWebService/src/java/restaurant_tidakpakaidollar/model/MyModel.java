@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -46,4 +47,5 @@ public abstract class MyModel {
     public abstract void insertData();
     public abstract void updateData();
     public abstract void deleteData();
+    public abstract String viewListData();
 }

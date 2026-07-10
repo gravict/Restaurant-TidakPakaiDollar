@@ -74,7 +74,7 @@ public class FormProfil extends javax.swing.JFrame {
         btnExit = new javax.swing.JButton();
         btnChange = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         lblRepeatPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRepeatPassword.setText("Old Password");
@@ -195,7 +195,7 @@ public class FormProfil extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        FormDashboardCustomer dashboardForm = new FormDashboardCustomer(currentUsername, clientSocket, in, out);
+        FormDashboardCustomer dashboardForm = new FormDashboardCustomer(id, currentUsername, clientSocket, in, out);
         dashboardForm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnExitActionPerformed

@@ -56,6 +56,8 @@ public class FormLogin extends javax.swing.JFrame {
         txtPasswordLogin = new javax.swing.JPasswordField();
         btnLogin = new javax.swing.JButton();
         btnRegister = new javax.swing.JButton();
+        btnExit = new javax.swing.JButton();
+        lblUsername1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
@@ -88,6 +90,17 @@ public class FormLogin extends javax.swing.JFrame {
             }
         });
 
+        btnExit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnExit.setText("Exit");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
+
+        lblUsername1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblUsername1.setText("Belum punya akun?");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -95,23 +108,25 @@ public class FormLogin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnLogin)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnRegister))
-                            .addGroup(layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(lblLogin))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnLogin, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblUsername)
-                                    .addComponent(lblPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnExit))
                                 .addGap(44, 44, 44)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                                    .addComponent(txtPasswordLogin)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(lblLogin)))
+                                    .addComponent(txtPasswordLogin)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(lblUsername1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnRegister)))))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -127,11 +142,15 @@ public class FormLogin extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPassword)
                     .addComponent(txtPasswordLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLogin)
-                    .addComponent(btnRegister))
-                .addGap(29, 29, 29))
+                    .addComponent(btnExit))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRegister)
+                    .addComponent(lblUsername1))
+                .addContainerGap())
         );
 
         pack();
@@ -158,19 +177,22 @@ public class FormLogin extends javax.swing.JFrame {
             sendMessageToServer(login);
             try {
                 String response = getMessageFromServer();
-                if (response.equals("LOGIN_FAILED")) {
+                if (response.equals("LOGIN_FAILED")) 
+                {
                     JOptionPane.showMessageDialog(this, "Failed Login");
-                } else if (response.contains("LOGIN_SUCCESS")){
+                } 
+                else if (response.contains("LOGIN_SUCCESS")){ 
+                    sendMessageToServer(username + ";LOGIN");
                     JOptionPane.showMessageDialog(this, "Success Login");
                     String role = response.split(";")[1];
                     if (role.equals("CUSTOMER")) {
-                        FormDashboardCustomer dashboardForm = new FormDashboardCustomer(txtUsername.getText(), clientSocket, in, out);
+                        FormDashboardCustomer dashboardForm = new FormDashboardCustomer(Integer.parseInt(response.split(";")[2]), txtUsername.getText(), clientSocket, in, out);
                         dashboardForm.setVisible(true);
                         this.dispose();
                     }
                     else if (role.equals("ADMIN")) {
-                        FormDashboardAdmin dashboardForm = new FormDashboardAdmin(txtUsername.getText(), clientSocket, in, out);
-                        dashboardForm.setVisible(true);
+                        FormDashboardAdmin dashboardAdminForm = new FormDashboardAdmin(Integer.parseInt(response.split(";")[2]), txtUsername.getText(), clientSocket, in, out);
+                        dashboardAdminForm.setVisible(true);
                         this.dispose();
                     }
                 }
@@ -179,6 +201,18 @@ public class FormLogin extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        try {
+            // TODO add your handling code here:
+            sendMessageToServer("LOGOUT");
+            clientSocket.close();           
+            
+            this.dispose();
+        } catch (IOException ex) {
+            Logger.getLogger(FormLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnExitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,11 +254,13 @@ public class FormLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExit;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnRegister;
     private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblUsername;
+    private javax.swing.JLabel lblUsername1;
     private javax.swing.JPasswordField txtPasswordLogin;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables

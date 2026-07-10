@@ -59,7 +59,7 @@ public class FormRegister extends javax.swing.JFrame {
         txtPassword = new javax.swing.JPasswordField();
         btnLogin = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         lblRegister.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblRegister.setText("Register Akun");
@@ -204,7 +204,7 @@ public class FormRegister extends javax.swing.JFrame {
                 javax.swing.JOptionPane.showMessageDialog(this, "Username already used, please change with another username", "Failed", javax.swing.JOptionPane.ERROR_MESSAGE);
             } else if (response.equals("REGISTER_SUCCESS")) {
                 javax.swing.JOptionPane.showMessageDialog(this, "New account registration was successful, Please Re-Login", "Message", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-                FormLogin loginForm = new FormLogin();
+                FormLogin loginForm = new FormLogin(clientSocket, in, out);
                 loginForm.setVisible(true);
                 this.dispose();
             }           

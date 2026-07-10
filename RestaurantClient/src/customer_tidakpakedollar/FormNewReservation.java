@@ -4,17 +4,51 @@
  */
 package customer_tidakpakedollar;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Giffert
  */
-public class FormNewReservation extends javax.swing.JFrame {
+public class FormNewReservation extends javax.swing.JFrame implements Runnable{
 
     /**
      * Creates new form FormNewReservation
      */
+    int currentUserId;
+    String currentUsername;
+    Socket clientSocket;
+    BufferedReader in;
+    DataOutputStream out;
+    String response;
+    Thread t;
+    boolean running = true;
     public FormNewReservation() {
         initComponents();
+    }
+    public FormNewReservation(int userId, String username, Socket pClientSocket, BufferedReader pIn, DataOutputStream pOut) {
+        initComponents();
+        currentUserId = userId;
+        currentUsername = username;
+        setLocationRelativeTo(null);
+        clientSocket = pClientSocket;
+        in = pIn;
+        out = pOut;
+        if (t == null) {
+            t = new Thread(this, "Customer Reservation");
+            t.start();
+        }
     }
 
     /**
@@ -35,8 +69,10 @@ public class FormNewReservation extends javax.swing.JFrame {
         lblSelectTime1 = new javax.swing.JLabel();
         spinnerTanggal = new javax.swing.JSpinner();
         lblWIB = new javax.swing.JLabel();
+        btnExit = new javax.swing.JButton();
+        btnCreate = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         lblCreateNewReservation.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblCreateNewReservation.setText("Create New Reservation");
@@ -47,7 +83,7 @@ public class FormNewReservation extends javax.swing.JFrame {
         lblGuest.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblGuest.setText("Number of Guest");
 
-        cmbJam.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10.00", "11.00", "12.00", "13.00", "14.00", "15.00", "16.00", "17.00", "18.00", "19.00", "20.00" }));
+        cmbJam.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00" }));
 
         spinnerGuest.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
@@ -60,36 +96,61 @@ public class FormNewReservation extends javax.swing.JFrame {
         lblWIB.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblWIB.setText("WIB");
 
+        btnExit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnExit.setText("Exit");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
+
+        btnCreate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnCreate.setText("Create");
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(lblSelectTime))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(lblGuest)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(lblSelectTime1)
-                                .addGap(58, 58, 58)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(spinnerGuest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cmbJam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblWIB))
-                            .addComponent(spinnerTanggal))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(58, Short.MAX_VALUE)
                 .addComponent(lblCreateNewReservation)
                 .addGap(40, 40, 40))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(lblSelectTime))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(lblGuest)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(lblSelectTime1)
+                                        .addGap(58, 58, 58)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(spinnerGuest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(cmbJam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(lblWIB))
+                                        .addComponent(spinnerTanggal))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(82, 82, 82)
+                                        .addComponent(btnCreate))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btnExit)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,12 +170,52 @@ public class FormNewReservation extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblGuest)
                     .addComponent(spinnerGuest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnExit)
+                    .addComponent(btnCreate))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        FormDashboardCustomer dashboardForm = new FormDashboardCustomer(currentUserId, currentUsername, clientSocket, in, out);
+        dashboardForm.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnExitActionPerformed
+
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
+        try {
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat datetimeFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+            String tanggal = dateFormatter.format(spinnerTanggal.getValue()) + " " + cmbJam.getSelectedItem().toString();
+            int tamu = (int) spinnerGuest.getValue();
+            Timestamp tanggalReservasi = new Timestamp(datetimeFormatter.parse(tanggal).getTime());
+          
+            response = null;
+            String request = "CREATE_RESERVATION;" + currentUserId + ";" + tamu + ";" + tanggalReservasi.toString();
+
+            sendMessageToServer(request);
+        } 
+        catch (ParseException ex) 
+        {
+            Logger.getLogger(FormNewReservation.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+    }//GEN-LAST:event_btnCreateActionPerformed
+    private String getMessageFromServer() throws IOException {
+        return in.readLine();
+    }
+
+    public void sendMessageToServer(String message) {
+        try {
+            out.writeBytes(message + "\n");
+        } catch (Exception e) {
+            System.out.println("Error di send message client");
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -149,8 +250,33 @@ public class FormNewReservation extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    @Override
+    public void run() {
+        while (running){
+            try {
+                response = getMessageFromServer();
+                
+                System.out.println("Response server: " + response);
+                if (response.contains("RESERVATION_SUCCESS")) {
+                    running = false;
+                    JOptionPane.showMessageDialog(this, "Reservasi berhasil. Silakan pesan makanan dan minuman");
+                    FormOrderMenu orderForm = new FormOrderMenu(currentUserId, currentUsername, Integer.parseInt(response.split(";")[1]), clientSocket, in , out);
+                    orderForm.setVisible(true);    
+                    this.dispose();
+                } else if ("RESERVATION_FAILED".equals(response)) {
+                    JOptionPane.showMessageDialog(this, "Mohon maaf. Tidak ada meja yang tersedia");
+                }
+            } catch (IOException ex) {
+                System.out.println("Socket ditutup");
+                break;
+            }
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCreate;
+    private javax.swing.JButton btnExit;
     private javax.swing.JComboBox<String> cmbJam;
     private javax.swing.JLabel lblCreateNewReservation;
     private javax.swing.JLabel lblGuest;
@@ -161,4 +287,6 @@ public class FormNewReservation extends javax.swing.JFrame {
     private javax.swing.JSpinner spinnerTanggal;
     private javax.swing.JSpinner spinnerTanggal2;
     // End of variables declaration//GEN-END:variables
+
+    
 }

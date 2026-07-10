@@ -5,7 +5,9 @@
 package restaurant_tidakpakaidollar.model;
 
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,6 +18,7 @@ public class Menu extends MyModel {
     private int id;
     private String name;
     private String category;
+    private int stock;
     private int price;
     private String description;
     private Timestamp created_at;
@@ -25,10 +28,12 @@ public class Menu extends MyModel {
         super();
     }
 
-    public Menu(String _name, String _category, int _price, String _description) {
+    public Menu(int _id, String _name, String _category, int _stock, int _price, String _description) {
         super();
+        this.id = _id;
         this.name = _name;
         this.category = _category;
+        this.stock = _stock;
         this.price = _price;
         this.description = _description;
     }
@@ -55,6 +60,14 @@ public class Menu extends MyModel {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     public int getPrice() {
@@ -142,5 +155,51 @@ public class Menu extends MyModel {
         } catch (Exception ex) {
             System.out.println("Error di delete data Menu: " + ex.getMessage());
         }
+    }
+
+    @Override
+    public String viewListData() {       
+        String menus = "";
+        try {
+            this.statement = (Statement) MyModel.conn.createStatement();
+            this.result = this.statement.executeQuery("SELECT * from menu");
+            while (this.result.next()) { // looping hasil dari db
+                menus += this.result.getInt("id") + ";" + 
+                    this.result.getString("name") + ";" +
+                    this.result.getString("category") + ";" +
+                    this.result.getInt("price") + ";" +
+                    this.result.getInt("stock") + ";" +
+                    this.result.getString("description") + "#";
+            }
+        } catch (Exception e) {
+            System.out.println("Error viewListData menu" + e);
+        }
+        return menus;
+    }
+    
+    public String getMenuFiltered(String filterBy, String value) {
+        String menus = "";
+        try {
+            String query = "SELECT * FROM menu WHERE " + filterBy + " LIKE ?";
+            
+            
+            PreparedStatement sql = MyModel.conn.prepareStatement(query);
+            sql.setString(1, "%" + value + "%");
+            this.result = sql.executeQuery();
+
+            while (this.result.next()) {
+                menus += this.result.getInt("id") + ";"
+                        + this.result.getString("name") + ";"
+                        + this.result.getString("category") + ";"
+                        + this.result.getInt("price") + ";"
+                        + this.result.getInt("stock") + ";"
+                        + this.result.getString("description") + "#";
+            }
+            sql.close();
+
+        } catch (Exception e) {
+            System.out.println("Error filter menu: " + e);
+        }
+        return menus;
     }
 }

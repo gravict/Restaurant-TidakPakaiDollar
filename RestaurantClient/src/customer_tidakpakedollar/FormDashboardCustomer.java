@@ -21,6 +21,7 @@ public class FormDashboardCustomer extends javax.swing.JFrame {
     /**
      * Creates new form FormDashboardCustomer
      */
+    int currentUserId;
     String currentUsername;
     Socket clientSocket;
     BufferedReader in;
@@ -29,9 +30,10 @@ public class FormDashboardCustomer extends javax.swing.JFrame {
         initComponents();
         
     }
-    public FormDashboardCustomer(String username, Socket pClientSocket, BufferedReader pIn, DataOutputStream pOut) {
+    public FormDashboardCustomer(int userId, String username, Socket pClientSocket, BufferedReader pIn, DataOutputStream pOut) {
         initComponents();
         try {
+            currentUserId = userId;
             currentUsername = username;            
             setLocationRelativeTo(null);
             clientSocket = pClientSocket;
@@ -75,7 +77,7 @@ public class FormDashboardCustomer extends javax.swing.JFrame {
 
         jMenuItem1.setText("jMenuItem1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         lblName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblName.setText("       ");
@@ -188,6 +190,9 @@ public class FormDashboardCustomer extends javax.swing.JFrame {
 
     private void menuItemNewReservationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemNewReservationActionPerformed
         // TODO add your handling code here:
+        FormNewReservation reservationForm = new FormNewReservation(currentUserId, currentUsername, clientSocket, in, out);
+        reservationForm.setVisible(true);
+        this.dispose();        
     }//GEN-LAST:event_menuItemNewReservationActionPerformed
 
     /**

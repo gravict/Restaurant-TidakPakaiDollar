@@ -46,6 +46,74 @@ public class RestaurantServer implements Runnable{
          new RestaurantServer();
     }
     
+    public String handleRequest(String request, Socket client) {
+        if (request.contains("GET_LOGIN;"))
+        {
+            String[] users = request.split(";");
+            String user = checkLogin(users[1], users[2]);
+            if (user.equals("")) 
+            {
+                return "LOGIN_FAILED";
+            } 
+            else 
+            {
+                return "LOGIN_SUCCESS;" + user;
+            }
+        } 
+        else if (request.contains("GET_REGISTER;")) 
+        {
+            String[] users = request.split(";");
+            if (registerDB(users[1], users[2], users[3], users[4])) 
+            {
+                return "REGISTER_SUCCESS";
+            } 
+            else 
+            {
+                return "REGISTER_FAILED";
+            }
+        } 
+        else if (request.contains("GET_DETAILS")) 
+        {
+            return getDetails(request.split(";")[1]);
+        }
+        else if (request.contains("CREATE_RESERVATION"))
+        {
+            String [] reservation = request.split(";");
+            String result = createReservation(Integer.parseInt(reservation[1]), Integer.parseInt(reservation[2]), reservation[3]);
+            return result;
+        }
+        else if (request.contains("GET_MENU")) 
+        {
+            if (request.equals("GET_MENU"))
+            {
+                return getAllMenus();
+            }
+            else 
+            {
+                String [] menus = request.split(";");
+                return getMenuFiltered(menus[1], menus[2]);
+            }
+        }
+        
+        
+        else if (request.contains(";LOGIN")) 
+        {
+            System.out.println(request.split(";")[0] + " LOG IN");
+            return "";
+        } 
+        else if (request.contains("LOGOUT")) 
+        {
+            System.out.println("Client logout: " + client.getInetAddress());
+            removeClient(client);
+            return "";
+        } 
+        else 
+        {
+            return ""; 
+        }
+    }
+
+    
     public void removeClient(Socket pSocket) {
         for (HandleSocket h : clients) {
             if (h.client.equals(pSocket)) {
@@ -65,10 +133,50 @@ public class RestaurantServer implements Runnable{
                 HandleSocket hs = new HandleSocket(this, incoming);
                 hs.start();
                 clients.add(hs);
+                System.out.println("jumlah client: " + clients.size());
             }
         } catch (Exception ex) {
             System.out.println("Error di server: " + ex);
         }
     }
+    private static Boolean registerDB(java.lang.String username, java.lang.String password, java.lang.String fullname, java.lang.String phone) {
+        com.restaurant.services.AccountWS_Service service = new com.restaurant.services.AccountWS_Service();
+        com.restaurant.services.AccountWS port = service.getAccountWSPort();
+        return port.registerDB(username, password, fullname, phone);
+    }
+
+    private static String checkLogin(java.lang.String username, java.lang.String password) {
+        com.restaurant.services.AccountWS_Service service = new com.restaurant.services.AccountWS_Service();
+        com.restaurant.services.AccountWS port = service.getAccountWSPort();
+        return port.checkLogin(username, password);
+    }
+
+    private static String getDetails(java.lang.String username) {
+        com.restaurant.services.AccountWS_Service service = new com.restaurant.services.AccountWS_Service();
+        com.restaurant.services.AccountWS port = service.getAccountWSPort();
+        return port.getDetails(username);
+    }
+
+    private static String createReservation(int userId, int guest, java.lang.String datetime) {
+        com.restaurant.services.ReservationWS_Service service = new com.restaurant.services.ReservationWS_Service();
+        com.restaurant.services.ReservationWS port = service.getReservationWSPort();
+        return port.createReservation(userId, guest, datetime);
+    }
+
+    private static String getAllMenus() {
+        com.restaurant.services.MenuWS_Service service = new com.restaurant.services.MenuWS_Service();
+        com.restaurant.services.MenuWS port = service.getMenuWSPort();
+        return port.getAllMenus();
+    }
+
+    private static String getMenuFiltered(java.lang.String filterBy, java.lang.String value) {
+        com.restaurant.services.MenuWS_Service service = new com.restaurant.services.MenuWS_Service();
+        com.restaurant.services.MenuWS port = service.getMenuWSPort();
+        return port.getMenuFiltered(filterBy, value);
+    }
+
+    
+    
+
     
 }
