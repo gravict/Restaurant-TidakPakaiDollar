@@ -4,7 +4,6 @@
  */
 package com.restaurant.services;
 
-import java.sql.Timestamp;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -37,7 +36,4 @@ public class ReservationWS {
 
         return reservation.createReservation();
     }
-
-    
-  
 }

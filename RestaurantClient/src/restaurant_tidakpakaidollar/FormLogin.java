@@ -276,6 +276,4 @@ public class FormLogin extends javax.swing.JFrame {
             System.out.println("Error di send message client");
         }
     }
-
-    
 }

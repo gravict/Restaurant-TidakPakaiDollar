@@ -4,7 +4,6 @@
  */
 package restaurantserver;
 
-import com.restaurant.services.*;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -58,10 +57,5 @@ public class HandleSocket extends Thread{
             }
             
         }
-    } 
-
-    
-    
-    
-    
+    }   
 }

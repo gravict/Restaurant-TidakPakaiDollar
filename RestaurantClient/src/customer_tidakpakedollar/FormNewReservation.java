@@ -8,9 +8,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
@@ -287,6 +285,4 @@ public class FormNewReservation extends javax.swing.JFrame implements Runnable{
     private javax.swing.JSpinner spinnerTanggal;
     private javax.swing.JSpinner spinnerTanggal2;
     // End of variables declaration//GEN-END:variables
-
-    
 }

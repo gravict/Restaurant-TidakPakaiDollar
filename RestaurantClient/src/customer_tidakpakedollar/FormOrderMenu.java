@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -29,11 +28,13 @@ public class FormOrderMenu extends javax.swing.JFrame {
     BufferedReader in;
     DataOutputStream out;
     String response;
-    
+
     String[][] allMenu;
+
     public FormOrderMenu() {
         initComponents();
     }
+
     public FormOrderMenu(int userId, String username, int pReservationId, Socket pClientSocket, BufferedReader pIn, DataOutputStream pOut) throws IOException {
         initComponents();
         currentUserId = userId;
@@ -43,21 +44,21 @@ public class FormOrderMenu extends javax.swing.JFrame {
         clientSocket = pClientSocket;
         in = pIn;
         out = pOut;
-        
+
         String request = "GET_MENU";
         sendMessageToServer(request);
-        
+
         String menus = getMessageFromServer();
-        
+
         String[] menuItem = menus.split("#");
         allMenu = new String[menuItem.length][5];
-        
+
         for (int i = 0; i < menuItem.length; i++) {
             String menuItemDetail[] = menuItem[i].split(";");
             for (int j = 0; j < 5; j++) {
                 allMenu[i][j] = menuItemDetail[j];
             }
-        }        
+        }
         refreshTable();
     }
 
@@ -367,33 +368,44 @@ public class FormOrderMenu extends javax.swing.JFrame {
     private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
         try {
             String filterBy = "", value = "";
+            String request = "";
             if (cmbCari.getSelectedIndex() == 0) {
                 filterBy = "category";
                 value = cmbKategori.getSelectedItem().toString();
-                if (value == "Makanan") 
-                {
+                if (value == "Makanan") {
                     value = "FOOD";
-                }
-                else 
-                {
+                } else {
                     value = "DRINK";
                 }
             } else if (cmbCari.getSelectedIndex() == 1) {
                 filterBy = "name";
                 value = txtCariMenu.getText();
             }
-            
-            String request = "GET_MENU;" + filterBy + ";" + value;
+
+            if (value.isEmpty()) {
+                request = "GET_MENU";
+            } else {
+                request = "GET_MENU;" + filterBy + ";" + value;
+            }
             sendMessageToServer(request);
-            
+
             String menus = getMessageFromServer();
-            String[] menuItem = menus.split("#");
-            allMenu = new String[menuItem.length][5];
-            
-            for (int i = 0; i < menuItem.length; i++) {
-                String menuItemDetail[] = menuItem[i].split(";");
-                for (int j = 0; j < 5; j++) {
-                    allMenu[i][j] = menuItemDetail[j];
+            if (menus == null || menus.trim().isEmpty()) {
+                allMenu = new String[0][5]; // Kosongkan tabel
+            } else {
+                // Pecah data dan masukkan ke tabel
+                String[] menuItem = menus.split("#");
+                allMenu = new String[menuItem.length][5];
+
+                for (int i = 0; i < menuItem.length; i++) {
+                    String menuItemDetail[] = menuItem[i].split(";");
+                    for (int j = 0; j < 5; j++) {
+                        if (j < menuItemDetail.length) {
+                            allMenu[i][j] = menuItemDetail[j];
+                        } else {
+                            allMenu[i][j] = "";
+                        }
+                    }
                 }
             }
             refreshTable();
@@ -423,14 +435,14 @@ public class FormOrderMenu extends javax.swing.JFrame {
             txtCariMenu.setEnabled(true);
         }
     }//GEN-LAST:event_cmbCariActionPerformed
-    
+
     public void refreshTable() {
 
         DefaultTableModel model = (DefaultTableModel) tblMenu.getModel();
         model.setRowCount(0);
 
         Object[] rowData = new Object[5];
-        
+
         for (int i = 0; i < allMenu.length; i++) {
             for (int j = 0; j < 5; j++) {
                 rowData[j] = allMenu[i][j];
@@ -438,7 +450,7 @@ public class FormOrderMenu extends javax.swing.JFrame {
             model.addRow(rowData);
         }
     }
-    
+
     private String getMessageFromServer() throws IOException {
         return in.readLine();
     }
@@ -450,6 +462,7 @@ public class FormOrderMenu extends javax.swing.JFrame {
             System.out.println("Error di send message client");
         }
     }
+
     /**
      * @param args the command line arguments
      */

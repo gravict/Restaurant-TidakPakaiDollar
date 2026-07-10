@@ -6,8 +6,6 @@ package restaurant_tidakpakaidollar.model;
 
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-
 /**
  *
  * @author LEGION

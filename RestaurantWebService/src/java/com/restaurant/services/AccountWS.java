@@ -59,6 +59,4 @@ public class AccountWS {
         //TODO write your implementation code here:
         return model.getDetails(username);
     }
-
-    
 }

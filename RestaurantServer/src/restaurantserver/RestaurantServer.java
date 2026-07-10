@@ -174,9 +174,4 @@ public class RestaurantServer implements Runnable{
         com.restaurant.services.MenuWS port = service.getMenuWSPort();
         return port.getMenuFiltered(filterBy, value);
     }
-
-    
-    
-
-    
 }
