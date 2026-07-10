@@ -192,7 +192,14 @@ public class FormNewReservation extends javax.swing.JFrame implements Runnable{
             String tanggal = dateFormatter.format(spinnerTanggal.getValue()) + " " + cmbJam.getSelectedItem().toString();
             int tamu = (int) spinnerGuest.getValue();
             Timestamp tanggalReservasi = new Timestamp(datetimeFormatter.parse(tanggal).getTime());
-          
+            Timestamp currentTime = new java.sql.Timestamp(System.currentTimeMillis());
+            if (tanggalReservasi.before(currentTime)) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "Maaf, Anda tidak bisa melakukan reservasi untuk tanggal yang sudah berlalu.", 
+                "Peringatan Reservasi", 
+                javax.swing.JOptionPane.WARNING_MESSAGE); 
+            return;
+        }
             response = null;
             String request = "CREATE_RESERVATION;" + currentUserId + ";" + tamu + ";" + tanggalReservasi.toString();
 

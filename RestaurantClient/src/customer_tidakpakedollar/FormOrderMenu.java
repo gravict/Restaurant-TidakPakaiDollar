@@ -372,14 +372,15 @@ public class FormOrderMenu extends javax.swing.JFrame {
             if (cmbCari.getSelectedIndex() == 0) {
                 filterBy = "category";
                 value = cmbKategori.getSelectedItem().toString();
-                if (value == "Makanan") {
+                if (value.equals("Makanan")) 
+                {
                     value = "FOOD";
                 } else {
                     value = "DRINK";
                 }
             } else if (cmbCari.getSelectedIndex() == 1) {
                 filterBy = "name";
-                value = txtCariMenu.getText();
+                value = txtCariMenu.getText().trim();
             }
 
             if (value.isEmpty()) {
@@ -391,9 +392,8 @@ public class FormOrderMenu extends javax.swing.JFrame {
 
             String menus = getMessageFromServer();
             if (menus == null || menus.trim().isEmpty()) {
-                allMenu = new String[0][5]; // Kosongkan tabel
+                allMenu = new String[0][5];
             } else {
-                // Pecah data dan masukkan ke tabel
                 String[] menuItem = menus.split("#");
                 allMenu = new String[menuItem.length][5];
 
