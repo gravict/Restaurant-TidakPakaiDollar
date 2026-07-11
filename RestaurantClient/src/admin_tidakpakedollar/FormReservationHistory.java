@@ -10,11 +10,13 @@ package admin_tidakpakedollar;
  */
 public class FormReservationHistory extends javax.swing.JFrame {
 
+    FormDashboardAdmin dashboard;
     /**
      * Creates new form FormReservationHistory
      */
-    public FormReservationHistory() {
+    public FormReservationHistory(FormDashboardAdmin admin) {
         initComponents();
+        this.dashboard = admin;
     }
 
     /**
@@ -70,6 +72,11 @@ public class FormReservationHistory extends javax.swing.JFrame {
 
         btnExit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnExit.setText("Exit");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
 
         cmbFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -113,7 +120,14 @@ public class FormReservationHistory extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        // TODO add your handling code here:
+        dashboard.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnExitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -145,7 +159,7 @@ public class FormReservationHistory extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormReservationHistory().setVisible(true);
+                new FormReservationHistory(null).setVisible(true);
             }
         });
     }

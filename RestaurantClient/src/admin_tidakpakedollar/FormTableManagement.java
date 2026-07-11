@@ -10,11 +10,13 @@ package admin_tidakpakedollar;
  */
 public class FormTableManagement extends javax.swing.JFrame {
 
+    FormDashboardAdmin dashboard;
     /**
      * Creates new form FormTableManagement
      */
-    public FormTableManagement() {
+    public FormTableManagement(FormDashboardAdmin admin) {
         initComponents();
+        this.dashboard = admin;
     }
 
     /**
@@ -68,6 +70,11 @@ public class FormTableManagement extends javax.swing.JFrame {
 
         buttonExit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         buttonExit.setText("Exit");
+        buttonExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonExitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -104,7 +111,14 @@ public class FormTableManagement extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExitActionPerformed
+        // TODO add your handling code here:
+        dashboard.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_buttonExitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -136,7 +150,7 @@ public class FormTableManagement extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormTableManagement().setVisible(true);
+                new FormTableManagement(null).setVisible(true);
             }
         });
     }

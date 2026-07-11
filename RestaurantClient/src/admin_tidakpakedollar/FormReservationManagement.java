@@ -10,11 +10,13 @@ package admin_tidakpakedollar;
  */
 public class FormReservationManagement extends javax.swing.JFrame {
 
+    private FormDashboardAdmin dashboard;
     /**
      * Creates new form FormReservationManagement
      */
-    public FormReservationManagement() {
+    public FormReservationManagement(FormDashboardAdmin admin) {
         initComponents();
+        this.dashboard = admin;
     }
 
     /**
@@ -35,6 +37,11 @@ public class FormReservationManagement extends javax.swing.JFrame {
 
         btnExit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnExit.setText("Exit");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
 
         lblReservationManagement.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblReservationManagement.setText("Reservation Management");
@@ -97,7 +104,14 @@ public class FormReservationManagement extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        // TODO add your handling code here:
+        dashboard.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnExitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -129,7 +143,7 @@ public class FormReservationManagement extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormReservationManagement().setVisible(true);
+                new FormReservationManagement(null).setVisible(true); //karena cuma bisa diakses lewat dashboard, tidak independen, jadi dikasih null
             }
         });
     }

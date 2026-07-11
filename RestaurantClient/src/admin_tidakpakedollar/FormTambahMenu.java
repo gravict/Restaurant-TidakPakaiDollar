@@ -10,11 +10,13 @@ package admin_tidakpakedollar;
  */
 public class FormTambahMenu extends javax.swing.JFrame {
 
+    FormMenuManagement menuMan;
     /**
      * Creates new form FormTambahMenu
      */
-    public FormTambahMenu() {
+    public FormTambahMenu(FormMenuManagement menu) {
         initComponents();
+        this.menuMan = menu;
     }
 
     /**
@@ -67,6 +69,11 @@ public class FormTambahMenu extends javax.swing.JFrame {
 
         btnExit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnExit.setText("Exit");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
 
         btnTambah.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnTambah.setText("Tambah");
@@ -138,7 +145,14 @@ public class FormTambahMenu extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        // TODO add your handling code here:
+        menuMan.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnExitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -170,7 +184,7 @@ public class FormTambahMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormTambahMenu().setVisible(true);
+                new FormTambahMenu(null).setVisible(true);
             }
         });
     }

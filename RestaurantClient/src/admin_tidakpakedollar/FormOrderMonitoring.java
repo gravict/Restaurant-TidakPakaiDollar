@@ -10,11 +10,13 @@ package admin_tidakpakedollar;
  */
 public class FormOrderMonitoring extends javax.swing.JFrame {
 
+    FormDashboardAdmin dashboard;
     /**
      * Creates new form FormOrderMonitoring
      */
-    public FormOrderMonitoring() {
+    public FormOrderMonitoring(FormDashboardAdmin admin) {
         initComponents();
+        this.dashboard = admin;
     }
 
     /**
@@ -35,6 +37,11 @@ public class FormOrderMonitoring extends javax.swing.JFrame {
 
         btnExit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnExit.setText("Exit");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
 
         lblOrderMonitoring.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblOrderMonitoring.setText("Order Monitoring");
@@ -97,7 +104,14 @@ public class FormOrderMonitoring extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        // TODO add your handling code here:
+        dashboard.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnExitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -129,7 +143,7 @@ public class FormOrderMonitoring extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormOrderMonitoring().setVisible(true);
+                new FormOrderMonitoring(null).setVisible(true);
             }
         });
     }

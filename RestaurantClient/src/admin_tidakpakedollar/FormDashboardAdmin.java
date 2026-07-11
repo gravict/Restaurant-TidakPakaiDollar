@@ -173,26 +173,42 @@ public class FormDashboardAdmin extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuItemReservationHisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemReservationHisActionPerformed
         // TODO add your handling code here:
+        FormReservationHistory resHis = new FormReservationHistory(this);
+        resHis.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_menuItemReservationHisActionPerformed
 
     private void menuItemReservationManActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemReservationManActionPerformed
         // TODO add your handling code here:
+        FormReservationManagement resMan = new FormReservationManagement(this);
+        resMan.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_menuItemReservationManActionPerformed
 
     private void menuItemFoodMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemFoodMenuActionPerformed
         // TODO add your handling code here:
+        FormMenuManagement menuMan = new FormMenuManagement(this);
+        menuMan.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_menuItemFoodMenuActionPerformed
 
     private void menuItemOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemOrderActionPerformed
         // TODO add your handling code here:
+        FormOrderMonitoring orderMon = new FormOrderMonitoring(this);
+        orderMon.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_menuItemOrderActionPerformed
 
     private void menuItemTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemTableActionPerformed
         // TODO add your handling code here:
+        FormTableManagement tableMan = new FormTableManagement(this);
+        tableMan.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_menuItemTableActionPerformed
 
     private void menuItemLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemLogoutActionPerformed
@@ -265,7 +281,7 @@ public class FormDashboardAdmin extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
        
-    private String getMessageFromServer() throws IOException {
+    public String getMessageFromServer() throws IOException {
         return in.readLine();
     }
 

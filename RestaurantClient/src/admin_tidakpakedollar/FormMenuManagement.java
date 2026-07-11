@@ -10,11 +10,13 @@ package admin_tidakpakedollar;
  */
 public class FormMenuManagement extends javax.swing.JFrame {
 
+    FormDashboardAdmin dashboard;
     /**
      * Creates new form FormMenuManagement
      */
-    public FormMenuManagement() {
+    public FormMenuManagement(FormDashboardAdmin admin) {
         initComponents();
+        this.dashboard = admin;
     }
 
     /**
@@ -40,6 +42,11 @@ public class FormMenuManagement extends javax.swing.JFrame {
 
         btnExit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnExit.setText("Exit");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
 
         lblMenuManagement.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblMenuManagement.setText("Menu Management");
@@ -79,6 +86,11 @@ public class FormMenuManagement extends javax.swing.JFrame {
 
         btnNewMenu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnNewMenu.setText("+");
+        btnNewMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewMenuActionPerformed(evt);
+            }
+        });
 
         lblCari.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblCari.setText("Cari");
@@ -136,7 +148,21 @@ public class FormMenuManagement extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        // TODO add your handling code here:
+        dashboard.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnExitActionPerformed
+
+    private void btnNewMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewMenuActionPerformed
+        // TODO add your handling code here:
+        FormTambahMenu tambahMenu = new FormTambahMenu(this);
+        tambahMenu.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnNewMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -168,7 +194,7 @@ public class FormMenuManagement extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormMenuManagement().setVisible(true);
+                new FormMenuManagement(null).setVisible(true);
             }
         });
     }
