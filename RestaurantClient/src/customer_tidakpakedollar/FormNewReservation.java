@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import restaurant_tidakpakaidollar.Restaurant_tidakpakaidollar;
 
 /**
  *
@@ -32,21 +33,22 @@ public class FormNewReservation extends javax.swing.JFrame implements Runnable{
     String response;
     Thread t;
     boolean running = true;
+    Restaurant_tidakpakaidollar restaurantClient;
     public FormNewReservation() {
         initComponents();
     }
-    public FormNewReservation(int userId, String username, Socket pClientSocket, BufferedReader pIn, DataOutputStream pOut) {
+    
+    /**
+     *
+     * @param parent
+     * @param userId
+     * @param username
+     */
+    public FormNewReservation(Restaurant_tidakpakaidollar parent, int userId, String username) {
         initComponents();
         currentUserId = userId;
         currentUsername = username;
-        setLocationRelativeTo(null);
-        clientSocket = pClientSocket;
-        in = pIn;
-        out = pOut;
-        if (t == null) {
-            t = new Thread(this, "Customer Reservation");
-            t.start();
-        }
+        restaurantClient = parent;
     }
 
     /**
