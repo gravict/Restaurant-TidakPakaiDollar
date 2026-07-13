@@ -32,6 +32,11 @@ public class FormTableManagement extends javax.swing.JFrame {
         tableTableManagement = new javax.swing.JTable();
         lblTableManagement = new javax.swing.JLabel();
         buttonExit = new javax.swing.JButton();
+        lblTableNum = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableTableReservationInfo = new javax.swing.JTable();
+        lblTableManagement2 = new javax.swing.JLabel();
+        lblTableManagement3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,11 +50,11 @@ public class FormTableManagement extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Number", "Capacity", "Status", "Action"
+                "Code", "Number", "Capacity", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -76,6 +81,43 @@ public class FormTableManagement extends javax.swing.JFrame {
             }
         });
 
+        lblTableNum.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTableNum.setText("0");
+
+        tableTableReservationInfo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Code", "Date", "Status", "Name", "Guest"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tableTableReservationInfo);
+
+        lblTableManagement2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTableManagement2.setText("Table Reservation Information");
+
+        lblTableManagement3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTableManagement3.setText("Table Number:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -86,28 +128,50 @@ public class FormTableManagement extends javax.swing.JFrame {
                         .addGap(22, 22, 22)
                         .addComponent(buttonExit))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(162, 162, 162)
+                        .addGap(397, 397, 397)
                         .addComponent(lblTableManagement)))
-                .addContainerGap(168, Short.MAX_VALUE))
+                .addContainerGap(491, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(lblTableManagement3)
+                            .addGap(18, 18, 18)
+                            .addComponent(lblTableNum))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(22, 22, 22)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lblTableManagement2)
+                        .addGap(157, 157, 157))))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(18, 18, 18)
                     .addComponent(jScrollPaneTableManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(20, Short.MAX_VALUE)))
+                    .addContainerGap(580, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(27, 27, 27)
                 .addComponent(lblTableManagement)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 380, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addComponent(lblTableManagement2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTableNum)
+                    .addComponent(lblTableManagement3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
                 .addComponent(buttonExit)
                 .addGap(42, 42, 42))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(97, 97, 97)
-                    .addComponent(jScrollPaneTableManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(97, Short.MAX_VALUE)))
+                    .addGap(159, 159, 159)
+                    .addComponent(jScrollPaneTableManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(92, Short.MAX_VALUE)))
         );
 
         pack();
@@ -157,8 +221,13 @@ public class FormTableManagement extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonExit;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPaneTableManagement;
     private javax.swing.JLabel lblTableManagement;
+    private javax.swing.JLabel lblTableManagement2;
+    private javax.swing.JLabel lblTableManagement3;
+    private javax.swing.JLabel lblTableNum;
     private javax.swing.JTable tableTableManagement;
+    private javax.swing.JTable tableTableReservationInfo;
     // End of variables declaration//GEN-END:variables
 }

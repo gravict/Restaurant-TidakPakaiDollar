@@ -61,11 +61,11 @@ public class FormMenuManagement extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Name", "Category", "Price", "Description", "Action"
+                "Code", "Name", "Category", "Price", "Stock"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false

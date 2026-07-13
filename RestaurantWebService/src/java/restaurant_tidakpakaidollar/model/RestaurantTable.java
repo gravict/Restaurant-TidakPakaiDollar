@@ -5,6 +5,7 @@
 package restaurant_tidakpakaidollar.model;
 
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.sql.Timestamp;
 /**
  *
@@ -132,6 +133,46 @@ public class RestaurantTable extends MyModel{
 
     @Override
     public String viewListData() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String tables = "";
+        try {
+            this.statement = (Statement) MyModel.conn.createStatement();
+            this.result = this.statement.executeQuery("SELECT id,number,capacity,status from restaurant_table;");
+            while (this.result.next()) { 
+                tables += this.result.getInt("id") + ";" + 
+                          this.result.getInt("number") + ";" +
+                          this.result.getInt("capacity") + ";" +
+                          this.result.getString("status") + "#";
+            }
+        } catch (Exception e) {
+            System.out.println("Error viewListData table" + e);
+        }
+        return tables;
+    }
+    
+    public String viewTableReservation(int table_id){
+        String table_reserv = "";
+        try {
+            String sql = "SELECT "
+                        + "r.id,r.start_reservation,r.reservation_status,a.name,r.number_guest "
+                        + "FROM reservation r "
+                        + "JOIN account a "
+                        + "ON r.account_id = a.id "
+                        + "WHERE r.restaurant_table_id = ?;";
+            PreparedStatement psql = MyModel.conn.prepareStatement(sql);
+            psql.setInt(1, table_id);
+            
+            this.result = psql.executeQuery();
+            
+            while (this.result.next()) { 
+                table_reserv += this.result.getInt("id") + ";" + 
+                                this.result.getString("start_reservation") + ";" +
+                                this.result.getString("reservation_status") + ";" +
+                                this.result.getString("name") + ";" +
+                                this.result.getInt("number_guest") + "#";
+            }
+        } catch (Exception e) {
+            System.out.println("Error viewTableReservation" + e);
+        }
+        return table_reserv;
     }
 }
