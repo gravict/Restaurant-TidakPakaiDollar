@@ -17,6 +17,52 @@ public class FormTambahMenu extends javax.swing.JFrame {
     public FormTambahMenu(FormMenuManagement menu) {
         initComponents();
         this.menuMan = menu;
+        
+        btnTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTambahActionPerformed(evt);
+            }
+        });
+    }
+
+    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+            String name = txtNamaMenu.getText();
+            String category = cmbKategori.getSelectedItem().toString();
+            
+            if (category.equals("Makanan")) {
+                category = "FOOD";
+            } else if (category.equals("Minuman")) {
+                category = "DRINK";
+            }
+            
+            String description = txtDeskripsi.getText();
+            String priceStr = txtHarga.getText();
+            
+            if (name.isEmpty() || description.isEmpty() || priceStr.isEmpty()) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Semua field harus diisi!", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            int price = Integer.parseInt(priceStr);
+            
+            String request = "ADD_MENU;" + name + ";" + category + ";" + price + ";" + description;
+            menuMan.dashboard.restaurantClient.sendMessageToServer(request);
+            String response = menuMan.dashboard.restaurantClient.getMessageFromServer();
+            
+            if ("SUCCESS".equals(response)) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Menu berhasil ditambahkan!", "Sukses", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                menuMan.loadData("GET_MENU");
+                menuMan.setVisible(true);
+                this.dispose();
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Gagal menambahkan menu!", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Harga harus berupa angka!", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            java.util.logging.Logger.getLogger(FormTambahMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
     }
 
     /**

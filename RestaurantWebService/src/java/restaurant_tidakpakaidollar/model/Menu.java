@@ -105,7 +105,7 @@ public class Menu extends MyModel {
         try {
             if (!MyModel.conn.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
-                    "INSERT INTO menu (name, category, price, description, created_at, updated_at) VALUES (?, ?, ?, ?, NOW(), NOW())");
+                    "INSERT INTO menu (name, category, stock, price, description, created_at, updated_at) VALUES (?, ?, 0, ?, ?, NOW(), NOW())");
                 sql.setString(1, this.name);
                 sql.setString(2, this.category);
                 sql.setInt(3, this.price);
