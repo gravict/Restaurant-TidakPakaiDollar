@@ -10,11 +10,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+
 /**
  *
  * @author LEGION
  */
 public class Reservation extends MyModel {
+
     private int id;
     private String start_reservation;
     private String reservation_status;
@@ -26,11 +28,11 @@ public class Reservation extends MyModel {
     private int accountId;
     private RestaurantTable restaurant_table;
     private int tableId;
-    
+
     public Reservation() {
         super();
     }
-    
+
     public Reservation(String _start_reservation, String _reservation_status, String _order_status, int _number_guest, Account _account, RestaurantTable _restaurant_table) {
         super();
         this.start_reservation = _start_reservation;
@@ -128,7 +130,7 @@ public class Reservation extends MyModel {
     public void setTableId(int tableId) {
         this.tableId = tableId;
     }
-    
+
     public String createReservation() {
         String response = "RESERVATION_FAILED";
         try {
@@ -148,7 +150,7 @@ public class Reservation extends MyModel {
 
                 sql.setString(1, this.start_reservation);
                 sql.setInt(2, this.number_guest);
-                sql.setInt(3, this.number_guest + 3);                
+                sql.setInt(3, this.number_guest + 3);
 
                 this.result = sql.executeQuery();
                 if (this.result.next()) {
@@ -176,13 +178,13 @@ public class Reservation extends MyModel {
         }
         return response;
     }
-    
+
     @Override
     public void insertData() {
         try {
             if (!MyModel.conn.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
-                    "INSERT INTO reservation (start_reservation, reservation_status, order_status, number_guest, account_id, restaurant_table_id, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW())");
+                        "INSERT INTO reservation (start_reservation, reservation_status, order_status, number_guest, account_id, restaurant_table_id, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW())");
                 sql.setString(1, this.start_reservation);
                 sql.setString(2, this.reservation_status);
                 sql.setString(3, this.order_status);
@@ -203,7 +205,7 @@ public class Reservation extends MyModel {
         try {
             if (!MyModel.conn.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
-                    "UPDATE reservation SET start_reservation = ?, reservation_status = ?, order_status = ?, number_guest = ?, account_id = ?, restaurant_table_id = ?, updated_at = NOW() WHERE id = ?");
+                        "UPDATE reservation SET start_reservation = ?, reservation_status = ?, order_status = ?, number_guest = ?, account_id = ?, restaurant_table_id = ?, updated_at = NOW() WHERE id = ?");
                 sql.setString(1, this.start_reservation);
                 sql.setString(2, this.reservation_status);
                 sql.setString(3, this.order_status);
@@ -225,7 +227,7 @@ public class Reservation extends MyModel {
         try {
             if (!MyModel.conn.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
-                    "DELETE FROM reservation WHERE id = ?");
+                        "DELETE FROM reservation WHERE id = ?");
                 sql.setInt(1, this.id);
                 sql.executeUpdate();
                 System.out.println("Data reservasi berhasil dihapus!");
@@ -242,18 +244,34 @@ public class Reservation extends MyModel {
         try {
             this.statement = (Statement) MyModel.conn.createStatement();
             this.result = this.statement.executeQuery(""
-                    + "SELECT r.id, r.start_reservation, r.reservation_status, r.number_guest, a.username"
-                    + "FROM reservation r INNER JOIN account a ON r.accound_id = a.id");
+                    + "SELECT r.id, r.start_reservation, r.reservation_status, r.number_guest, a.username "
+                    + "FROM reservation r INNER JOIN account a ON r.account_id = a.id");
             while (this.result.next()) {
                 reserve += this.result.getInt("id") + ";"
-                        + this.result.getString("datetime") + ";"
-                        + this.result.getString("status") + ";"
-                        + this.result.getInt("guset") + ";"
+                        + this.result.getString("start_reservation") + ";"
+                        + this.result.getString("reservation_status") + ";"
+                        + this.result.getInt("number_guest") + ";"
                         + this.result.getString("username") + "#";
             }
+            System.out.println(reserve);
         } catch (Exception e) {
             System.out.println("Error ViewListData " + e);
         }
         return reserve;
+    }
+
+    public void cancelReservation(int idReservasi) {
+        try {
+            if (!MyModel.conn.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                        "UPDATE reservation SET reservation_status = 'CANCELED', updated_at = NOW() WHERE id = ?");
+                sql.setInt(1, idReservasi);
+                sql.executeUpdate();
+                System.out.println("Data reservasi berhasil diupdate!");
+                sql.close();
+            }
+        } catch (Exception ex) {
+            System.out.println("Error di update data Reservation: " + ex.getMessage());
+        }
     }
 }

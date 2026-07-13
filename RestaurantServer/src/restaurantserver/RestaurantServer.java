@@ -133,6 +133,12 @@ public class RestaurantServer implements Runnable{
         {
             return getTableAll();
         }
+        else if (request.contains("CANCEL_RESERVATION"))
+        {
+            String[] reservasi = request.split(";");
+            int idReservasi = Integer.parseInt(reservasi[1]);
+            return cancelReservation(idReservasi);
+        }
         else 
         {
             return ""; 
@@ -227,6 +233,12 @@ public class RestaurantServer implements Runnable{
         com.restaurant.services.MenuWS_Service service = new com.restaurant.services.MenuWS_Service();
         com.restaurant.services.MenuWS port = service.getMenuWSPort();
         return port.addStock(menuId, addedStock);
+    }
+
+    private static String cancelReservation(int idReservasi) {
+        com.restaurant.services.ReservationWS_Service service = new com.restaurant.services.ReservationWS_Service();
+        com.restaurant.services.ReservationWS port = service.getReservationWSPort();
+        return port.cancelReservation(idReservasi);
     }
     
 }

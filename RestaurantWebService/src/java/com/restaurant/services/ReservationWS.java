@@ -46,4 +46,24 @@ public class ReservationWS {
         //TODO write your implementation code here:
         return model.viewListData();
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "cancelReservation")
+    public String cancelReservation(@WebParam(name = "idReservasi") int idReservasi) {
+        //TODO write your implementation code here:
+        model.cancelReservation(idReservasi);
+        return "Cancel Reservation SUCCESS";
+    }
+
+    /**
+     * Web service operation
+     */
+
+
+    /**
+     * Web service operation
+     */
+
 }
