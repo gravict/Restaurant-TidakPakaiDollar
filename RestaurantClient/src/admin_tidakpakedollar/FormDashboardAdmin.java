@@ -200,7 +200,13 @@ public class FormDashboardAdmin extends javax.swing.JFrame {
 
     private void menuItemTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemTableActionPerformed
         // TODO add your handling code here:
-        FormTableManagement tableMan = new FormTableManagement(this);
+        FormTableManagement tableMan = null;
+        try {
+            tableMan = new FormTableManagement(this);
+
+        } catch (IOException ex) {
+            Logger.getLogger(FormDashboardAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
         tableMan.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_menuItemTableActionPerformed
