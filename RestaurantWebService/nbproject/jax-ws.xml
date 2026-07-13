@@ -10,6 +10,9 @@
     <service name="MenuWS">
       <implementation-class>com.restaurant.services.MenuWS</implementation-class>
     </service>
+    <service name="ReservationHistoryWS">
+      <implementation-class>com.restaurant.services.ReservationHistoryWS</implementation-class>
+    </service>
   </services>
   <clients/>
 </jax-ws>
