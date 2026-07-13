@@ -263,9 +263,10 @@ public class Account extends MyModel {
                 if (this.result.next()) {
                     int pId = result.getInt("id");
                     String pRole = result.getString("role");
+                    String pUsername = result.getString("username");
                     sql.close();
 
-                    return pRole + ";" + pId;
+                    return pRole + ";" + pId + ";" + pUsername;
                 }
                 sql.close();
             }

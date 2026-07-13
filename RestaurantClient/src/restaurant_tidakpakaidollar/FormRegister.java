@@ -19,18 +19,13 @@ public class FormRegister extends javax.swing.JFrame {
     /**
      * Creates new form FormRegister
      */
-    Socket clientSocket;
-    BufferedReader in;
-    DataOutputStream out;
+    Restaurant_tidakpakaidollar restaurantClient;
     public FormRegister() {
         initComponents();
     }
-    public FormRegister(Socket pClientSocket, BufferedReader pIn, DataOutputStream pOut) throws IOException {
+    public FormRegister(Restaurant_tidakpakaidollar parent) {
         initComponents();
-        setLocationRelativeTo(null);
-        clientSocket = pClientSocket;
-        in = pIn;
-        out = pOut;
+        this.restaurantClient = parent;
     }
 
     /**
@@ -196,13 +191,13 @@ public class FormRegister extends javax.swing.JFrame {
         }
         try {
             String register = "GET_REGISTER;" + username + ";" + password + ";" + fullname + ";" + phone;
-            sendMessageToServer(register);
-            String response = getMessageFromServer();
-            if (response.equals("REGISTER_FAILED")) {
+            restaurantClient.sendMessageToServer(register);
+            restaurantClient.response = restaurantClient.getMessageFromServer();
+            if (restaurantClient.response.equals("REGISTER_FAILED")) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Username already used, please change with another username", "Failed", javax.swing.JOptionPane.ERROR_MESSAGE);
-            } else if (response.equals("REGISTER_SUCCESS")) {
+            } else if (restaurantClient.response.equals("REGISTER_SUCCESS")) {
                 javax.swing.JOptionPane.showMessageDialog(this, "New account registration was successful, Please Re-Login", "Message", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-                FormLogin loginForm = new FormLogin(clientSocket, in, out);
+                FormLogin loginForm = new FormLogin(restaurantClient);
                 loginForm.setVisible(true);
                 this.dispose();
             }           
@@ -212,26 +207,12 @@ public class FormRegister extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        try {
-            // TODO add your handling code here:
-            FormLogin loginForm = new FormLogin(clientSocket, in, out);
-            loginForm.setVisible(true);
-            this.dispose();
-        } catch (IOException ex) {
-            Logger.getLogger(FormRegister.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // TODO add your handling code here:
+        FormLogin loginForm = new FormLogin(restaurantClient);
+        loginForm.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnLoginActionPerformed
-    private String getMessageFromServer() throws IOException {
-        return in.readLine();
-    }
-
-    public void sendMessageToServer(String message) {
-        try {
-            out.writeBytes(message + "\n");
-        } catch (Exception e) {
-            System.out.println("Error di send message client");
-        }
-    }
+    
     /**
      * @param args the command line arguments
      */

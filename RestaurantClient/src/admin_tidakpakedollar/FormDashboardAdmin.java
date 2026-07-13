@@ -24,27 +24,16 @@ public class FormDashboardAdmin extends javax.swing.JFrame {
      */
     int currentUserId;
     String currentUsername;
-    Socket clientSocket;
-    BufferedReader in;
-    DataOutputStream out;
+    Restaurant_tidakpakaidollar restaurantClient;
     public FormDashboardAdmin() {
         initComponents();
     }
-    public FormDashboardAdmin(int userId, String username, Socket pClientSocket, BufferedReader pIn, DataOutputStream pOut) 
+    public FormDashboardAdmin(Restaurant_tidakpakaidollar parent, int userId, String username) 
     {
         initComponents();
-        try {
-            currentUserId = userId;
-            currentUsername = username;            
-            setLocationRelativeTo(null);
-            clientSocket = pClientSocket;
-            in = pIn;
-            out = pOut;
-            lblName.setText("Welcome, admin " + username);
-
-        } catch (Exception ex) {
-            System.out.println("Error di constructor FormDashboardAdmin: " + ex);
-        }
+        this.restaurantClient = parent;
+        this.currentUserId = userId;
+        this.currentUsername = username;
     }
 
     /**
@@ -178,51 +167,52 @@ public class FormDashboardAdmin extends javax.swing.JFrame {
 
     private void menuItemReservationHisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemReservationHisActionPerformed
         // TODO add your handling code here:
-        FormReservationHistory resHis = new FormReservationHistory(this);
-        resHis.setVisible(true);
-        this.setVisible(false);
+//        FormReservationHistory resHis = new FormReservationHistory(this);
+//        resHis.setVisible(true);
+//        this.setVisible(false);
     }//GEN-LAST:event_menuItemReservationHisActionPerformed
 
     private void menuItemReservationManActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemReservationManActionPerformed
         // TODO add your handling code here:
-        FormReservationManagement resMan = new FormReservationManagement(this);
-        resMan.setVisible(true);
-        this.setVisible(false);
+//        FormReservationManagement resMan = new FormReservationManagement(this);
+//        resMan.setVisible(true);
+//        this.setVisible(false);
     }//GEN-LAST:event_menuItemReservationManActionPerformed
 
     private void menuItemFoodMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemFoodMenuActionPerformed
         // TODO add your handling code here:
-        FormMenuManagement menuMan = new FormMenuManagement(this);
-        menuMan.setVisible(true);
-        this.setVisible(false);
+//        FormMenuManagement menuMan = new FormMenuManagement(this);
+//        menuMan.setVisible(true);
+//        this.setVisible(false);
     }//GEN-LAST:event_menuItemFoodMenuActionPerformed
 
     private void menuItemOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemOrderActionPerformed
         // TODO add your handling code here:
-        FormOrderMonitoring orderMon = new FormOrderMonitoring(this);
-        orderMon.setVisible(true);
-        this.setVisible(false);
+//        FormOrderMonitoring orderMon = new FormOrderMonitoring(this);
+//        orderMon.setVisible(true);
+//        this.setVisible(false);
     }//GEN-LAST:event_menuItemOrderActionPerformed
 
     private void menuItemTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemTableActionPerformed
         // TODO add your handling code here:
-        FormTableManagement tableMan = new FormTableManagement(this);
-        tableMan.setVisible(true);
-        this.setVisible(false);
+//        FormTableManagement tableMan = new FormTableManagement(this);
+//        tableMan.setVisible(true);
+//        this.setVisible(false);
     }//GEN-LAST:event_menuItemTableActionPerformed
 
     private void menuItemLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemLogoutActionPerformed
-        int confirm = JOptionPane.showConfirmDialog(this,"Are you sure want to logout?",
-            "Logout Confirmation",JOptionPane.YES_NO_OPTION);
+        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure want to logout?",
+                "Logout Confirmation", JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
             try {
-                sendMessageToServer("LOGOUT");
-                clientSocket.close();
-
-                FormLogin login = new FormLogin();
-                login.setVisible(true);
+                restaurantClient.sendMessageToServer("LOGOUT");
+                restaurantClient.stopThread();
                 this.dispose();
+                Restaurant_tidakpakaidollar newApp = new Restaurant_tidakpakaidollar();
+                FormLogin login = new FormLogin(newApp);
+                login.setVisible(true);
+
             } catch (IOException ex) {
                 Logger.getLogger(FormDashboardAdmin.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -281,15 +271,5 @@ public class FormDashboardAdmin extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
        
-    public String getMessageFromServer() throws IOException {
-        return in.readLine();
-    }
-
-    public void sendMessageToServer(String message) {
-        try {
-            out.writeBytes(message + "\n");
-        } catch (Exception e) {
-            System.out.println("Error di send message client");
-        }
-    }
+    
 }

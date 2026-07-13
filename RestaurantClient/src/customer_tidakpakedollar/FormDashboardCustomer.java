@@ -22,27 +22,18 @@ public class FormDashboardCustomer extends javax.swing.JFrame {
      */
     int currentUserId;
     String currentUsername;
-    Socket clientSocket;
-    BufferedReader in;
-    DataOutputStream out;
+    
+    Restaurant_tidakpakaidollar restaurantClient;
     public FormDashboardCustomer() {
-        initComponents();
-        
+        initComponents();        
     }
-    public FormDashboardCustomer(int userId, String username, Socket pClientSocket, BufferedReader pIn, DataOutputStream pOut) {
+    
+    public FormDashboardCustomer(Restaurant_tidakpakaidollar parent, int userId, String username) {
         initComponents();
-        try {
-            currentUserId = userId;
-            currentUsername = username;            
-            setLocationRelativeTo(null);
-            clientSocket = pClientSocket;
-            in = pIn;
-            out = pOut;
-            lblName.setText("Welcome, " + username);
-            
-        } catch (Exception ex) {
-            System.out.println("Error di constructor FormDashboardCustomer: " + ex);
-        }        
+        this.restaurantClient = parent;
+        this.currentUserId = userId;
+        this.currentUsername = username;
+        lblName.setText("Welcome, " + currentUsername);
     }
 
     /**
@@ -161,12 +152,13 @@ public class FormDashboardCustomer extends javax.swing.JFrame {
 
         if (confirm == JOptionPane.YES_OPTION) {
             try {
-                sendMessageToServer("LOGOUT");
-                clientSocket.close();
-                
-                FormLogin login = new FormLogin();
-                login.setVisible(true);
+                restaurantClient.sendMessageToServer("LOGOUT");
+                restaurantClient.stopThread();
                 this.dispose();
+                Restaurant_tidakpakaidollar newApp = new Restaurant_tidakpakaidollar();
+                FormLogin login = new FormLogin(newApp);
+                login.setVisible(true);
+                
             } catch (IOException ex) {
                 Logger.getLogger(FormDashboardCustomer.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -174,13 +166,9 @@ public class FormDashboardCustomer extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemLogoutActionPerformed
 
     private void menuItemProfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemProfilActionPerformed
-        try {
-            FormProfil profilForm = new FormProfil(currentUsername, clientSocket, in, out);
-            profilForm.setVisible(true);
-            this.dispose();
-        } catch (IOException ex) {
-            Logger.getLogger(FormDashboardCustomer.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        FormProfil profilForm = new FormProfil(currentUsername, clientSocket, in, out);
+//        profilForm.setVisible(true);
+//        this.dispose();
     }//GEN-LAST:event_menuItemProfilActionPerformed
 
     private void menuItemReservationHisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemReservationHisActionPerformed
@@ -189,9 +177,9 @@ public class FormDashboardCustomer extends javax.swing.JFrame {
 
     private void menuItemNewReservationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemNewReservationActionPerformed
         // TODO add your handling code here:
-        FormNewReservation reservationForm = new FormNewReservation(currentUserId, currentUsername, clientSocket, in, out);
-        reservationForm.setVisible(true);
-        this.dispose();        
+//        FormNewReservation reservationForm = new FormNewReservation(currentUserId, currentUsername, clientSocket, in, out);
+//        reservationForm.setVisible(true);
+//        this.dispose();        
     }//GEN-LAST:event_menuItemNewReservationActionPerformed
 
     /**
@@ -247,15 +235,4 @@ public class FormDashboardCustomer extends javax.swing.JFrame {
     private javax.swing.JMenu menuReservation;
     // End of variables declaration//GEN-END:variables
     
-    private String getMessageFromServer() throws IOException {
-        return in.readLine();
-    }
-
-    public void sendMessageToServer(String message) {
-        try {
-            out.writeBytes(message + "\n");
-        } catch (Exception e) {
-            System.out.println("Error di send message client");
-        }
-    }
 }

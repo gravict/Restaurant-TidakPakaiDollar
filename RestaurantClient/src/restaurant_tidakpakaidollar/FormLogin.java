@@ -24,20 +24,13 @@ public class FormLogin extends javax.swing.JFrame {
     /**
      * Creates new form FormLogin
      */
-    Socket clientSocket;
-    BufferedReader in;
-    DataOutputStream out;
-    public FormLogin() throws IOException {
+    Restaurant_tidakpakaidollar restaurantClient;
+    FormLogin(){
         initComponents();
-        clientSocket = new Socket("localhost", 6000);
-        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-        out = new DataOutputStream(clientSocket.getOutputStream());
     }
-    public FormLogin(Socket pClientSocket, BufferedReader pIn, DataOutputStream pOut) throws IOException {
+    public FormLogin(Restaurant_tidakpakaidollar parent) {
         initComponents();
-        clientSocket = pClientSocket;
-        in = pIn;
-        out = pOut;
+        this.restaurantClient = parent;
     }
 
     /**
@@ -158,13 +151,9 @@ public class FormLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-        try {
-            FormRegister registerForm = new FormRegister(clientSocket, in, out);
-            registerForm.setVisible(true);
-            this.dispose();
-        } catch (IOException ex) {
-            Logger.getLogger(FormLogin.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        FormRegister registerForm = new FormRegister(restaurantClient);
+        registerForm.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
@@ -174,25 +163,30 @@ public class FormLogin extends javax.swing.JFrame {
         if (username.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Username atau Password kosong");
         } else {
-            String login = "GET_LOGIN;" + username + ";" + password;
-            sendMessageToServer(login);
             try {
-                String response = getMessageFromServer();
-                if (response.equals("LOGIN_FAILED")) 
+                String login = "GET_LOGIN;" + username + ";" + password;
+                
+                restaurantClient.sendMessageToServer(login);
+                //                String response = getMessageFromServer();
+                restaurantClient.response = restaurantClient.getMessageFromServer();
+                if (restaurantClient.response.equals("LOGIN_FAILED"))
                 {
                     JOptionPane.showMessageDialog(this, "Login Gagal");
-                } 
-                else if (response.contains("LOGIN_SUCCESS")){ 
-                    // sendMessageToServer(username + ";LOGIN");
+                }
+                else if (restaurantClient.response.contains("LOGIN_SUCCESS")){
                     JOptionPane.showMessageDialog(this, "Login Sukses");
-                    String role = response.split(";")[1];
+                    String role = restaurantClient.response.split(";")[1];
+                    int id = Integer.parseInt(restaurantClient.response.split(";")[2]);
+                    String user = restaurantClient.response.split(";")[3];
+
+                    restaurantClient.startThread();
                     if (role.equals("CUSTOMER")) {
-                        FormDashboardCustomer dashboardForm = new FormDashboardCustomer(Integer.parseInt(response.split(";")[2]), txtUsername.getText(), clientSocket, in, out);
+                        FormDashboardCustomer dashboardForm = new FormDashboardCustomer(restaurantClient, id, user);
                         dashboardForm.setVisible(true);
                         this.dispose();
                     }
                     else if (role.equals("ADMIN")) {
-                        FormDashboardAdmin dashboardAdminForm = new FormDashboardAdmin(Integer.parseInt(response.split(";")[2]), txtUsername.getText(), clientSocket, in, out);
+                        FormDashboardAdmin dashboardAdminForm = new FormDashboardAdmin(restaurantClient, id, user);
                         dashboardAdminForm.setVisible(true);
                         this.dispose();
                     }
@@ -204,15 +198,9 @@ public class FormLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        try {
-            // TODO add your handling code here:
-            sendMessageToServer("LOGOUT");
-            clientSocket.close();           
-            
-            this.dispose();
-        } catch (IOException ex) {
-            Logger.getLogger(FormLogin.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // TODO add your handling code here:
+        restaurantClient.sendMessageToServer("LOGOUT");
+        this.dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
     /**
@@ -245,11 +233,7 @@ public class FormLogin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
-                    new FormLogin().setVisible(true);
-                } catch (IOException ex) {
-                    Logger.getLogger(FormLogin.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                new FormLogin().setVisible(true);
             }
         });
     }
@@ -266,15 +250,4 @@ public class FormLogin extends javax.swing.JFrame {
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 
-    private String getMessageFromServer() throws IOException {
-        return in.readLine();
-    }
-
-    public void sendMessageToServer(String message) {
-        try {
-            out.writeBytes(message + "\n");
-        } catch (Exception e) {
-            System.out.println("Error di send message client");
-        }
-    }
 }

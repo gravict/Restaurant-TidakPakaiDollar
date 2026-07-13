@@ -180,9 +180,9 @@ public class FormNewReservation extends javax.swing.JFrame implements Runnable{
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        FormDashboardCustomer dashboardForm = new FormDashboardCustomer(currentUserId, currentUsername, clientSocket, in, out);
-        dashboardForm.setVisible(true);
-        this.dispose();
+//        FormDashboardCustomer dashboardForm = new FormDashboardCustomer(currentUserId, currentUsername, clientSocket, in, out);
+//        dashboardForm.setVisible(true);
+//        this.dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
