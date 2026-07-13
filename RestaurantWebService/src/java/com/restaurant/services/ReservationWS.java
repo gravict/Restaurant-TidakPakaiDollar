@@ -16,6 +16,7 @@ import restaurant_tidakpakaidollar.model.*;
 @WebService(serviceName = "ReservationWS")
 public class ReservationWS {
 
+    Reservation model =new Reservation();
     /**
      * This is a sample web service operation
      */
@@ -35,5 +36,14 @@ public class ReservationWS {
         reservation.setStart_reservation(datetime);
 
         return reservation.createReservation();
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getAllReservation")
+    public String getAllReservation() {
+        //TODO write your implementation code here:
+        return model.viewListData();
     }
 }

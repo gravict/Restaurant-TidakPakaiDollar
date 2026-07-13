@@ -7,7 +7,9 @@ package restaurant_tidakpakaidollar.model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 /**
  *
  * @author LEGION
@@ -236,6 +238,22 @@ public class Reservation extends MyModel {
 
     @Override
     public String viewListData() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String reserve = "";
+        try {
+            this.statement = (Statement) MyModel.conn.createStatement();
+            this.result = this.statement.executeQuery(""
+                    + "SELECT r.id, r.start_reservation, r.reservation_status, r.number_guest, a.username"
+                    + "FROM reservation r INNER JOIN account a ON r.accound_id = a.id");
+            while (this.result.next()) {
+                reserve += this.result.getInt("id") + ";"
+                        + this.result.getString("datetime") + ";"
+                        + this.result.getString("status") + ";"
+                        + this.result.getInt("guset") + ";"
+                        + this.result.getString("username") + "#";
+            }
+        } catch (Exception e) {
+            System.out.println("Error ViewListData " + e);
+        }
+        return reserve;
     }
 }

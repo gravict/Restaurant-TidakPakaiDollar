@@ -115,6 +115,10 @@ public class RestaurantServer implements Runnable{
             removeClient(client);
             return "";
         } 
+        else if (request.contains("GET_RESERVATION"))
+        {
+            return getAllReservation();
+        }
         else 
         {
             return ""; 
@@ -185,5 +189,11 @@ public class RestaurantServer implements Runnable{
         com.restaurant.services.MenuWS_Service service = new com.restaurant.services.MenuWS_Service();
         com.restaurant.services.MenuWS port = service.getMenuWSPort();
         return port.getMenuFiltered(filterBy, value);
+    }
+
+    private static String getAllReservation() {
+        com.restaurant.services.ReservationWS_Service service = new com.restaurant.services.ReservationWS_Service();
+        com.restaurant.services.ReservationWS port = service.getReservationWSPort();
+        return port.getAllReservation();
     }
 }
