@@ -52,4 +52,18 @@ public class MenuWS {
         newMenu.insertData();
         return "SUCCESS";
     }
+    
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "addStock")
+    public String addStock(@WebParam(name = "menuId") int menuId, @WebParam(name = "addedStock") int addedStock) {
+        Menu menuModel = new Menu();
+        boolean success = menuModel.addStock(menuId, addedStock);
+        if (success) {
+            return "SUCCESS";
+        } else {
+            return "FAILED";
+        }
+    }
 }

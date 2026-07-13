@@ -139,6 +139,23 @@ public class Menu extends MyModel {
         }
     }
 
+    public boolean addStock(int id, int addedStock) {
+        try {
+            if (!MyModel.conn.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                    "UPDATE menu SET stock = stock + ?, updated_at = NOW() WHERE id = ?");
+                sql.setInt(1, addedStock);
+                sql.setInt(2, id);
+                int rows = sql.executeUpdate();
+                sql.close();
+                return rows > 0;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error di addStock Menu: " + ex.getMessage());
+        }
+        return false;
+    }
+
     @Override
     public void deleteData() {
         try {

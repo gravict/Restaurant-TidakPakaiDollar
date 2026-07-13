@@ -85,6 +85,7 @@ public class FormMenuManagement extends javax.swing.JFrame {
         lblCari = new javax.swing.JLabel();
         txtCariMenu = new javax.swing.JTextField();
         cmbKategori = new javax.swing.JComboBox<>();
+        btnTambahStok = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -168,6 +169,15 @@ public class FormMenuManagement extends javax.swing.JFrame {
         cmbKategori.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         cmbKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Makanan", "Minuman" }));
 
+        btnTambahStok.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnTambahStok.setText("Tambah Stok");
+        btnTambahStok.setActionCommand("");
+        btnTambahStok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTambahStokActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -196,9 +206,12 @@ public class FormMenuManagement extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(txtCariMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblNewMenu)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnNewMenu)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblNewMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnNewMenu))
+                                    .addComponent(btnTambahStok))))
                         .addGap(29, 29, 29))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -210,7 +223,7 @@ public class FormMenuManagement extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(lblMenuManagement)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCari)
                     .addComponent(cmbCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -221,7 +234,8 @@ public class FormMenuManagement extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCari)
                     .addComponent(txtCariMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTambahStok))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPaneMenuManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -281,6 +295,46 @@ public class FormMenuManagement extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cmbCariActionPerformed
 
+    private void btnTambahStokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahStokActionPerformed
+        int selectedRow = tableMenuManagement.getSelectedRow();
+        if (selectedRow == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Silakan pilih menu dari tabel terlebih dahulu!", "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            int menuId = Integer.parseInt(tableMenuManagement.getValueAt(selectedRow, 0).toString());
+            String menuName = tableMenuManagement.getValueAt(selectedRow, 1).toString();
+
+            String input = javax.swing.JOptionPane.showInputDialog(this, "Berapa banyak stok yang ingin ditambahkan untuk menu " + menuName + "?", "Tambah Stok", javax.swing.JOptionPane.QUESTION_MESSAGE);
+            
+            if (input == null || input.trim().isEmpty()) {
+                return;
+            }
+
+            int addedStock = Integer.parseInt(input.trim());
+            if (addedStock <= 0) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Jumlah stok harus lebih dari 0!", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            String request = "ADD_STOCK;" + menuId + ";" + addedStock;
+            dashboard.restaurantClient.sendMessageToServer(request);
+            String response = dashboard.restaurantClient.getMessageFromServer();
+
+            if ("SUCCESS".equals(response)) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Stok berhasil ditambahkan!", "Sukses", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                loadData("GET_MENU");
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Gagal menambahkan stok!" + response, "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Input stok harus berupa angka!", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            java.util.logging.Logger.getLogger(FormMenuManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnTambahStokActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -320,6 +374,7 @@ public class FormMenuManagement extends javax.swing.JFrame {
     private javax.swing.JButton btnCari;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnNewMenu;
+    private javax.swing.JButton btnTambahStok;
     private javax.swing.JComboBox<String> cmbCari;
     private javax.swing.JComboBox<String> cmbKategori;
     private javax.swing.JScrollPane jScrollPaneMenuManagement;
