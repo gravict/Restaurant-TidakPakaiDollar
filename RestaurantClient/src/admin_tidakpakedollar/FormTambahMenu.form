@@ -207,6 +207,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Tambah"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTambahActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
