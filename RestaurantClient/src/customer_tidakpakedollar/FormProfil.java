@@ -22,30 +22,31 @@ public class FormProfil extends javax.swing.JFrame {
     Socket clientSocket;
     BufferedReader in;
     DataOutputStream out;
-    
+
     int id;
     String fullname;
     String phonenumber;
-    
+
     public FormProfil() {
         initComponents();
     }
+
     public FormProfil(String username, Socket pClientSocket, BufferedReader pIn, DataOutputStream pOut) throws IOException {
-        initComponents();        
+        initComponents();
         setLocationRelativeTo(this);
-        
+
         currentUsername = username;
         clientSocket = pClientSocket;
         in = pIn;
         out = pOut;
-        
+
         sendMessageToServer("GET_DETAILS;" + currentUsername);
         String profile = getMessageFromServer();
         String[] profiles = profile.split(";");
         id = Integer.parseInt(profiles[0]);
         fullname = profiles[1];
         phonenumber = profiles[2];
-        
+
         txtNamaLengkap.setText(fullname);
         txtNomorTelepon.setText(phonenumber);
         txtUsername.setText(currentUsername);
@@ -204,26 +205,24 @@ public class FormProfil extends javax.swing.JFrame {
     private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
         String fullName = txtNamaLengkap.getText().trim();
         String phone = txtNomorTelepon.getText().trim();
-        String username = txtUsername.getText().trim();
         String newPassword = new String(txtPassword.getPassword()); // txtPassword = New Password
         String oldPassword = new String(txtRepeatPassword.getPassword()); // txtRepeatPassword = Old Password
 
-        if (fullName.isEmpty() || phone.isEmpty() || username.isEmpty() || oldPassword.isEmpty()) {
+        if (fullName.isEmpty() || phone.isEmpty() || oldPassword.isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this,
-                    "Harap isi Nama Lengkap, No. Handphone, Username, dan Old Password!",
+                    "Harap isi Nama Lengkap, No. Handphone, dan Old Password!",
                     "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         try {
-            String request = "UPDATE_PROFILE;" + id + ";" + username + ";" + fullName + ";" + phone + ";" + oldPassword + ";" + newPassword;
+            String request = "UPDATE_PROFILE;" + id + ";" + fullName + ";" + phone + ";" + oldPassword + ";" + newPassword;
             sendMessageToServer(request);
 
             String response = getMessageFromServer();
 
             if (response.equals("UPDATE_SUCCESS")) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Profil berhasil diperbarui!", "Sukses", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-                currentUsername = username;
             } else if (response.equals("WRONG_PASSWORD")) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Password lama salah! Pembaruan dibatalkan.", "Gagal", javax.swing.JOptionPane.ERROR_MESSAGE);
             } else {
@@ -268,6 +267,7 @@ public class FormProfil extends javax.swing.JFrame {
             }
         });
     }
+
     private String getMessageFromServer() throws IOException {
         return in.readLine();
     }

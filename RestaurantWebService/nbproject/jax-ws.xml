@@ -13,6 +13,9 @@
     <service name="ReservationHistoryWS">
       <implementation-class>com.restaurant.services.ReservationHistoryWS</implementation-class>
     </service>
+    <service name="TableWS">
+      <implementation-class>com.restaurant.services.TableWS</implementation-class>
+    </service>
   </services>
   <clients/>
 </jax-ws>

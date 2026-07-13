@@ -45,13 +45,12 @@ public class AccountWS {
     @WebMethod(operationName = "updateProfile")
     public String updateProfile(
             @WebParam(name = "id") int id,
-            @WebParam(name = "username") String username,
             @WebParam(name = "fullname") String fullname,
             @WebParam(name = "phone") String phone,
             @WebParam(name = "oldPassword") String oldPassword,
             @WebParam(name = "newPassword") String newPassword) {
 
-        return model.updateProfile(id, username, fullname, phone, oldPassword, newPassword);
+        return model.updateProfile(id, fullname, phone, oldPassword, newPassword);
     }
 
     @WebMethod(operationName = "getDetails")

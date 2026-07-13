@@ -277,7 +277,7 @@ public class Account extends MyModel {
     // Jika tidak ditemukan atau terjadi error, kembalikan string kosong
     return ""; 
 }
-    public String updateProfile(int pId, String pUsername, String pFullname, String pPhone, String pOldPass, String pNewPass) {
+    public String updateProfile(int pId, String pFullname, String pPhone, String pOldPass, String pNewPass) {
         try {
             if (!MyModel.conn.isClosed()) {
                 PreparedStatement checkSql = MyModel.conn.prepareStatement("SELECT * FROM account WHERE id = ? AND password = SHA2(?,256)");
@@ -295,20 +295,18 @@ public class Account extends MyModel {
                 PreparedStatement updateSql;
 
                 if (pNewPass == null || pNewPass.isEmpty()) {
-                    query = "UPDATE account SET username = ?, fullname = ?, phone_number = ?, updated_at = NOW() WHERE id = ?";
+                    query = "UPDATE account SET fullname = ?, phone_number = ?, updated_at = NOW() WHERE id = ?";
                     updateSql = MyModel.conn.prepareStatement(query);
-                    updateSql.setString(1, pUsername);
-                    updateSql.setString(2, pFullname);
-                    updateSql.setString(3, pPhone);
-                    updateSql.setInt(4, pId);
+                    updateSql.setString(1, pFullname);
+                    updateSql.setString(2, pPhone);
+                    updateSql.setInt(3, pId);
                 } else {
-                    query = "UPDATE account SET username = ?, fullname = ?, phone_number = ?, password = SHA2(?,256), updated_at = NOW() WHERE id = ?";
+                    query = "UPDATE account SET fullname = ?, phone_number = ?, password = SHA2(?,256), updated_at = NOW() WHERE id = ?";
                     updateSql = MyModel.conn.prepareStatement(query);
-                    updateSql.setString(1, pUsername);
-                    updateSql.setString(2, pFullname);
-                    updateSql.setString(3, pPhone);
-                    updateSql.setString(4, pNewPass);
-                    updateSql.setInt(5, pId);
+                    updateSql.setString(1, pFullname);
+                    updateSql.setString(2, pPhone);
+                    updateSql.setString(3, pNewPass);
+                    updateSql.setInt(4, pId);
                 }
 
                 int row = updateSql.executeUpdate();
