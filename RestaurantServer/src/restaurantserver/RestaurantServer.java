@@ -104,6 +104,11 @@ public class RestaurantServer implements Runnable{
                 return getMenuFiltered(menus[1], menus[2]);
             }
         }
+        else if (request.contains("ADD_MENU;")) 
+        {
+            String[] data = request.split(";");
+            return insertMenu(data[1], data[2], Integer.parseInt(data[3]), data[4]);
+        }
         else if (request.contains(";LOGIN")) 
         {
             System.out.println(request.split(";")[0] + " LOG IN");
@@ -195,5 +200,11 @@ public class RestaurantServer implements Runnable{
         com.restaurant.services.ReservationWS_Service service = new com.restaurant.services.ReservationWS_Service();
         com.restaurant.services.ReservationWS port = service.getReservationWSPort();
         return port.getAllReservation();
+    }
+    
+    private static String insertMenu(java.lang.String name, java.lang.String category, int price, java.lang.String description) {
+        com.restaurant.services.MenuWS_Service service = new com.restaurant.services.MenuWS_Service();
+        com.restaurant.services.MenuWS port = service.getMenuWSPort();
+        return port.insertMenu(name, category, price, description);
     }
 }
