@@ -4,19 +4,41 @@
  */
 package admin_tidakpakedollar;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Nicholas
  */
 public class FormTableManagement extends javax.swing.JFrame {
 
-    FormDashboardAdmin dashboard;
+    private FormDashboardAdmin dashboard;
+    String[][] allTable;
     /**
      * Creates new form FormTableManagement
      */
-    public FormTableManagement(FormDashboardAdmin admin) {
+    public FormTableManagement(FormDashboardAdmin admin) throws IOException {
         initComponents();
         this.dashboard = admin;
+        
+        String request = "GET_TABLE";
+        dashboard.restaurantClient.sendMessageToServer(request);
+        
+        String tables = dashboard.restaurantClient.getMessageFromServer();
+        
+        String[] table_data = tables.split("#");
+        allTable = new String[table_data.length][4];
+        
+        for(int i=0; i<table_data.length; i++){
+            String tableDetail[]=table_data[i].split(";");
+            for(int j=0; j<4; j++){
+                allTable[i][j] = tableDetail[j];
+            }
+        }
+        refreshTable();
     }
 
     /**
@@ -134,14 +156,14 @@ public class FormTableManagement extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(lblTableManagement3)
-                            .addGap(18, 18, 18)
-                            .addComponent(lblTableNum))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(22, 22, 22)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblTableManagement3)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblTableNum))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(22, 22, 22))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(lblTableManagement2)
                         .addGap(157, 157, 157))))
@@ -159,9 +181,9 @@ public class FormTableManagement extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(lblTableManagement2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTableNum)
-                    .addComponent(lblTableManagement3))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTableManagement3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblTableNum))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
@@ -178,6 +200,20 @@ public class FormTableManagement extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    public void refreshTable(){
+        DefaultTableModel model = (DefaultTableModel) tableTableManagement.getModel();
+        model.setRowCount(0);
+        
+        Object[] rowData = new Object[4];
+        
+        for(int i=0; i<allTable.length; i++){
+            for(int j=0; j<4; j++){
+                rowData[j] = allTable[i][j];
+            }
+            model.addRow(rowData);
+        }
+    }
+    
     private void buttonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExitActionPerformed
         // TODO add your handling code here:
         dashboard.setVisible(true);
@@ -214,7 +250,11 @@ public class FormTableManagement extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormTableManagement(null).setVisible(true);
+                try {
+                    new FormTableManagement(null).setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(FormTableManagement.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

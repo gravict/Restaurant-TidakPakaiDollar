@@ -124,6 +124,10 @@ public class RestaurantServer implements Runnable{
         {
             return getAllReservation();
         }
+        else if (request.contains("GET_TABLE"))
+        {
+            return getTableAll();
+        }
         else 
         {
             return ""; 
@@ -207,4 +211,11 @@ public class RestaurantServer implements Runnable{
         com.restaurant.services.MenuWS port = service.getMenuWSPort();
         return port.insertMenu(name, category, price, description);
     }
+
+    private static String getTableAll() {
+        com.restaurant.services.TableWS_Service service = new com.restaurant.services.TableWS_Service();
+        com.restaurant.services.TableWS port = service.getTableWSPort();
+        return port.getTableAll();
+    }
+    
 }
