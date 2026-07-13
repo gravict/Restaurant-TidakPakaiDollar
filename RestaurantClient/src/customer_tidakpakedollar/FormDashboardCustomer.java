@@ -166,20 +166,25 @@ public class FormDashboardCustomer extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemLogoutActionPerformed
 
     private void menuItemProfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemProfilActionPerformed
-//        FormProfil profilForm = new FormProfil(currentUsername, clientSocket, in, out);
-//        profilForm.setVisible(true);
-//        this.dispose();
+        try {
+            FormProfil profilForm = new FormProfil(restaurantClient, currentUserId, currentUsername);
+            profilForm.setVisible(true);
+            this.dispose();
+        } catch (IOException ex) {
+            Logger.getLogger(FormDashboardCustomer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_menuItemProfilActionPerformed
 
     private void menuItemReservationHisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemReservationHisActionPerformed
-        // TODO add your handling code here:
+        FormReservation reservationHisForm = new FormReservation(restaurantClient, currentUserId, currentUsername);
+        reservationHisForm.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_menuItemReservationHisActionPerformed
 
     private void menuItemNewReservationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemNewReservationActionPerformed
-        // TODO add your handling code here:
-//        FormNewReservation reservationForm = new FormNewReservation(currentUserId, currentUsername, clientSocket, in, out);
-//        reservationForm.setVisible(true);
-//        this.dispose();        
+        FormNewReservation reservationForm = new FormNewReservation(currentUserId, currentUsername, restaurantClient.clientSocket, restaurantClient.in, restaurantClient.out);
+        reservationForm.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_menuItemNewReservationActionPerformed
 
     /**

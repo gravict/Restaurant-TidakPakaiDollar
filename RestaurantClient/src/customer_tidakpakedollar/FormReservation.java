@@ -4,6 +4,8 @@
  */
 package customer_tidakpakedollar;
 
+import restaurant_tidakpakaidollar.*;
+
 /**
  *
  * @author Giffert
@@ -13,8 +15,20 @@ public class FormReservation extends javax.swing.JFrame {
     /**
      * Creates new form FormReservation
      */
+    int currentUserId;
+    String currentUsername;
+    Restaurant_tidakpakaidollar restaurantClient;
+
     public FormReservation() {
         initComponents();
+    }
+
+    public FormReservation(Restaurant_tidakpakaidollar parent, int userId, String username) {
+        initComponents();
+        this.restaurantClient = parent;
+        this.currentUserId = userId;
+        this.currentUsername = username;
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -145,7 +159,10 @@ public class FormReservation extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        // TODO add your handling code here:
+        FormDashboardCustomer dashboardForm = new FormDashboardCustomer(
+                restaurantClient, currentUserId, currentUsername);
+        dashboardForm.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
     /**

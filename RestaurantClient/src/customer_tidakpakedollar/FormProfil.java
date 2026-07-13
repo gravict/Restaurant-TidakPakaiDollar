@@ -4,10 +4,8 @@
  */
 package customer_tidakpakedollar;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.Socket;
+import restaurant_tidakpakaidollar.*;
 
 /**
  *
@@ -18,10 +16,9 @@ public class FormProfil extends javax.swing.JFrame {
     /**
      * Creates new form FormProfil
      */
+    int currentUserId;
     String currentUsername;
-    Socket clientSocket;
-    BufferedReader in;
-    DataOutputStream out;
+    Restaurant_tidakpakaidollar restaurantClient;
 
     int id;
     String fullname;
@@ -31,17 +28,16 @@ public class FormProfil extends javax.swing.JFrame {
         initComponents();
     }
 
-    public FormProfil(String username, Socket pClientSocket, BufferedReader pIn, DataOutputStream pOut) throws IOException {
+    public FormProfil(Restaurant_tidakpakaidollar parent, int userId, String username) throws IOException {
         initComponents();
         setLocationRelativeTo(this);
 
-        currentUsername = username;
-        clientSocket = pClientSocket;
-        in = pIn;
-        out = pOut;
+        this.restaurantClient = parent;
+        this.currentUserId = userId;
+        this.currentUsername = username;
 
-        sendMessageToServer("GET_DETAILS;" + currentUsername);
-        String profile = getMessageFromServer();
+        restaurantClient.sendMessageToServer("GET_DETAILS;" + currentUsername);
+        String profile = restaurantClient.getMessageFromServer();
         String[] profiles = profile.split(";");
         id = Integer.parseInt(profiles[0]);
         fullname = profiles[1];
@@ -103,6 +99,7 @@ public class FormProfil extends javax.swing.JFrame {
         lblUsername.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblUsername.setText("Username");
 
+        txtUsername.setEditable(false);
         txtUsername.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         btnExit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -197,9 +194,9 @@ public class FormProfil extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        //FormDashboardCustomer dashboardForm = new FormDashboardCustomer(id, currentUsername, clientSocket, in, out);
-//        dashboardForm.setVisible(true);
-        //this.dispose();
+        FormDashboardCustomer dashboardForm = new FormDashboardCustomer(restaurantClient, currentUserId, currentUsername);
+        dashboardForm.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
@@ -215,11 +212,18 @@ public class FormProfil extends javax.swing.JFrame {
             return;
         }
 
+        if (!newPassword.isEmpty() && newPassword.equals(oldPassword)) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Password baru tidak boleh sama dengan password lama!",
+                    "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
         try {
             String request = "UPDATE_PROFILE;" + id + ";" + fullName + ";" + phone + ";" + oldPassword + ";" + newPassword;
-            sendMessageToServer(request);
+            restaurantClient.sendMessageToServer(request);
 
-            String response = getMessageFromServer();
+            String response = restaurantClient.getMessageFromServer();
 
             if (response.equals("UPDATE_SUCCESS")) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Profil berhasil diperbarui!", "Sukses", javax.swing.JOptionPane.INFORMATION_MESSAGE);
@@ -268,17 +272,7 @@ public class FormProfil extends javax.swing.JFrame {
         });
     }
 
-    private String getMessageFromServer() throws IOException {
-        return in.readLine();
-    }
 
-    public void sendMessageToServer(String message) {
-        try {
-            out.writeBytes(message + "\n");
-        } catch (Exception e) {
-            System.out.println("Error di send message client");
-        }
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChange;

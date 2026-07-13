@@ -179,7 +179,7 @@ public class FormLogin extends javax.swing.JFrame {
                     int id = Integer.parseInt(restaurantClient.response.split(";")[2]);
                     String user = restaurantClient.response.split(";")[3];
 
-                    restaurantClient.startThread();
+                    // restaurantClient.startThread();
                     if (role.equals("CUSTOMER")) {
                         FormDashboardCustomer dashboardForm = new FormDashboardCustomer(restaurantClient, id, user);
                         dashboardForm.setVisible(true);

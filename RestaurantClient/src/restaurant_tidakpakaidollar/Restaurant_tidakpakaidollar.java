@@ -19,9 +19,9 @@ public class Restaurant_tidakpakaidollar implements Runnable {
     /**
      * @param args the command line arguments
      */
-    Socket clientSocket;
-    BufferedReader in;
-    DataOutputStream out;
+    public Socket clientSocket;
+    public BufferedReader in;
+    public DataOutputStream out;
     public Thread clientThread;
     public String response;
     boolean running;
