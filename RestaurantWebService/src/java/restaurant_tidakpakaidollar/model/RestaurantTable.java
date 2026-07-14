@@ -153,7 +153,7 @@ public class RestaurantTable extends MyModel{
         String table_reserv = "";
         try {
             String sql = "SELECT "
-                        + "r.id,r.start_reservation,r.reservation_status,a.name,r.number_guest "
+                        + "r.id,r.start_reservation,r.reservation_status,a.fullname,r.number_guest "
                         + "FROM reservation r "
                         + "JOIN account a "
                         + "ON r.account_id = a.id "
@@ -167,7 +167,7 @@ public class RestaurantTable extends MyModel{
                 table_reserv += this.result.getInt("id") + ";" + 
                                 this.result.getString("start_reservation") + ";" +
                                 this.result.getString("reservation_status") + ";" +
-                                this.result.getString("name") + ";" +
+                                this.result.getString("fullname") + ";" +
                                 this.result.getInt("number_guest") + "#";
             }
         } catch (Exception e) {

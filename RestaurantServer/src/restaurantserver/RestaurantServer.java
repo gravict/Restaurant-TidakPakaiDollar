@@ -129,9 +129,15 @@ public class RestaurantServer implements Runnable{
         {
             return getAllReservation();
         }
-        else if (request.contains("GET_TABLE"))
+        else if (request.equals("GET_TABLE"))
         {
             return getTableAll();
+        }
+        else if (request.contains("GET_TABLE_RESERVED;")) {
+            String[] req = request.split(";");
+            int id_table = Integer.parseInt(req[1]);
+            System.out.println(id_table);
+            return getTableReserved(id_table);
         }
         else if (request.contains("CANCEL_RESERVATION"))
         {
@@ -229,6 +235,12 @@ public class RestaurantServer implements Runnable{
         return port.getTableAll();
     }
     
+    private static String getTableReserved(int idTable) {
+        com.restaurant.services.TableWS_Service service = new com.restaurant.services.TableWS_Service();
+        com.restaurant.services.TableWS port = service.getTableWSPort();
+        return port.getTableReserved(idTable);
+    }
+    
     private static String addStock(int menuId, int addedStock) {
         com.restaurant.services.MenuWS_Service service = new com.restaurant.services.MenuWS_Service();
         com.restaurant.services.MenuWS port = service.getMenuWSPort();
@@ -240,5 +252,5 @@ public class RestaurantServer implements Runnable{
         com.restaurant.services.ReservationWS port = service.getReservationWSPort();
         return port.cancelReservation(idReservasi);
     }
-    
+
 }

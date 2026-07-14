@@ -7,6 +7,7 @@ package admin_tidakpakedollar;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,6 +18,7 @@ public class FormTableManagement extends javax.swing.JFrame {
 
     private FormDashboardAdmin dashboard;
     String[][] allTable;
+    String[][] allTableRes;
     /**
      * Creates new form FormTableManagement
      */
@@ -88,6 +90,11 @@ public class FormTableManagement extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tableTableManagement.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableTableManagementMouseClicked(evt);
             }
         });
         jScrollPaneTableManagement.setViewportView(tableTableManagement);
@@ -213,12 +220,57 @@ public class FormTableManagement extends javax.swing.JFrame {
             model.addRow(rowData);
         }
     }
+    public void refreshTableReserved(){
+        DefaultTableModel model = (DefaultTableModel) tableTableReservationInfo.getModel();
+        model.setRowCount(0);
+        
+        Object[] rowData = new Object[5];
+        
+        for(int i=0; i<allTableRes.length; i++){
+            for(int j=0; j<5; j++){
+                rowData[j] = allTableRes[i][j];
+            }
+            model.addRow(rowData);
+        }
+    }
     
     private void buttonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExitActionPerformed
         // TODO add your handling code here:
         dashboard.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_buttonExitActionPerformed
+
+    private void tableTableManagementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableTableManagementMouseClicked
+        // TODO add your handling code here:
+        try {
+            int row = tableTableManagement.getSelectedRow();
+            if (row >= 0) {
+                int id_table = Integer.parseInt(tableTableManagement.getValueAt(row, 0).toString());
+                lblTableNum.setText(id_table + "");
+
+                String request = "GET_TABLE_RESERVED;" + id_table;
+                dashboard.restaurantClient.sendMessageToServer(request);
+
+                String table_res = dashboard.restaurantClient.getMessageFromServer();
+                
+                JOptionPane.showMessageDialog(this, table_res);
+                
+                String[] tableRes_data = table_res.split("#");
+                allTableRes = new String[tableRes_data.length][5];
+
+                for (int i = 0; i < tableRes_data.length; i++) {
+                    String tableResDetail[] = tableRes_data[i].split(";");
+                    for (int j = 0; j < 5; j++) {
+                        allTableRes[i][j] = tableResDetail[j];
+                    }
+                }
+                refreshTableReserved();
+            }
+           
+        } catch(IOException ex){
+            Logger.getLogger(FormTableManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_tableTableManagementMouseClicked
 
     /**
      * @param args the command line arguments
