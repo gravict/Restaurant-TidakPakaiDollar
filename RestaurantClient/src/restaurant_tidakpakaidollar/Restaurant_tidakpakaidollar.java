@@ -14,7 +14,7 @@ import java.net.Socket;
  *
  * @author LEGION
  */
-public class Restaurant_tidakpakaidollar implements Runnable {
+public class Restaurant_tidakpakaidollar {
 
     /**
      * @param args the command line arguments
@@ -52,47 +52,4 @@ public class Restaurant_tidakpakaidollar implements Runnable {
         }
     }
     
-    public void startThread(){
-        if (clientThread == null) {
-            running = true;
-            clientThread = new Thread(this, "Client thread");
-            clientThread.start();
-        }
-    }
-    
-    public void stopThread(){
-        running = false;
-
-        try {
-            if (clientSocket != null && !clientSocket.isClosed()) {
-                clientSocket.close();
-            }
-        } catch (IOException ex) {
-            System.out.println("Error di stop thread");
-        }
-
-        clientThread = null;
-    }
-
-    @Override
-    public void run() {
-        while (running) {
-            try {
-                response = getMessageFromServer();
-                
-                if (response == null) {
-                    System.out.println("Server menutup koneksi");
-                    break;
-                }
-
-                System.out.println("Response server: " + response);
-
-            } catch (IOException ex) {
-                if (running) {
-                    System.out.println("Error di thread client");
-                }
-                break;
-            }
-        }
-    }
 }

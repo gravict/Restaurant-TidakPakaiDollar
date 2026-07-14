@@ -154,7 +154,6 @@ public class FormDashboardCustomer extends javax.swing.JFrame {
         if (confirm == JOptionPane.YES_OPTION) {
             try {
                 restaurantClient.sendMessageToServer("LOGOUT");
-                restaurantClient.stopThread();
                 this.dispose();
                 Restaurant_tidakpakaidollar newApp = new Restaurant_tidakpakaidollar();
                 FormLogin login = new FormLogin(newApp);

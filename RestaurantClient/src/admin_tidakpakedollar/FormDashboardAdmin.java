@@ -59,7 +59,7 @@ public class FormDashboardAdmin extends javax.swing.JFrame {
         menuLogOut = new javax.swing.JMenu();
         menuItemLogout = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         lblName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
@@ -222,7 +222,6 @@ public class FormDashboardAdmin extends javax.swing.JFrame {
         if (confirm == JOptionPane.YES_OPTION) {
             try {
                 restaurantClient.sendMessageToServer("LOGOUT");
-                restaurantClient.stopThread();
                 this.dispose();
                 Restaurant_tidakpakaidollar newApp = new Restaurant_tidakpakaidollar();
                 FormLogin login = new FormLogin(newApp);

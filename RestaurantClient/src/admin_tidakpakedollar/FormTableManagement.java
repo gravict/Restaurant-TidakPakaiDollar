@@ -25,18 +25,18 @@ public class FormTableManagement extends javax.swing.JFrame {
     public FormTableManagement(FormDashboardAdmin admin) throws IOException {
         initComponents();
         this.dashboard = admin;
-        
+
         String request = "GET_TABLE";
         dashboard.restaurantClient.sendMessageToServer(request);
-        
+
         String tables = dashboard.restaurantClient.getMessageFromServer();
-        
+
         String[] table_data = tables.split("#");
         allTable = new String[table_data.length][4];
-        
-        for(int i=0; i<table_data.length; i++){
-            String tableDetail[]=table_data[i].split(";");
-            for(int j=0; j<4; j++){
+
+        for (int i = 0; i < table_data.length; i++) {
+            String tableDetail[] = table_data[i].split(";");
+            for (int j = 0; j < 4; j++) {
                 allTable[i][j] = tableDetail[j];
             }
         }
@@ -62,7 +62,7 @@ public class FormTableManagement extends javax.swing.JFrame {
         lblTableManagement2 = new javax.swing.JLabel();
         lblTableManagement3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         tableTableManagement.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tableTableManagement.setModel(new javax.swing.table.DefaultTableModel(
@@ -210,32 +210,35 @@ public class FormTableManagement extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public void refreshTable(){
+    public void refreshTable() {
         DefaultTableModel model = (DefaultTableModel) tableTableManagement.getModel();
         model.setRowCount(0);
-        
+
         Object[] rowData = new Object[4];
-        
-        for(int i=0; i<allTable.length; i++){
-            for(int j=0; j<4; j++){
+
+        for (int i = 0; i < allTable.length; i++) {
+            for (int j = 0; j < 4; j++) {
                 rowData[j] = allTable[i][j];
             }
             model.addRow(rowData);
         }
     }
-    public void refreshTableReserved(){
+    public void refreshTableReserved() {
         DefaultTableModel model = (DefaultTableModel) tableTableReservationInfo.getModel();
         model.setRowCount(0);
-        
-        Object[] rowData = new Object[5];
-        
-        for(int i=0; i<allTableRes.length; i++){
-            for(int j=0; j<5; j++){
-                rowData[j] = allTableRes[i][j];
+
+        if (allTableRes != null && allTableRes.length != 0) {
+            Object[] rowData = new Object[5];
+
+            for (int i = 0; i < allTableRes.length; i++) {
+                for (int j = 0; j < 5; j++) {
+                    rowData[j] = allTableRes[i][j];
+                }
+                model.addRow(rowData);
             }
-            model.addRow(rowData);
         }
     }
+    
     
     private void buttonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExitActionPerformed
         // TODO add your handling code here:
@@ -253,22 +256,23 @@ public class FormTableManagement extends javax.swing.JFrame {
 
                 String request = "GET_TABLE_RESERVED;" + id_table;
                 dashboard.restaurantClient.sendMessageToServer(request);
-
-                String table_res = dashboard.restaurantClient.getMessageFromServer();
-                
-                String[] tableRes_data = table_res.split("#");
-                allTableRes = new String[tableRes_data.length][5];
-
-                for (int i = 0; i < tableRes_data.length; i++) {
-                    String tableResDetail[] = tableRes_data[i].split(";");
-                    for (int j = 0; j < 5; j++) {
-                        allTableRes[i][j] = tableResDetail[j];
+                dashboard.restaurantClient.response = dashboard.restaurantClient.getMessageFromServer();
+                String table_res = dashboard.restaurantClient.response;
+                if (table_res == null || table_res.trim().isEmpty()) {
+                    allTableRes = new String[0][5];
+                } else {
+                    String[] tableRes_data = table_res.split("#");
+                    allTableRes = new String[tableRes_data.length][5];
+                    for (int i = 0; i < tableRes_data.length; i++) {
+                        String tableResDetail[] = tableRes_data[i].split(";");
+                        for (int j = 0; j < 5; j++) {
+                            allTableRes[i][j] = tableResDetail[j];
+                        }
                     }
                 }
                 refreshTableReserved();
             }
-           
-        } catch(IOException ex){
+        } catch (IOException ex) {
             Logger.getLogger(FormTableManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_tableTableManagementMouseClicked

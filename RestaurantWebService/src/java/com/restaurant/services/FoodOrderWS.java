@@ -28,16 +28,14 @@ public class FoodOrderWS {
     public String hello(@WebParam(name = "name") String txt) {
         return "Hello " + txt + " !";
     }
-    DetailOrder model = new DetailOrder();
-    Invoice invoice = new Invoice();
-    Reservation reserv = new Reservation();
-
+    
     /**
      * Web service operation
      */
     @WebMethod(operationName = "addOrderDetail")
     public String addOrderDetail(@WebParam(name = "menuId") int menuId, @WebParam(name = "reservationId") int reservationId, @WebParam(name = "amount") int amount, @WebParam(name = "subtotal") int subtotal) {
         //TODO write your implementation code here:
+        DetailOrder model = new DetailOrder();
         model.setMenuId(menuId);
         model.setReservationId(reservationId);
         model.setAmount(amount);
@@ -51,6 +49,7 @@ public class FoodOrderWS {
     @WebMethod(operationName = "createInvoice")
     public String createInvoice(@WebParam(name = "reservationId") int reservationId, @WebParam(name = "total") int total) {
         //TODO write your implementation code here:
+        Invoice invoice = new Invoice();
         invoice.setReservationId(reservationId);
         invoice.setTotal_purchases(total);
         invoice.setTransaction_date(Timestamp.valueOf(LocalDateTime.now()));
@@ -63,6 +62,7 @@ public class FoodOrderWS {
     @WebMethod(operationName = "getInvoice")
     public String getInvoice(@WebParam(name = "reservationId") int reservationId) {
         //TODO write your implementation code here:
+        Invoice invoice = new Invoice();
         return invoice.getInvoice(reservationId);
     }
 
@@ -72,6 +72,7 @@ public class FoodOrderWS {
     @WebMethod(operationName = "getOrderDetailsByInvoice")
     public String getOrderDetailsByInvoice(@WebParam(name = "reservationId") int reservationId) {
         //TODO write your implementation code here:
+        Invoice invoice = new Invoice();
         return invoice.getOrderDetailsByInvoice(reservationId);
     }
 
@@ -81,6 +82,7 @@ public class FoodOrderWS {
     @WebMethod(operationName = "getOrderStatusData")
     public String getOrderStatusData() {
         //TODO write your implementation code here:
+        Reservation reserv = new Reservation();
         return reserv.viewOrderStatusData();
     }
 
@@ -90,6 +92,7 @@ public class FoodOrderWS {
     @WebMethod(operationName = "updateOrderStatus")
     public String updateOrderStatus(@WebParam(name = "id_reservation") int id_reservation) {
         //TODO write your implementation code here:
+        Reservation reserv = new Reservation();
         return reserv.updateStatusOrder(id_reservation);
     }
 

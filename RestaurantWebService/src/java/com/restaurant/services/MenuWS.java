@@ -19,7 +19,6 @@ public class MenuWS {
     /**
      * This is a sample web service operation
      */
-    Menu model = new Menu();
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
         return "Hello " + txt + " !";
@@ -31,6 +30,7 @@ public class MenuWS {
     @WebMethod(operationName = "getAllMenus")
     public String getAllMenus() {
         //TODO write your implementation code here:
+        Menu model = new Menu();
         return model.viewListData();
     }
 
@@ -40,6 +40,7 @@ public class MenuWS {
     @WebMethod(operationName = "getMenuFiltered")
     public String getMenuFiltered(@WebParam(name = "filterBy") String filterBy, @WebParam(name = "value") String value) {
         //TODO write your implementation code here:
+        Menu model = new Menu();
         return model.getMenuFiltered(filterBy, value);
     }
     

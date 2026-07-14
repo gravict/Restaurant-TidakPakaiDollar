@@ -16,7 +16,6 @@ import restaurant_tidakpakaidollar.model.*;
 @WebService(serviceName = "ReservationWS")
 public class ReservationWS {
 
-    Reservation model = new Reservation();
     /**
      * This is a sample web service operation
      */
@@ -34,7 +33,6 @@ public class ReservationWS {
         reservation.setAccountId(userId);
         reservation.setNumber_guest(guest);
         reservation.setStart_reservation(datetime);
-
         return reservation.createReservation();
     }
 
@@ -44,6 +42,7 @@ public class ReservationWS {
     @WebMethod(operationName = "getAllReservation")
     public String getAllReservation() {
         //TODO write your implementation code here:
+        Reservation model = new Reservation();
         return model.viewListData();
     }
 
@@ -52,7 +51,8 @@ public class ReservationWS {
      */
     @WebMethod(operationName = "cancelReservation")
     public String cancelReservation(@WebParam(name = "idReservasi") int idReservasi) {
-        //TODO write your implementation code here:        
+        //TODO write your implementation code here:    
+        Reservation model = new Reservation();
         return model.cancelReservation(idReservasi);
     }
 
@@ -62,6 +62,7 @@ public class ReservationWS {
     @WebMethod(operationName = "cekStatus")
     public String cekStatus(@WebParam(name = "id") int id) {
         //TODO write your implementation code here:
+        Reservation model = new Reservation();
         return model.cekStatus(id);
     }
 
@@ -71,6 +72,7 @@ public class ReservationWS {
     @WebMethod(operationName = "updateStatus")
     public String updateStatus(@WebParam(name = "id") int id) {
         //TODO write your implementation code here:
+        Reservation model = new Reservation();
         return model.updateStatus(id);
     }
 }

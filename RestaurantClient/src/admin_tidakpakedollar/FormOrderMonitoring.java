@@ -58,7 +58,7 @@ public class FormOrderMonitoring extends javax.swing.JFrame {
         btnUpdateStatus = new javax.swing.JButton();
         lblStatus = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         btnExit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnExit.setText("Exit");

@@ -168,6 +168,13 @@ public class Reservation extends MyModel {
                         }
                         idResult.close();
                         idSql.close();
+                        PreparedStatement updateTable = MyModel.conn.prepareStatement(
+                            "UPDATE restaurant_table SET status = 'BOOKED' WHERE id = ?"
+                        );
+                        updateTable.setInt(1, this.tableId);
+                        updateTable.executeUpdate();
+                        updateTable.close();
+                        
                         response = "RESERVATION_SUCCESS;" + reservationId;
                     }
                 }

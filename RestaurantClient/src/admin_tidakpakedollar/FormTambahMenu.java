@@ -41,7 +41,7 @@ public class FormTambahMenu extends javax.swing.JFrame {
         btnExit = new javax.swing.JButton();
         btnTambah = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         lblNama.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblNama.setText("Nama");

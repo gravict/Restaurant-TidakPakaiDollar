@@ -33,7 +33,6 @@ public class FormInvoice extends javax.swing.JFrame {
         String inv = dashboardForm.restaurantClient.response;
         
         String[] invoice = inv.split(";");
-        JOptionPane.showMessageDialog(this,invoice[1]);
         
         txtId.setText(invoice[0]);
         lblTotal.setText("Total: Rp." + invoice[1]);
@@ -190,6 +189,7 @@ public class FormInvoice extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed

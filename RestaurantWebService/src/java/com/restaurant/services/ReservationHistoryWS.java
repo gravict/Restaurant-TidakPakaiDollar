@@ -17,7 +17,6 @@ import restaurant_tidakpakaidollar.model.Reservation;
 @WebService(serviceName = "ReservationHistoryWS")
 public class ReservationHistoryWS {
 
-    Reservation reserve = new Reservation();
     /**
      * This is a sample web service operation
      */

@@ -27,10 +27,10 @@ public class TableWS {
     /**
      * Web service operation
      */
-    RestaurantTable model = new RestaurantTable();
     @WebMethod(operationName = "getTableAll")
     public String getTableAll() {
         //TODO write your implementation code here:
+        RestaurantTable model = new RestaurantTable();        
         return model.viewListData();
     }
 
@@ -39,7 +39,8 @@ public class TableWS {
      */
     @WebMethod(operationName = "getTableReserved")
     public String getTableReserved(@WebParam(name = "id_table") int id_table) {
-        //TODO write your implementation code here:
+        //TODO write your implementation code here:        
+        RestaurantTable model = new RestaurantTable();
         return model.viewTableReservation(id_table);
     }
 }

@@ -91,7 +91,7 @@ public class FormOrderMenu extends javax.swing.JFrame {
         lblCari1 = new javax.swing.JLabel();
         cmbCari = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         lblCreateOrder.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblCreateOrder.setText("Create Order");
