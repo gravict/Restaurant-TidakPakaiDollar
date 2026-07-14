@@ -178,6 +178,24 @@ public class RestaurantServer implements Runnable{
             int id_reserv = Integer.parseInt(ord[1]);
             return updateOrderStatus(id_reserv);
         }
+        else if (request.contains("DELETE_MENU;")) {
+            String[] menu = request.split(";");
+            int menuId = Integer.parseInt(menu[1]);
+            return deleteMenu(menuId);
+        }
+        else if (request.contains("MENU_DETAIL;")) {
+            String[] menu = request.split(";");
+            int menuId = Integer.parseInt(menu[1]);
+            return getMenuDetail(menuId);
+        }
+        else if (request.contains("EDIT_MENU;")) {
+            String[] menu = request.split(";");
+            int menuId = Integer.parseInt(menu[1]);
+            String name = menu[2];
+            int price = Integer.parseInt(menu[3]);
+            String desc = menu[4];
+            return editMenu(menuId, name, price, desc);
+        }
         else 
         {
             return ""; 
@@ -329,6 +347,24 @@ public class RestaurantServer implements Runnable{
         com.restaurant.services.FoodOrderWS_Service service = new com.restaurant.services.FoodOrderWS_Service();
         com.restaurant.services.FoodOrderWS port = service.getFoodOrderWSPort();
         return port.updateOrderStatus(idReservation);
+    }
+
+    private static String deleteMenu(int idMenu) {
+        com.restaurant.services.MenuWS_Service service = new com.restaurant.services.MenuWS_Service();
+        com.restaurant.services.MenuWS port = service.getMenuWSPort();
+        return port.deleteMenu(idMenu);
+    }
+
+    private static String getMenuDetail(int id) {
+        com.restaurant.services.MenuWS_Service service = new com.restaurant.services.MenuWS_Service();
+        com.restaurant.services.MenuWS port = service.getMenuWSPort();
+        return port.getMenuDetail(id);
+    }
+
+    private static String editMenu(int id, java.lang.String name, int price, java.lang.String desc) {
+        com.restaurant.services.MenuWS_Service service = new com.restaurant.services.MenuWS_Service();
+        com.restaurant.services.MenuWS port = service.getMenuWSPort();
+        return port.editMenu(id, name, price, desc);
     }
     
     

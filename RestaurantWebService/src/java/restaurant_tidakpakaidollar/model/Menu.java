@@ -125,16 +125,14 @@ public class Menu extends MyModel {
         try {
             if (!MyModel.conn.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
-                    "UPDATE menu SET name = ?, category = ?, price = ?, description = ?, updated_at = NOW() WHERE id = ?");
+                    "UPDATE menu SET name = ?, price = ?, description = ?, updated_at = NOW() WHERE id = ?");
                 sql.setString(1, this.name);
-                sql.setString(2, this.category);
-                sql.setInt(3, this.price);
-                sql.setString(4, this.description);
-                sql.setInt(5, this.id);
+                sql.setInt(2, this.price);
+                sql.setString(3, this.description);
+                sql.setInt(4, this.id);
                 sql.executeUpdate();
                 sql.close();
                 return "SUCCESS";
-
             }
         } catch (Exception ex) {
             System.out.println("Error di update data Menu: " + ex.getMessage());
@@ -221,5 +219,27 @@ public class Menu extends MyModel {
             System.out.println("Error filter menu: " + e);
         }
         return menus;
+    }
+    public String getMenuDetail(int id) {
+        String menu = "";
+        try {
+            String query = "SELECT * FROM menu WHERE id = " + "?";
+
+            PreparedStatement sql = MyModel.conn.prepareStatement(query);
+            sql.setInt(1,id);
+            this.result = sql.executeQuery();
+
+            if (this.result.next()) {
+                menu += this.result.getInt("id") + ";"
+                        + this.result.getString("name") + ";"
+                        + this.result.getString("description") + ";"
+                        + this.result.getInt("price");
+            }
+            sql.close();
+
+        } catch (Exception e) {
+            System.out.println("Error filter menu: " + e);
+        }
+        return menu;
     }
 }

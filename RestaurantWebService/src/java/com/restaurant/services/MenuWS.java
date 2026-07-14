@@ -66,4 +66,44 @@ public class MenuWS {
             return "FAILED";
         }
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "deleteMenu")
+    public String deleteMenu(@WebParam(name = "idMenu") int idMenu) {
+        //TODO write your implementation code here:
+        Menu menuModel = new Menu();
+        menuModel.setId(idMenu);
+        return menuModel.deleteData();
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getMenuDetail")
+    public String getMenuDetail(@WebParam(name = "id") int id) {
+        //TODO write your implementation code here:
+        Menu menuModel = new Menu();
+        menuModel.setId(id);
+        return menuModel.getMenuDetail(id);
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "editMenu")
+    public String editMenu(@WebParam(name = "id") int id, @WebParam(name = "name") String name, @WebParam(name = "price") int price, @WebParam(name = "desc") String desc) {
+        //TODO write your implementation code here:
+        Menu m = new Menu();
+        m.setId(id);
+        m.setName(name);
+        m.setPrice(price);
+        m.setDescription(desc);
+        return m.updateData();
+    }
+
+    
+
+    
 }
