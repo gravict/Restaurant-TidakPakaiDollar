@@ -131,6 +131,7 @@ public class FormReservationHistory extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableUpcomingReservation.setRowHeight(30);
         jScrollPaneReservationHistory.setViewportView(tableUpcomingReservation);
 
         lblFilter.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N

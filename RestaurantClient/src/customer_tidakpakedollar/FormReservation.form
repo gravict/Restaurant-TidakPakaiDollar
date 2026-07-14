@@ -75,6 +75,7 @@
                 <Column editable="false" title="Guest" type="java.lang.String"/>
               </Table>
             </Property>
+            <Property name="rowHeight" type="int" value="30"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -115,6 +116,7 @@
                 <Column editable="false" title="Guest" type="java.lang.String"/>
               </Table>
             </Property>
+            <Property name="rowHeight" type="int" value="30"/>
           </Properties>
         </Component>
       </SubComponents>

@@ -124,6 +124,7 @@ public class FormOrderMenu extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblMenu.setRowHeight(30);
         jScrollPaneDaftarMenu.setViewportView(tblMenu);
 
         btnKode.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -193,6 +194,7 @@ public class FormOrderMenu extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblKeranjang.setRowHeight(30);
         tblKeranjang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblKeranjangMouseClicked(evt);

@@ -128,6 +128,7 @@ public class FormMenuManagement extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableMenuManagement.setRowHeight(30);
         jScrollPaneMenuManagement.setViewportView(tableMenuManagement);
 
         lblNewMenu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N

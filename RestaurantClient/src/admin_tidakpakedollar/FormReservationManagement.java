@@ -93,6 +93,7 @@ public class FormReservationManagement extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableReservation.setRowHeight(30);
         tableReservation.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableReservationMouseClicked(evt);

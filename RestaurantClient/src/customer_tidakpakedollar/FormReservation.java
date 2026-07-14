@@ -78,6 +78,7 @@ public class FormReservation extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblReservationHistory.setRowHeight(30);
         jScrollPaneReservationHistory.setViewportView(tblReservationHistory);
 
         lblUpcomingReservation.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -114,6 +115,7 @@ public class FormReservation extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblUpcomingReservation.setRowHeight(30);
         jScrollPaneUpcomingReservation.setViewportView(tblUpcomingReservation);
 
         btnExit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N

@@ -92,6 +92,7 @@ public class FormTableManagement extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableTableManagement.setRowHeight(30);
         tableTableManagement.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableTableManagementMouseClicked(evt);
@@ -140,6 +141,7 @@ public class FormTableManagement extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableTableReservationInfo.setRowHeight(30);
         jScrollPane1.setViewportView(tableTableReservationInfo);
 
         lblTableManagement2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N

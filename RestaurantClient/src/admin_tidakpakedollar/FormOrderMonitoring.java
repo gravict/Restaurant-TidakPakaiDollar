@@ -95,6 +95,7 @@ public class FormOrderMonitoring extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableOrderMonitor.setRowHeight(30);
         tableOrderMonitor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableOrderMonitorMouseClicked(evt);
