@@ -207,13 +207,6 @@ public class FormProfil extends javax.swing.JFrame {
             return;
         }
 
-        if (!newPassword.isEmpty() && newPassword.equals(oldPassword)) {
-            javax.swing.JOptionPane.showMessageDialog(this,
-                    "Password baru tidak boleh sama dengan password lama!",
-                    "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
         try {
             String request = "UPDATE_PROFILE;" + id + ";" + fullName + ";" + phone + ";" + oldPassword + ";" + newPassword;
             dashboardForm.restaurantClient.sendMessageToServer(request);
@@ -224,6 +217,8 @@ public class FormProfil extends javax.swing.JFrame {
                 javax.swing.JOptionPane.showMessageDialog(this, "Profil berhasil diperbarui!", "Sukses", javax.swing.JOptionPane.INFORMATION_MESSAGE);
             } else if (response.equals("WRONG_PASSWORD")) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Password lama salah! Pembaruan dibatalkan.", "Gagal", javax.swing.JOptionPane.ERROR_MESSAGE);
+            } else if (response.equals("SAME_PASSWORD")) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Password baru tidak boleh sama dengan password lama!", "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
             } else {
                 javax.swing.JOptionPane.showMessageDialog(this, "Gagal memperbarui profil!", "Gagal", javax.swing.JOptionPane.ERROR_MESSAGE);
             }
