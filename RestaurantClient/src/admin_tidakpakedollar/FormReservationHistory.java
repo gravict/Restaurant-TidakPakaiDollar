@@ -237,20 +237,16 @@ public class FormReservationHistory extends javax.swing.JFrame {
             String[] items = response.split("#");
             StringBuilder sb = new StringBuilder();
             sb.append("Detail Pesanan:\n\n");
-            int grandTotal = 0;
+            
             for (String item : items) {
                 if (item.trim().isEmpty()) continue;
                 String[] parts = item.split(";");
-                if (parts.length < 3) continue;
+                if (parts.length < 2) continue;
                 String menuName = parts[0];
                 int amount = Integer.parseInt(parts[1]);
-                int subtotal = Integer.parseInt(parts[2]);
                 
-                sb.append("- ").append(menuName).append(" x").append(amount)
-                  .append(" = Rp ").append(subtotal).append("\n");
-                grandTotal += subtotal;
+                sb.append("- ").append(menuName).append(" x").append(amount).append("\n");
             }
-            sb.append("\nGrand Total: Rp ").append(grandTotal);
             
             javax.swing.JOptionPane.showMessageDialog(this, sb.toString(), "Detail Pesanan", javax.swing.JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception ex) {
