@@ -5,6 +5,7 @@
 package restaurant_tidakpakaidollar.model;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Timestamp;
 /**
  *
@@ -127,5 +128,49 @@ public class Invoice extends MyModel{
     @Override
     public String viewListData() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    public String getInvoice(int reservationId) {
+        String invoice = "";
+        try {
+            if (!MyModel.conn.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                        "SELECT * FROM invoice WHERE reservation_id = ?");
+                sql.setInt(1, reservationId);
+                this.result = sql.executeQuery();
+                if (this.result.next()) {
+                    this.id = this.result.getInt("id");
+                    this.total_purchases = this.result.getInt("total_purchases");
+                    this.transaction_date = this.result.getTimestamp("transaction_date");
+                    
+                    invoice = this.id + ";" + this.total_purchases + ";" + this.transaction_date.toString();
+                }
+                sql.close();
+            }
+        } catch (Exception ex) {
+            System.out.println("Error di get Invoice: " + ex.getMessage());
+        }
+        return invoice;
+    }
+    public String getOrderDetailsByInvoice(int reservationId) {
+        String res = "";
+        try {
+            if (!MyModel.conn.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                        "SELECT m.name, d.amount, m.price, d.subtotal FROM detail_order d JOIN menu m ON d.menu_id = m.id WHERE d.reservation_id = ?");
+                sql.setInt(1, reservationId);
+                this.result = sql.executeQuery();
+                while (this.result.next()) {
+                    res += this.result.getString("name") + ";" + 
+                           this.result.getInt("amount") + ";" +
+                           this.result.getInt("price") + ";" +
+                           this.result.getInt("subtotal") + "#";
+                }
+                sql.close();
+            }
+        } catch (Exception ex) {
+            System.out.println("Error getDetailsByReservation: " + ex.getMessage());
+        }
+        return res;
     }
 }

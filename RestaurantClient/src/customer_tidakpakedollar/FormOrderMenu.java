@@ -35,6 +35,8 @@ public class FormOrderMenu extends javax.swing.JFrame {
     public FormOrderMenu(FormDashboardCustomer parent, int pReservationId) throws IOException {
         initComponents();
         setLocationRelativeTo(null);
+        
+        
         this.reservationId = pReservationId;
         this.dashboardForm = parent;
 
@@ -508,16 +510,14 @@ public class FormOrderMenu extends javax.swing.JFrame {
                     dashboardForm.restaurantClient.sendMessageToServer(request);
                     dashboardForm.restaurantClient.response = dashboardForm.restaurantClient.getMessageFromServer();
                     String response = dashboardForm.restaurantClient.response;
-                    JOptionPane.showMessageDialog(this, response);
-                    
                     if (response.equals("INVOICE_SUCCESS")) {
                         JOptionPane.showMessageDialog(this, "Invoice berhasil dibuat");
-                        //paggil form invoice
+                        FormInvoice invoiceForm = new FormInvoice(dashboardForm, reservationId);
+                        invoiceForm.setVisible(true);
+                        this.setVisible(false);
                     } else if (response.equals("INVOICE_FAILED")) {
                         JOptionPane.showMessageDialog(this, "Invoice gagal dibuat");
                     }
-                    
-                    
                 } catch (IOException ex) {
                     Logger.getLogger(FormOrderMenu.class.getName()).log(Level.SEVERE, null, ex);
                 }

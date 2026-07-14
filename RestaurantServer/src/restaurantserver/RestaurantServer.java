@@ -162,6 +162,15 @@ public class RestaurantServer implements Runnable{
             int idReservasi = Integer.parseInt(reservasi[1]);
             return updateStatus(idReservasi);
         }
+        else if (request.contains("GET_INVOICE")) {
+            String[] invoice = request.split(";");
+            return getInvoice(Integer.parseInt(invoice[1]));
+        }
+        else if (request.contains("GET_ORDER_DETAILS_INVOICE;")) {
+            String[] data = request.split(";");
+            int idReservasi = Integer.parseInt(data[1]);
+            return getOrderDetailsByInvoice(idReservasi);
+        }
         else 
         {
             return ""; 
@@ -287,17 +296,20 @@ public class RestaurantServer implements Runnable{
         com.restaurant.services.FoodOrderWS port = service.getFoodOrderWSPort();
         return port.createInvoice(reservationId, total);
     }
-
-    private static String cekStatus(int id) {
-        com.restaurant.services.ReservationWS_Service service = new com.restaurant.services.ReservationWS_Service();
-        com.restaurant.services.ReservationWS port = service.getReservationWSPort();
-        return port.cekStatus(id);
-    }
-
     private static String updateStatus(int id) {
         com.restaurant.services.ReservationWS_Service service = new com.restaurant.services.ReservationWS_Service();
         com.restaurant.services.ReservationWS port = service.getReservationWSPort();
         return port.updateStatus(id);
+    }
+    private static String getInvoice(int reservationId) {
+        com.restaurant.services.FoodOrderWS_Service service = new com.restaurant.services.FoodOrderWS_Service();
+        com.restaurant.services.FoodOrderWS port = service.getFoodOrderWSPort();
+        return port.getInvoice(reservationId);
+    }
+    private static String getOrderDetailsByInvoice(int reservationId) {
+        com.restaurant.services.FoodOrderWS_Service service = new com.restaurant.services.FoodOrderWS_Service();
+        com.restaurant.services.FoodOrderWS port = service.getFoodOrderWSPort();
+        return port.getOrderDetailsByInvoice(reservationId);
     }
     
     

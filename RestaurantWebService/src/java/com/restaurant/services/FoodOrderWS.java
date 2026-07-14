@@ -6,7 +6,6 @@ package com.restaurant.services;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import static java.time.LocalDateTime.now;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -53,6 +52,24 @@ public class FoodOrderWS {
         invoice.setTotal_purchases(total);
         invoice.setTransaction_date(Timestamp.valueOf(LocalDateTime.now()));
         return invoice.insertData();
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getInvoice")
+    public String getInvoice(@WebParam(name = "reservationId") int reservationId) {
+        //TODO write your implementation code here:
+        return invoice.getInvoice(reservationId);
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getOrderDetailsByInvoice")
+    public String getOrderDetailsByInvoice(@WebParam(name = "reservationId") int reservationId) {
+        //TODO write your implementation code here:
+        return invoice.getOrderDetailsByInvoice(reservationId);
     }
 
 }
