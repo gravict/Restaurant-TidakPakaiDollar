@@ -32,6 +32,8 @@ public class FormOrderMonitoring extends javax.swing.JFrame {
         lblOrderMonitoring = new javax.swing.JLabel();
         jScrollPaneOrderMonitoring = new javax.swing.JScrollPane();
         tableOrderMonitor = new javax.swing.JTable();
+        btnUpdateStatus = new javax.swing.JButton();
+        lblStatus = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,21 +51,17 @@ public class FormOrderMonitoring extends javax.swing.JFrame {
         tableOrderMonitor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tableOrderMonitor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Menu", "Reservation", "Status", "Customer", "Action"
+                "Reservation Id", "Status", "Customer"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -76,31 +74,51 @@ public class FormOrderMonitoring extends javax.swing.JFrame {
         });
         jScrollPaneOrderMonitoring.setViewportView(tableOrderMonitor);
 
+        btnUpdateStatus.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnUpdateStatus.setText("Update");
+        btnUpdateStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateStatusActionPerformed(evt);
+            }
+        });
+
+        lblStatus.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblStatus.setText("Reservation Id: ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnExit)
-                    .addComponent(jScrollPaneOrderMonitoring, javax.swing.GroupLayout.PREFERRED_SIZE, 666, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPaneOrderMonitoring, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnExit))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblStatus)
+                        .addGap(54, 54, 54)
+                        .addComponent(btnUpdateStatus)))
+                .addContainerGap(19, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblOrderMonitoring)
-                .addGap(251, 251, 251))
+                .addGap(134, 134, 134))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addGap(12, 12, 12)
                 .addComponent(lblOrderMonitoring)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addComponent(jScrollPaneOrderMonitoring, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblStatus)
+                    .addComponent(btnUpdateStatus))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPaneOrderMonitoring, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnExit)
-                .addGap(29, 29, 29))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pack();
@@ -112,6 +130,10 @@ public class FormOrderMonitoring extends javax.swing.JFrame {
         dashboard.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnExitActionPerformed
+
+    private void btnUpdateStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateStatusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnUpdateStatusActionPerformed
 
     /**
      * @param args the command line arguments
@@ -150,8 +172,10 @@ public class FormOrderMonitoring extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnUpdateStatus;
     private javax.swing.JScrollPane jScrollPaneOrderMonitoring;
     private javax.swing.JLabel lblOrderMonitoring;
+    private javax.swing.JLabel lblStatus;
     private javax.swing.JTable tableOrderMonitor;
     // End of variables declaration//GEN-END:variables
 }
