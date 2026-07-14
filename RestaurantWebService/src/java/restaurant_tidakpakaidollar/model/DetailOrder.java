@@ -118,4 +118,25 @@ public class DetailOrder extends MyModel {
     public String viewListData() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    public String getDetailsByReservation(int reservationId) {
+        String res = "";
+        try {
+            if (!MyModel.conn.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                    "SELECT m.name, d.amount, d.subtotal FROM detail_order d JOIN menu m ON d.menu_id = m.id WHERE d.reservation_id = ?");
+                sql.setInt(1, reservationId);
+                this.result = sql.executeQuery();
+                while (this.result.next()) {
+                    res += this.result.getString("name") + ";" + 
+                           this.result.getInt("amount") + ";" + 
+                           this.result.getInt("subtotal") + "#";
+                }
+                sql.close();
+            }
+        } catch (Exception ex) {
+            System.out.println("Error getDetailsByReservation: " + ex.getMessage());
+        }
+        return res;
+    }
  }

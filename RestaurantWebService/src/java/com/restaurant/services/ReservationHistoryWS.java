@@ -7,6 +7,7 @@ package com.restaurant.services;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import restaurant_tidakpakaidollar.model.DetailOrder;
 import restaurant_tidakpakaidollar.model.Reservation;
 
 /**
@@ -23,5 +24,11 @@ public class ReservationHistoryWS {
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
         return "Hello " + txt + " !";
+    }
+    
+    @WebMethod(operationName = "getOrderDetails")
+    public String getOrderDetails(@WebParam(name = "reservationId") int reservationId) {
+        DetailOrder detailOrder = new DetailOrder();
+        return detailOrder.getDetailsByReservation(reservationId);
     }
 }

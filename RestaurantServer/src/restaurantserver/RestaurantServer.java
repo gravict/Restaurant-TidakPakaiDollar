@@ -145,6 +145,11 @@ public class RestaurantServer implements Runnable{
             int idReservasi = Integer.parseInt(reservasi[1]);
             return cancelReservation(idReservasi);
         }
+        else if (request.contains("GET_ORDER_DETAILS;")) {
+            String[] data = request.split(";");
+            int idReservasi = Integer.parseInt(data[1]);
+            return getOrderDetails(idReservasi);
+        }
         else 
         {
             return ""; 
@@ -251,6 +256,12 @@ public class RestaurantServer implements Runnable{
         com.restaurant.services.ReservationWS_Service service = new com.restaurant.services.ReservationWS_Service();
         com.restaurant.services.ReservationWS port = service.getReservationWSPort();
         return port.cancelReservation(idReservasi);
+    }
+    
+    private static String getOrderDetails(int reservationId) {
+        com.restaurant.services.ReservationWS_Service service = new com.restaurant.services.ReservationWS_Service();
+        com.restaurant.services.ReservationWS port = service.getReservationWSPort();
+        return port.getOrderDetails(reservationId);
     }
 
 }

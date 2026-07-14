@@ -56,14 +56,4 @@ public class ReservationWS {
         model.cancelReservation(idReservasi);
         return "Cancel Reservation SUCCESS";
     }
-
-    /**
-     * Web service operation
-     */
-
-
-    /**
-     * Web service operation
-     */
-
 }

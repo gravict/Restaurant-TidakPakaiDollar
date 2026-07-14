@@ -11,12 +11,77 @@ package admin_tidakpakedollar;
 public class FormReservationHistory extends javax.swing.JFrame {
 
     FormDashboardAdmin dashboard;
+    java.util.ArrayList<Integer> currentReservationIds = new java.util.ArrayList<>();
     /**
      * Creates new form FormReservationHistory
      */
     public FormReservationHistory(FormDashboardAdmin admin) {
         initComponents();
         this.dashboard = admin;
+        
+        cmbFilter.removeAllItems();
+        cmbFilter.addItem("Semua Periode");
+        cmbFilter.addItem("1 Minggu Terakhir");
+        cmbFilter.addItem("1 Bulan Terakhir");
+        cmbFilter.addItem("1 Tahun Terakhir");
+        
+        loadData("Semua Periode");
+    }
+
+    public void loadData(String filter) {
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tableUpcomingReservation.getModel();
+        model.setRowCount(0);
+        currentReservationIds.clear();
+        
+        try {
+            dashboard.restaurantClient.sendMessageToServer("GET_RESERVATION");
+            String response = dashboard.restaurantClient.getMessageFromServer();
+            
+            if (response != null && !response.isEmpty() && !response.equals("ERROR")) {
+                String[] reservations = response.split("#");
+                java.time.LocalDateTime now = java.time.LocalDateTime.now();
+                java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                
+                for (String res : reservations) {
+                    if (res.trim().isEmpty()) continue;
+                    
+                    String[] data = res.split(";");
+                    if (data.length < 5) continue;
+                    
+                    String datetimeStr = data[1];
+                    if (datetimeStr.length() > 19) {
+                        datetimeStr = datetimeStr.substring(0, 19);
+                    }
+                    
+                    java.time.LocalDateTime resDate = null;
+                    try {
+                        resDate = java.time.LocalDateTime.parse(datetimeStr, formatter);
+                    } catch (Exception e) {
+                        System.out.println("Parse error: " + e.getMessage());
+                    }
+                    
+                    boolean include = true;
+                    if (resDate != null && !filter.equals("Semua Periode")) {
+                        if (filter.equals("1 Minggu Terakhir")) {
+                            if (resDate.isBefore(now.minusWeeks(1))) include = false;
+                        } else if (filter.equals("1 Bulan Terakhir")) {
+                            if (resDate.isBefore(now.minusMonths(1))) include = false;
+                        } else if (filter.equals("1 Tahun Terakhir")) {
+                            if (resDate.isBefore(now.minusYears(1))) include = false;
+                        }
+                    }
+                    
+                    if (include) {
+                        String date = datetimeStr.split(" ")[0];
+                        String time = datetimeStr.split(" ")[1];
+                        model.addRow(new Object[]{date, time, data[2], data[3], data[4]});
+                        currentReservationIds.add(Integer.parseInt(data[0]));
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println("Error loading reservation data: " + ex.getMessage());
+        }
     }
 
     /**
@@ -34,6 +99,7 @@ public class FormReservationHistory extends javax.swing.JFrame {
         btnExit = new javax.swing.JButton();
         cmbFilter = new javax.swing.JComboBox<>();
         lblReservationHistory = new javax.swing.JLabel();
+        btnDetails = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,18 +144,36 @@ public class FormReservationHistory extends javax.swing.JFrame {
             }
         });
 
-        cmbFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semua Periode", "1 Minggu Terakhir", "1 Bulan Terakhir", "1 Tahun Terakhir" }));
+        cmbFilter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbFilterActionPerformed(evt);
+            }
+        });
 
         lblReservationHistory.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblReservationHistory.setText("Reservation History");
+
+        btnDetails.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnDetails.setText("Details");
+        btnDetails.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDetailsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblReservationHistory)
+                .addGap(192, 192, 192))
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnDetails)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(btnExit)
                         .addComponent(jScrollPaneReservationHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 585, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -98,21 +182,19 @@ public class FormReservationHistory extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmbFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(24, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblReservationHistory)
-                .addGap(192, 192, 192))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(lblReservationHistory)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFilter))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnDetails)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(jScrollPaneReservationHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnExit)
@@ -128,6 +210,53 @@ public class FormReservationHistory extends javax.swing.JFrame {
         dashboard.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnExitActionPerformed
+
+    private void cmbFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFilterActionPerformed
+        if (cmbFilter.getSelectedItem() != null) {
+            loadData(cmbFilter.getSelectedItem().toString());
+        }
+    }//GEN-LAST:event_cmbFilterActionPerformed
+
+    private void btnDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailsActionPerformed
+        int selectedRow = tableUpcomingReservation.getSelectedRow();
+        if (selectedRow == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Silakan pilih reservasi dari tabel terlebih dahulu!", "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        int resId = currentReservationIds.get(selectedRow);
+        try {
+            dashboard.restaurantClient.sendMessageToServer("GET_ORDER_DETAILS;" + resId);
+            String response = dashboard.restaurantClient.getMessageFromServer();
+            
+            if (response == null || response.trim().isEmpty() || response.equals("ERROR")) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Tidak ada pesanan untuk reservasi ini.", "Info", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            
+            String[] items = response.split("#");
+            StringBuilder sb = new StringBuilder();
+            sb.append("Detail Pesanan:\n\n");
+            int grandTotal = 0;
+            for (String item : items) {
+                if (item.trim().isEmpty()) continue;
+                String[] parts = item.split(";");
+                if (parts.length < 3) continue;
+                String menuName = parts[0];
+                int amount = Integer.parseInt(parts[1]);
+                int subtotal = Integer.parseInt(parts[2]);
+                
+                sb.append("- ").append(menuName).append(" x").append(amount)
+                  .append(" = Rp ").append(subtotal).append("\n");
+                grandTotal += subtotal;
+            }
+            sb.append("\nGrand Total: Rp ").append(grandTotal);
+            
+            javax.swing.JOptionPane.showMessageDialog(this, sb.toString(), "Detail Pesanan", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception ex) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Gagal memuat detail pesanan! " + ex.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnDetailsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -165,6 +294,7 @@ public class FormReservationHistory extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDetails;
     private javax.swing.JButton btnExit;
     private javax.swing.JComboBox<String> cmbFilter;
     private javax.swing.JScrollPane jScrollPaneReservationHistory;
