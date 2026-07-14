@@ -265,6 +265,10 @@ public class Account extends MyModel {
                 }
                 checkSql.close();
 
+                if (pNewPass != null && !pNewPass.isEmpty() && pNewPass.equals(pOldPass)) {
+                    return "SAME_PASSWORD";
+                }
+
                 String query;
                 PreparedStatement updateSql;
 
