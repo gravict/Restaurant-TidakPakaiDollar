@@ -29,6 +29,8 @@ public class FormReservation extends javax.swing.JFrame {
         this.currentUserId = userId;
         this.currentUsername = username;
         setLocationRelativeTo(null);
+        
+        loadData();
     }
 
     /**
@@ -211,4 +213,57 @@ public class FormReservation extends javax.swing.JFrame {
     private javax.swing.JTable tblReservationHistory;
     private javax.swing.JTable tblUpcomingReservation;
     // End of variables declaration//GEN-END:variables
+
+    private void loadData() {
+        javax.swing.table.DefaultTableModel upcomingModel = (javax.swing.table.DefaultTableModel) tblUpcomingReservation.getModel();
+        javax.swing.table.DefaultTableModel historyModel = (javax.swing.table.DefaultTableModel) tblReservationHistory.getModel();
+        upcomingModel.setRowCount(0);
+        historyModel.setRowCount(0);
+
+        try {
+            restaurantClient.sendMessageToServer("GET_RESERVATION");
+            String response = restaurantClient.getMessageFromServer();
+
+            if (response != null && !response.isEmpty() && !response.equals("ERROR")) {
+                String[] reservations = response.split("#");
+                for (String res : reservations) {
+                    if (res.trim().isEmpty()) {
+                        continue;
+                    }
+                    String[] data = res.split(";");
+                    if (data.length < 5) {
+                        continue;
+                    }
+
+                    String datetimeStr = data[1];
+                    String status = data[2];
+                    String guest = data[3];
+                    String username = data[4];
+
+                    if (!username.equals(this.currentUsername)) {
+                        continue;
+                    }
+
+                    String date = datetimeStr;
+                    String time = "";
+                    if (datetimeStr.contains(" ")) {
+                        date = datetimeStr.split(" ")[0];
+                        time = datetimeStr.split(" ")[1];
+                        if (time.length() > 5) {
+                            time = time.substring(0, 5);
+                        }
+                    }
+
+                    if (status.equals("ACCEPTED") || status.equals("ONGOING")) {
+                        upcomingModel.addRow(new Object[]{date, time, status, guest});
+                    } else if (status.equals("FINISHED") || status.equals("CANCELED")) {
+                        historyModel.addRow(new Object[]{date, time, status, guest});
+                    }
+                }
+            }
+        } catch (java.io.IOException ex) {
+            System.out.println("Error loading reservation data: " + ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(this, "Koneksi ke server bermasalah: " + ex.getMessage());
+        }
+    }
 }
