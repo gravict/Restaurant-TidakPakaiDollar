@@ -150,6 +150,14 @@ public class RestaurantServer implements Runnable{
             int idReservasi = Integer.parseInt(data[1]);
             return getOrderDetails(idReservasi);
         }
+        else if (request.contains("CREATE_ORDER_DETAIL")) {
+            String[] order = request.split(";");
+            return addOrderDetail(Integer.parseInt(order[1]), Integer.parseInt(order[2]), Integer.parseInt(order[3]), Integer.parseInt(order[4]));
+        }
+        else if (request.contains("CREATE_INVOICE")) {
+            String[] invoice = request.split(";");
+            return createInvoice(Integer.parseInt(invoice[1]), Integer.parseInt(invoice[2]));
+        }
         else 
         {
             return ""; 
@@ -262,6 +270,18 @@ public class RestaurantServer implements Runnable{
         com.restaurant.services.ReservationHistoryWS_Service service = new com.restaurant.services.ReservationHistoryWS_Service();
         com.restaurant.services.ReservationHistoryWS port = service.getReservationHistoryWSPort();
         return port.getOrderDetails(reservationId);
+    }
+
+    private static String addOrderDetail(int menuId, int reservationId, int amount, int subtotal) {
+        com.restaurant.services.FoodOrderWS_Service service = new com.restaurant.services.FoodOrderWS_Service();
+        com.restaurant.services.FoodOrderWS port = service.getFoodOrderWSPort();
+        return port.addOrderDetail(menuId, reservationId, amount, subtotal);
+    }
+
+    private static String createInvoice(int reservationId, int total) {
+        com.restaurant.services.FoodOrderWS_Service service = new com.restaurant.services.FoodOrderWS_Service();
+        com.restaurant.services.FoodOrderWS port = service.getFoodOrderWSPort();
+        return port.createInvoice(reservationId, total);
     }
     
     

@@ -68,10 +68,6 @@ public class Invoice extends MyModel{
         this.reservationId = reservationId;
     }
     
-    public String createInvoice(){
-        return "";
-    }
-    
     @Override
     public String insertData() {
         try {
@@ -80,15 +76,15 @@ public class Invoice extends MyModel{
                     "INSERT INTO invoice (total_purchases, transaction_date, reservation_id) VALUES (?, ?, ?)");
                 sql.setInt(1, this.total_purchases);
                 sql.setTimestamp(2, this.transaction_date);
-                sql.setInt(3, this.reservation.getId());
+                sql.setInt(3, this.reservationId);
                 sql.executeUpdate();
-                System.out.println("Data invoice berhasil ditambahkan!");
                 sql.close();
+                return "INVOICE_SUCCESS";
             }
         } catch (Exception ex) {
             System.out.println("Error di insert data Invoice: " + ex.getMessage());
         }
-        return "";
+        return "INVOICE_FAILED";
     }
 
     @Override

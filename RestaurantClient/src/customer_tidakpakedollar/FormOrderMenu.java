@@ -42,7 +42,6 @@ public class FormOrderMenu extends javax.swing.JFrame {
         dashboardForm.restaurantClient.sendMessageToServer(request);
         dashboardForm.restaurantClient.response = dashboardForm.restaurantClient.getMessageFromServer();
         String menus = dashboardForm.restaurantClient.response;
-
         String[] menuItem = menus.split("#");
         allMenu = new String[menuItem.length][5];
 
@@ -390,7 +389,7 @@ public class FormOrderMenu extends javax.swing.JFrame {
                 request = "GET_MENU;" + filterBy + ";" + value;
             }   
             dashboardForm.restaurantClient.sendMessageToServer(request);
-            dashboardForm.restaurantClient.response = dashboardForm.restaurantClient.getMessageFromServer();
+            dashboardForm.restaurantClient.getMessageFromServer();
             String menus = dashboardForm.restaurantClient.response;
             if (menus == null || menus.trim().isEmpty()) {
                 allMenu = new String[0][5];
@@ -486,7 +485,7 @@ public class FormOrderMenu extends javax.swing.JFrame {
                             + keranjang.get(i)[4] + ";"
                             + keranjang.get(i)[5];
                     dashboardForm.restaurantClient.sendMessageToServer(request);
-                    dashboardForm.restaurantClient.response = dashboardForm.restaurantClient.getMessageFromServer();
+                    dashboardForm.restaurantClient.getMessageFromServer();
                     String response = dashboardForm.restaurantClient.response;
                     if (response.equals("CREATE_ORDER_FAILED")) {
                         sukses = false;
@@ -509,6 +508,7 @@ public class FormOrderMenu extends javax.swing.JFrame {
                     dashboardForm.restaurantClient.sendMessageToServer(request);
                     dashboardForm.restaurantClient.response = dashboardForm.restaurantClient.getMessageFromServer();
                     String response = dashboardForm.restaurantClient.response;
+                    JOptionPane.showMessageDialog(this, response);
                     
                     if (response.equals("INVOICE_SUCCESS")) {
                         JOptionPane.showMessageDialog(this, "Invoice berhasil dibuat");

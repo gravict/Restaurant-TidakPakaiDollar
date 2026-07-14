@@ -157,7 +157,7 @@ public class Reservation extends MyModel {
                     this.tableId = this.result.getInt("id");
                     this.setReservation_status("ACCEPTED");
                     this.setOrder_status("PENDING");
-                    if (this.insertData().equals("SUCCESS"));
+                    if (this.insertData().equals("SUCCESS"))
                     {
                         PreparedStatement idSql = MyModel.conn.prepareStatement(
                             "SELECT LAST_INSERT_ID()"

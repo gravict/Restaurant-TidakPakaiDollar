@@ -4,6 +4,9 @@
  */
 package com.restaurant.services;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import static java.time.LocalDateTime.now;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -48,7 +51,8 @@ public class FoodOrderWS {
         //TODO write your implementation code here:
         invoice.setReservationId(reservationId);
         invoice.setTotal_purchases(total);
-        return invoice.createInvoice();
+        invoice.setTransaction_date(Timestamp.valueOf(LocalDateTime.now()));
+        return invoice.insertData();
     }
 
 }
