@@ -177,7 +177,7 @@ public class FormDashboardCustomer extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemProfilActionPerformed
 
     private void menuItemReservationHisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemReservationHisActionPerformed
-        FormReservation reservationForm = new FormReservation(restaurantClient, currentUserId, currentUsername);
+        FormReservation reservationForm = new FormReservation(this, currentUserId, currentUsername);
         reservationForm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_menuItemReservationHisActionPerformed

@@ -17,15 +17,15 @@ public class FormReservation extends javax.swing.JFrame {
      */
     int currentUserId;
     String currentUsername;
-    Restaurant_tidakpakaidollar restaurantClient;
+    FormDashboardCustomer dashboardForm;
 
     public FormReservation() {
         initComponents();
     }
 
-    public FormReservation(Restaurant_tidakpakaidollar parent, int userId, String username) {
+    public FormReservation(FormDashboardCustomer parent, int userId, String username) {
         initComponents();
-        this.restaurantClient = parent;
+        this.dashboardForm = parent;
         this.currentUserId = userId;
         this.currentUsername = username;
         setLocationRelativeTo(null);
@@ -163,8 +163,6 @@ public class FormReservation extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        FormDashboardCustomer dashboardForm = new FormDashboardCustomer(
-                restaurantClient, currentUserId, currentUsername);
         dashboardForm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnExitActionPerformed
@@ -221,9 +219,10 @@ public class FormReservation extends javax.swing.JFrame {
         historyModel.setRowCount(0);
 
         try {
-            restaurantClient.sendMessageToServer("GET_RESERVATION");
-            String response = restaurantClient.getMessageFromServer();
-
+            dashboardForm.restaurantClient.sendMessageToServer("GET_RESERVATION");
+            dashboardForm.restaurantClient.response = dashboardForm.restaurantClient.getMessageFromServer();
+            String response = dashboardForm.restaurantClient.response;
+            
             if (response != null && !response.isEmpty() && !response.equals("ERROR")) {
                 String[] reservations = response.split("#");
                 for (String res : reservations) {
