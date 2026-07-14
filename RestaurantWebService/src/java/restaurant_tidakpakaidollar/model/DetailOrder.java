@@ -10,8 +10,11 @@ import java.sql.PreparedStatement;
  * @author LEGION
  */
 public class DetailOrder extends MyModel {
+    private int menuId;
     private Menu menu;
+    private int reservationId;
     private Reservation reservation;
+
     private int amount;
     private int subtotal;
 
@@ -58,28 +61,71 @@ public class DetailOrder extends MyModel {
     public void setSubtotal(int subtotal) {
         this.subtotal = subtotal;
     }
+
+    public int getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(int menuId) {
+        this.menuId = menuId;
+    }
+
+    public int getReservationId() {
+        return reservationId;
+    }
+
+    public void setReservationId(int reservationId) {
+        this.reservationId = reservationId;
+    }
+    
+    public String createOrderDetail() {
+        if (this.reduceStock() && this.insertData().equals("SUCCESS")) {
+            return "CREATE_ORDER_SUCCESS";
+        }        
+        return "CREATE_ORDER_FAILED";
+    }
+    
+    public boolean reduceStock() {
+        try {
+            if (!MyModel.conn.isClosed()) {
+                PreparedStatement sql = MyModel.conn.prepareStatement(
+                        "UPDATE menu SET stock = stock - ? WHERE id = ?"
+                );
+                sql.setInt(1, this.amount);
+                sql.setInt(2, this.menuId);
+
+                int result = sql.executeUpdate();
+                sql.close();
+                return result > 0;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error reduce stock: " + ex.getMessage());
+        }
+        return false;
+    }
     
     @Override
-    public void insertData() {
+    public String insertData() {
         try {
             if (!MyModel.conn.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
                     "INSERT INTO detail_order (menu_id, reservation_id, amount, subtotal) VALUES (?, ?, ?, ?)");
-                sql.setInt(1, this.menu.getId());
-                sql.setInt(2, this.reservation.getId());
+                sql.setInt(1, this.menuId);
+                sql.setInt(2, this.reservationId);
                 sql.setInt(3, this.amount);
                 sql.setInt(4, this.subtotal);
-                sql.executeUpdate();
-                System.out.println("Data detail pesanan berhasil ditambahkan!");
+                sql.executeUpdate();                
                 sql.close();
+                return("SUCCESS");
             }
         } catch (Exception ex) {
             System.out.println("Error di insert data DetailOrder: " + ex.getMessage());
         }
+        return ("FAILED");
     }
 
     @Override
-    public void updateData() {
+    public String updateData() {
         try {
             if (!MyModel.conn.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
@@ -89,16 +135,17 @@ public class DetailOrder extends MyModel {
                 sql.setInt(3, this.menu.getId());
                 sql.setInt(4, this.reservation.getId());
                 sql.executeUpdate();
-                System.out.println("Data detail pesanan berhasil diupdate!");
                 sql.close();
+                return ("SUCCESS");                
             }
         } catch (Exception ex) {
             System.out.println("Error di update data DetailOrder: " + ex.getMessage());
         }
+        return ("FAILED");
     }
 
     @Override
-    public void deleteData() {
+    public String deleteData() {
         try {
             if (!MyModel.conn.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
@@ -108,10 +155,12 @@ public class DetailOrder extends MyModel {
                 sql.executeUpdate();
                 System.out.println("Data detail pesanan berhasil dihapus!");
                 sql.close();
+                return ("SUCCESS");
             }
         } catch (Exception ex) {
             System.out.println("Error di delete data DetailOrder: " + ex.getMessage());
         }
+        return ("FAILED");
     }
 
     @Override

@@ -16,9 +16,7 @@ public class FormProfil extends javax.swing.JFrame {
     /**
      * Creates new form FormProfil
      */
-    int currentUserId;
-    String currentUsername;
-    Restaurant_tidakpakaidollar restaurantClient;
+    FormDashboardCustomer dashboardForm;
 
     int id;
     String fullname;
@@ -28,16 +26,14 @@ public class FormProfil extends javax.swing.JFrame {
         initComponents();
     }
 
-    public FormProfil(Restaurant_tidakpakaidollar parent, int userId, String username) throws IOException {
+    public FormProfil(FormDashboardCustomer parent) throws IOException {
         initComponents();
         setLocationRelativeTo(this);
 
-        this.restaurantClient = parent;
-        this.currentUserId = userId;
-        this.currentUsername = username;
+        this.dashboardForm = parent;
 
-        restaurantClient.sendMessageToServer("GET_DETAILS;" + currentUsername);
-        String profile = restaurantClient.getMessageFromServer();
+        dashboardForm.restaurantClient.sendMessageToServer("GET_DETAILS;" + dashboardForm.currentUsername);
+        String profile = dashboardForm.restaurantClient.getMessageFromServer();
         String[] profiles = profile.split(";");
         id = Integer.parseInt(profiles[0]);
         fullname = profiles[1];
@@ -45,7 +41,7 @@ public class FormProfil extends javax.swing.JFrame {
 
         txtNamaLengkap.setText(fullname);
         txtNomorTelepon.setText(phonenumber);
-        txtUsername.setText(currentUsername);
+        txtUsername.setText(dashboardForm.currentUsername);
     }
 
     /**
@@ -194,7 +190,6 @@ public class FormProfil extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        FormDashboardCustomer dashboardForm = new FormDashboardCustomer(restaurantClient, currentUserId, currentUsername);
         dashboardForm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnExitActionPerformed
@@ -221,9 +216,9 @@ public class FormProfil extends javax.swing.JFrame {
 
         try {
             String request = "UPDATE_PROFILE;" + id + ";" + fullName + ";" + phone + ";" + oldPassword + ";" + newPassword;
-            restaurantClient.sendMessageToServer(request);
+            dashboardForm.restaurantClient.sendMessageToServer(request);
 
-            String response = restaurantClient.getMessageFromServer();
+            String response = dashboardForm.restaurantClient.getMessageFromServer();
 
             if (response.equals("UPDATE_SUCCESS")) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Profil berhasil diperbarui!", "Sukses", javax.swing.JOptionPane.INFORMATION_MESSAGE);

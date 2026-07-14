@@ -257,11 +257,13 @@ public class RestaurantServer implements Runnable{
         com.restaurant.services.ReservationWS port = service.getReservationWSPort();
         return port.cancelReservation(idReservasi);
     }
-    
+
     private static String getOrderDetails(int reservationId) {
-        com.restaurant.services.ReservationWS_Service service = new com.restaurant.services.ReservationWS_Service();
-        com.restaurant.services.ReservationWS port = service.getReservationWSPort();
+        com.restaurant.services.ReservationHistoryWS_Service service = new com.restaurant.services.ReservationHistoryWS_Service();
+        com.restaurant.services.ReservationHistoryWS port = service.getReservationHistoryWSPort();
         return port.getOrderDetails(reservationId);
     }
+    
+    
 
 }

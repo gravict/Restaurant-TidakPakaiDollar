@@ -79,7 +79,7 @@ public class RestaurantTable extends MyModel{
     }
     
     @Override
-    public void insertData() {
+    public String insertData() {
         try {
             if (!MyModel.conn.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
@@ -94,10 +94,11 @@ public class RestaurantTable extends MyModel{
         } catch (Exception ex) {
             System.out.println("Error di insert data RestaurantTable: " + ex.getMessage());
         }
+        return "";
     }
 
     @Override
-    public void updateData() {
+    public String updateData() {
         try {
             if (!MyModel.conn.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
@@ -113,10 +114,11 @@ public class RestaurantTable extends MyModel{
         } catch (Exception ex) {
             System.out.println("Error di update data RestaurantTable: " + ex.getMessage());
         }
+        return "";
     }
 
     @Override
-    public void deleteData() {
+    public String deleteData() {
         try {
             if (!MyModel.conn.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
@@ -129,6 +131,7 @@ public class RestaurantTable extends MyModel{
         } catch (Exception ex) {
             System.out.println("Error di delete data RestaurantTable: " + ex.getMessage());
         }
+        return "";
     }
 
     @Override

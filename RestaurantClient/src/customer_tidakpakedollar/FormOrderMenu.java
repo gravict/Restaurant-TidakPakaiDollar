@@ -4,12 +4,12 @@
  */
 package customer_tidakpakedollar;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
+import java.awt.List;
 import java.io.IOException;
-import java.net.Socket;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,34 +21,27 @@ public class FormOrderMenu extends javax.swing.JFrame {
     /**
      * Creates new form FormOrderMenu
      */
-    int currentUserId;
-    String currentUsername;
     int reservationId;
-    Socket clientSocket;
-    BufferedReader in;
-    DataOutputStream out;
-    String response;
+    FormDashboardCustomer dashboardForm;
 
     String[][] allMenu;
-
+    ArrayList<String[]> keranjang = new ArrayList<>();
+    
+    int selectedMenuId, selectedMenuPrice, selectedMenuStock; String selectedMenuName, selectedMenuCategory;
     public FormOrderMenu() {
         initComponents();
     }
 
-    public FormOrderMenu(int userId, String username, int pReservationId, Socket pClientSocket, BufferedReader pIn, DataOutputStream pOut) throws IOException {
+    public FormOrderMenu(FormDashboardCustomer parent, int pReservationId) throws IOException {
         initComponents();
-        currentUserId = userId;
-        currentUsername = username;
-        reservationId = pReservationId;
         setLocationRelativeTo(null);
-        clientSocket = pClientSocket;
-        in = pIn;
-        out = pOut;
+        this.reservationId = pReservationId;
+        this.dashboardForm = parent;
 
         String request = "GET_MENU";
-        sendMessageToServer(request);
-
-        String menus = getMessageFromServer();
+        dashboardForm.restaurantClient.sendMessageToServer(request);
+        dashboardForm.restaurantClient.response = dashboardForm.restaurantClient.getMessageFromServer();
+        String menus = dashboardForm.restaurantClient.response;
 
         String[] menuItem = menus.split("#");
         allMenu = new String[menuItem.length][5];
@@ -162,19 +155,23 @@ public class FormOrderMenu extends javax.swing.JFrame {
         spinnerJumlah.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         spinnerKode.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        spinnerKode.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        spinnerKode.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spinnerKodeStateChanged(evt);
+            }
+        });
 
         txtNamaMenu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtNamaMenu.setEnabled(false);
 
         txtHarga.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtHarga.setEnabled(false);
 
         tblKeranjang.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tblKeranjang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Code", "Name", "Category", "Price", "Amount", "Subtotal", "Action"
@@ -193,6 +190,11 @@ public class FormOrderMenu extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tblKeranjang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblKeranjangMouseClicked(evt);
             }
         });
         jScrollPaneKeranjangPesanan.setViewportView(tblKeranjang);
@@ -223,7 +225,7 @@ public class FormOrderMenu extends javax.swing.JFrame {
         });
 
         lblTotal.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTotal.setText("Total: Rp.XXXXXX");
+        lblTotal.setText("Total: Rp.");
 
         btnCari.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnCari.setText("Cari");
@@ -373,7 +375,7 @@ public class FormOrderMenu extends javax.swing.JFrame {
             if (cmbCari.getSelectedIndex() == 0) {
                 filterBy = "category";
                 value = cmbKategori.getSelectedItem().toString();
-                if (value.equals("Makanan")) 
+                if (value.equals("Makanan"))
                 {
                     value = "FOOD";
                 } else {
@@ -382,22 +384,20 @@ public class FormOrderMenu extends javax.swing.JFrame {
             } else if (cmbCari.getSelectedIndex() == 1) {
                 filterBy = "name";
                 value = txtCariMenu.getText().trim();
-            }
-
-            if (value.isEmpty()) {
+            }   if (value.isEmpty()) {
                 request = "GET_MENU";
             } else {
                 request = "GET_MENU;" + filterBy + ";" + value;
-            }
-            sendMessageToServer(request);
-
-            String menus = getMessageFromServer();
+            }   
+            dashboardForm.restaurantClient.sendMessageToServer(request);
+            dashboardForm.restaurantClient.response = dashboardForm.restaurantClient.getMessageFromServer();
+            String menus = dashboardForm.restaurantClient.response;
             if (menus == null || menus.trim().isEmpty()) {
                 allMenu = new String[0][5];
             } else {
                 String[] menuItem = menus.split("#");
                 allMenu = new String[menuItem.length][5];
-
+                
                 for (int i = 0; i < menuItem.length; i++) {
                     String menuItemDetail[] = menuItem[i].split(";");
                     for (int j = 0; j < 5; j++) {
@@ -408,23 +408,121 @@ public class FormOrderMenu extends javax.swing.JFrame {
                         }
                     }
                 }
-            }
-            refreshTable();
+            }   refreshTable();
         } catch (IOException ex) {
             Logger.getLogger(FormOrderMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnCariActionPerformed
 
     private void btnHitungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHitungActionPerformed
-        // TODO add your handling code here:
+        int total = 0;
+        for (int i = 0; i < keranjang.size(); i++){
+            total += Integer.parseInt(keranjang.get(i)[5]);
+        }
+        lblTotal.setText("Total: Rp." + total);
     }//GEN-LAST:event_btnHitungActionPerformed
 
     private void btnTambahOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahOrderActionPerformed
-        // TODO add your handling code here:
+        int jumlah = (int) spinnerJumlah.getValue();
+        if (jumlah > selectedMenuStock) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Stock tidak cukup.","", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        DefaultTableModel model = (DefaultTableModel) tblKeranjang.getModel();
+        boolean sudahAda = false;
+        for (int i = 0; i < keranjang.size(); i++) {
+            String[] item = keranjang.get(i);
+            if (Integer.parseInt(item[0]) == selectedMenuId) {
+                int jumlahLama = Integer.parseInt(item[4]);
+                int jumlahBaru = jumlahLama + jumlah;
+                if (jumlahBaru > selectedMenuStock) {
+                    javax.swing.JOptionPane.showMessageDialog(this,
+                            "Stock tidak cukup.", "", javax.swing.JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                item[4] = String.valueOf(jumlahBaru);
+                item[5] = String.valueOf(selectedMenuPrice * jumlahBaru);
+                model.setValueAt(jumlahBaru, i, 4);
+                model.setValueAt(selectedMenuPrice * jumlahBaru, i, 5);
+                sudahAda = true;
+                break;
+            }
+        }
+        if (!sudahAda) {
+            String[] data = new String[6];
+            data[0] = String.valueOf(selectedMenuId);
+            data[1] = selectedMenuName;
+            data[2] = selectedMenuCategory;
+            data[3] = String.valueOf(selectedMenuPrice);
+            data[4] = String.valueOf(jumlah);
+            data[5] = String.valueOf(selectedMenuPrice * jumlah);
+            keranjang.add(data);
+            Object[] rowData = {
+                selectedMenuId,
+                selectedMenuName,
+                selectedMenuCategory,
+                selectedMenuPrice,
+                jumlah,
+                selectedMenuPrice * jumlah,
+                "Delete"
+            };
+            model.addRow(rowData);
+        }       
     }//GEN-LAST:event_btnTambahOrderActionPerformed
 
     private void btnPesanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesanActionPerformed
-        // TODO add your handling code here:
+        int confirm = javax.swing.JOptionPane.showConfirmDialog(
+                this, "Buat pesanan? Anda tidak bisa mengubah pesanan setelah konfirmasi dan pembayaran", "Konfirmasi",
+                javax.swing.JOptionPane.YES_NO_OPTION
+        );
+        if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+            boolean sukses = true;
+            for (int i = 0; i < keranjang.size(); i++) {
+                try {
+                    String request = "CREATE_ORDER_DETAIL;"
+                            + keranjang.get(i)[0] + ";"
+                            + reservationId + ";"
+                            + keranjang.get(i)[4] + ";"
+                            + keranjang.get(i)[5];
+                    dashboardForm.restaurantClient.sendMessageToServer(request);
+                    dashboardForm.restaurantClient.response = dashboardForm.restaurantClient.getMessageFromServer();
+                    String response = dashboardForm.restaurantClient.response;
+                    if (response.equals("CREATE_ORDER_FAILED")) {
+                        sukses = false;
+                        JOptionPane.showMessageDialog(this, "Gagal menambahkan item " + keranjang.get(i)[1] );
+                        break;
+                    }
+                } catch (IOException ex) {
+                    sukses = false;
+                    break;
+                }
+            }
+            if (sukses) {
+                try {
+                    JOptionPane.showMessageDialog(this, "Pesanan berhasil dibuat");
+                    int total = 0;
+                    for (int i = 0; i < keranjang.size(); i++) {
+                        total += Integer.parseInt(keranjang.get(i)[5]);
+                    }
+                    String request = "CREATE_INVOICE;" + this.reservationId + ";" + total;
+                    dashboardForm.restaurantClient.sendMessageToServer(request);
+                    dashboardForm.restaurantClient.response = dashboardForm.restaurantClient.getMessageFromServer();
+                    String response = dashboardForm.restaurantClient.response;
+                    
+                    if (response.equals("INVOICE_SUCCESS")) {
+                        JOptionPane.showMessageDialog(this, "Invoice berhasil dibuat");
+                        //paggil form invoice
+                    } else if (response.equals("INVOICE_FAILED")) {
+                        JOptionPane.showMessageDialog(this, "Invoice gagal dibuat");
+                    }
+                    
+                    
+                } catch (IOException ex) {
+                    Logger.getLogger(FormOrderMenu.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }            
+        }
     }//GEN-LAST:event_btnPesanActionPerformed
 
     private void cmbCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCariActionPerformed
@@ -437,8 +535,45 @@ public class FormOrderMenu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cmbCariActionPerformed
 
-    public void refreshTable() {
+    private void spinnerKodeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerKodeStateChanged
+        selectedMenuId = (int) spinnerKode.getValue();
+        boolean found = false;
+        for (int i = 0; i < allMenu.length; i++) {
+            if (selectedMenuId == Integer.parseInt(allMenu[i][0])) {
+                selectedMenuName = allMenu[i][1];
+                selectedMenuCategory = allMenu[i][2];
+                selectedMenuPrice = Integer.parseInt(allMenu[i][3]); 
+                selectedMenuStock = Integer.parseInt(allMenu[i][4]);                
+                found = true; break;
+            }
+        }
+        if (found) {
+            txtNamaMenu.setText(selectedMenuName);
+            txtHarga.setText(Integer.toString(selectedMenuPrice));
+        }
+        else {
+            txtNamaMenu.setText("");
+            txtHarga.setText("");
+        }
+    }//GEN-LAST:event_spinnerKodeStateChanged
 
+    private void tblKeranjangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKeranjangMouseClicked
+        int row = tblKeranjang.rowAtPoint(evt.getPoint());
+        int col = tblKeranjang.columnAtPoint(evt.getPoint());
+        if (col == 6) { 
+            int pilihan = javax.swing.JOptionPane.showConfirmDialog(
+                    this,"Hapus item ini?","Konfirmasi",
+                    javax.swing.JOptionPane.YES_NO_OPTION
+            );
+            if (pilihan == javax.swing.JOptionPane.YES_OPTION) {
+                DefaultTableModel model = (DefaultTableModel) tblKeranjang.getModel();
+                model.removeRow(row);
+                keranjang.remove(row);
+            }
+        }
+    }//GEN-LAST:event_tblKeranjangMouseClicked
+
+    public void refreshTable() {
         DefaultTableModel model = (DefaultTableModel) tblMenu.getModel();
         model.setRowCount(0);
 
@@ -449,18 +584,6 @@ public class FormOrderMenu extends javax.swing.JFrame {
                 rowData[j] = allMenu[i][j];
             }
             model.addRow(rowData);
-        }
-    }
-
-    private String getMessageFromServer() throws IOException {
-        return in.readLine();
-    }
-
-    public void sendMessageToServer(String message) {
-        try {
-            out.writeBytes(message + "\n");
-        } catch (Exception e) {
-            System.out.println("Error di send message client");
         }
     }
 

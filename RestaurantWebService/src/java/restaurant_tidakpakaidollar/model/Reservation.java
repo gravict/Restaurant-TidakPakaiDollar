@@ -157,19 +157,20 @@ public class Reservation extends MyModel {
                     this.tableId = this.result.getInt("id");
                     this.setReservation_status("ACCEPTED");
                     this.setOrder_status("PENDING");
-                    this.insertData();
-
-                    PreparedStatement idSql = MyModel.conn.prepareStatement(
+                    if (this.insertData().equals("SUCCESS"));
+                    {
+                        PreparedStatement idSql = MyModel.conn.prepareStatement(
                             "SELECT LAST_INSERT_ID()"
-                    );
-                    ResultSet idResult = idSql.executeQuery();
-                    int reservationId = 0;
-                    if (idResult.next()) {
-                        reservationId = idResult.getInt(1);
-                    }
-                    idResult.close();
-                    idSql.close();
-                    response = "RESERVATION_SUCCESS;" + reservationId;
+                        );
+                        ResultSet idResult = idSql.executeQuery();
+                        int reservationId = 0;
+                        if (idResult.next()) {
+                            reservationId = idResult.getInt(1);
+                        }
+                        idResult.close();
+                        idSql.close();
+                        response = "RESERVATION_SUCCESS;" + reservationId;
+                    }                    
                 }
                 sql.close();
             }
@@ -180,7 +181,7 @@ public class Reservation extends MyModel {
     }
 
     @Override
-    public void insertData() {
+    public String insertData() {
         try {
             if (!MyModel.conn.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
@@ -192,16 +193,17 @@ public class Reservation extends MyModel {
                 sql.setInt(5, this.accountId);
                 sql.setInt(6, this.tableId);
                 sql.executeUpdate();
-                System.out.println("Data reservasi berhasil ditambahkan!");
                 sql.close();
+                return "SUCCESS";
             }
         } catch (Exception ex) {
             System.out.println("Error di insert data Reservation: " + ex.getMessage());
         }
+        return "FAILED";
     }
 
     @Override
-    public void updateData() {
+    public String updateData() {
         try {
             if (!MyModel.conn.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
@@ -214,28 +216,30 @@ public class Reservation extends MyModel {
                 sql.setInt(6, this.restaurant_table.getId());
                 sql.setInt(7, this.id);
                 sql.executeUpdate();
-                System.out.println("Data reservasi berhasil diupdate!");
                 sql.close();
+                return "SUCCESS";
             }
         } catch (Exception ex) {
             System.out.println("Error di update data Reservation: " + ex.getMessage());
         }
+        return "FAILED";
     }
 
     @Override
-    public void deleteData() {
+    public String deleteData() {
         try {
             if (!MyModel.conn.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
                         "DELETE FROM reservation WHERE id = ?");
                 sql.setInt(1, this.id);
                 sql.executeUpdate();
-                System.out.println("Data reservasi berhasil dihapus!");
                 sql.close();
+                return "SUCCESS";
             }
         } catch (Exception ex) {
             System.out.println("Error di delete data Reservation: " + ex.getMessage());
         }
+        return "FAILED";
     }
 
     @Override
@@ -260,18 +264,19 @@ public class Reservation extends MyModel {
         return reserve;
     }
 
-    public void cancelReservation(int idReservasi) {
+    public String cancelReservation(int idReservasi) {
         try {
             if (!MyModel.conn.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
                         "UPDATE reservation SET reservation_status = 'CANCELED', updated_at = NOW() WHERE id = ?");
                 sql.setInt(1, idReservasi);
                 sql.executeUpdate();
-                System.out.println("Data reservasi berhasil diupdate!");
                 sql.close();
+                return "Cancel Reservation SUCCESS";
             }
         } catch (Exception ex) {
             System.out.println("Error di update data Reservation: " + ex.getMessage());
         }
+        return "Cancel Reservation FAILED";
     }
 }

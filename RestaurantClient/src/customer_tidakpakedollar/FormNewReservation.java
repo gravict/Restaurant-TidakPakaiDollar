@@ -20,20 +20,12 @@ import restaurant_tidakpakaidollar.Restaurant_tidakpakaidollar;
  *
  * @author Giffert
  */
-public class FormNewReservation extends javax.swing.JFrame implements Runnable{
+public class FormNewReservation extends javax.swing.JFrame{
 
     /**
      * Creates new form FormNewReservation
      */
-    int currentUserId;
-    String currentUsername;
-    Socket clientSocket;
-    BufferedReader in;
-    DataOutputStream out;
-    String response;
-    Thread t;
-    boolean running = true;
-    Restaurant_tidakpakaidollar restaurantClient;
+    FormDashboardCustomer dashboardForm;
     public FormNewReservation() {
         initComponents();
     }
@@ -44,11 +36,9 @@ public class FormNewReservation extends javax.swing.JFrame implements Runnable{
      * @param userId
      * @param username
      */
-    public FormNewReservation(Restaurant_tidakpakaidollar parent, int userId, String username) {
+    public FormNewReservation(FormDashboardCustomer parent) {
         initComponents();
-        currentUserId = userId;
-        currentUsername = username;
-        restaurantClient = parent;
+        dashboardForm = parent;
     }
 
     /**
@@ -182,9 +172,8 @@ public class FormNewReservation extends javax.swing.JFrame implements Runnable{
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-//        FormDashboardCustomer dashboardForm = new FormDashboardCustomer(currentUserId, currentUsername, clientSocket, in, out);
-//        dashboardForm.setVisible(true);
-//        this.dispose();
+        dashboardForm.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
@@ -198,32 +187,36 @@ public class FormNewReservation extends javax.swing.JFrame implements Runnable{
             Timestamp currentTime = new java.sql.Timestamp(System.currentTimeMillis());
             if (tanggalReservasi.before(currentTime)) {
             javax.swing.JOptionPane.showMessageDialog(this, 
-                "Maaf, Anda tidak bisa melakukan reservasi untuk waktu yang sudah berlalu.", 
-                "Peringatan Reservasi", 
-                javax.swing.JOptionPane.WARNING_MESSAGE); 
-            return;
-        }
-            response = null;
-            String request = "CREATE_RESERVATION;" + currentUserId + ";" + tamu + ";" + tanggalReservasi.toString();
+                    "Maaf, Anda tidak bisa melakukan reservasi untuk waktu yang sudah berlalu.", 
+                    "Peringatan Reservasi", 
+                    javax.swing.JOptionPane.WARNING_MESSAGE); 
+                return;
+            }
+//            dashboardForm.restaurantClient.response = null;
+            String request = "CREATE_RESERVATION;" + dashboardForm.currentUserId + ";" + tamu + ";" + tanggalReservasi.toString();
 
-            sendMessageToServer(request);
+            dashboardForm.restaurantClient.sendMessageToServer(request);            
+            dashboardForm.restaurantClient.response = dashboardForm.restaurantClient.getMessageFromServer();
+            String response = dashboardForm.restaurantClient.response;
+            if (response.split(";")[0].equals("RESERVATION_SUCCESS")) {
+                JOptionPane.showMessageDialog(this, "Reservasi berhasil, silakan lamnjutkan pesanan");
+                FormOrderMenu orderMenu = new FormOrderMenu(dashboardForm, Integer.parseInt(response.split(";")[1]));
+                orderMenu.setVisible(true);
+                this.setVisible(false);
+            }
+            else if (response.split(";")[0].equals("RESERVATION_FAILED"))
+            {
+                JOptionPane.showMessageDialog(this, "Mohon maaf, meja tidak tersedia");
+            }
         } 
         catch (ParseException ex) 
         {
             Logger.getLogger(FormNewReservation.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(FormNewReservation.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }//GEN-LAST:event_btnCreateActionPerformed
-    private String getMessageFromServer() throws IOException {
-        return in.readLine();
-    }
-
-    public void sendMessageToServer(String message) {
-        try {
-            out.writeBytes(message + "\n");
-        } catch (Exception e) {
-            System.out.println("Error di send message client");
-        }
-    }
+    
     /**
      * @param args the command line arguments
      */
@@ -259,28 +252,6 @@ public class FormNewReservation extends javax.swing.JFrame implements Runnable{
         });
     }
     
-    @Override
-    public void run() {
-        while (running){
-            try {
-                response = getMessageFromServer();
-                
-                System.out.println("Response server: " + response);
-                if (response.contains("RESERVATION_SUCCESS")) {
-                    running = false;
-                    JOptionPane.showMessageDialog(this, "Reservasi berhasil. Silakan pesan makanan dan minuman");
-                    FormOrderMenu orderForm = new FormOrderMenu(currentUserId, currentUsername, Integer.parseInt(response.split(";")[1]), clientSocket, in , out);
-                    orderForm.setVisible(true);    
-                    this.dispose();
-                } else if ("RESERVATION_FAILED".equals(response)) {
-                    JOptionPane.showMessageDialog(this, "Mohon maaf. Tidak ada meja yang tersedia");
-                }
-            } catch (IOException ex) {
-                System.out.println("Socket ditutup");
-                break;
-            }
-        }
-    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCreate;

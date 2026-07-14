@@ -32,8 +32,11 @@ public class AccountWS {
         if (!model.checkUsername().isEmpty()) {
             return false;
         }
-        model.insertData();
-        return true;
+        if (model.insertData().equals("REGISTER_SUCCESS"))
+        {
+            return true;
+        }
+        return false;
     }
 
     @WebMethod(operationName = "checkLogin")

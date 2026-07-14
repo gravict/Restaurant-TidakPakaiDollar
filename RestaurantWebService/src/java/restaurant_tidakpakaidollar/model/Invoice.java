@@ -15,6 +15,7 @@ public class Invoice extends MyModel{
     private int total_purchases;
     private Timestamp transaction_date;
     private Reservation reservation;
+    private int reservationId;
     
     public Invoice() {
         super();
@@ -58,9 +59,21 @@ public class Invoice extends MyModel{
     public void setReservation(Reservation reservation) {
         this.reservation = reservation;
     }
+
+    public int getReservationId() {
+        return reservationId;
+    }
+
+    public void setReservationId(int reservationId) {
+        this.reservationId = reservationId;
+    }
+    
+    public String createInvoice(){
+        return "";
+    }
     
     @Override
-    public void insertData() {
+    public String insertData() {
         try {
             if (!MyModel.conn.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
@@ -75,10 +88,11 @@ public class Invoice extends MyModel{
         } catch (Exception ex) {
             System.out.println("Error di insert data Invoice: " + ex.getMessage());
         }
+        return "";
     }
 
     @Override
-    public void updateData() {
+    public String updateData() {
         try {
             if (!MyModel.conn.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
@@ -94,10 +108,11 @@ public class Invoice extends MyModel{
         } catch (Exception ex) {
             System.out.println("Error di update data Invoice: " + ex.getMessage());
         }
+        return "";
     }
 
     @Override
-    public void deleteData() {
+    public String deleteData() {
         try {
             if (!MyModel.conn.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
@@ -110,6 +125,7 @@ public class Invoice extends MyModel{
         } catch (Exception ex) {
             System.out.println("Error di delete data Invoice: " + ex.getMessage());
         }
+        return"";
     }
 
     @Override

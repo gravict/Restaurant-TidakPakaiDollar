@@ -199,16 +199,15 @@ public class FormDashboardAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemOrderActionPerformed
 
     private void menuItemTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemTableActionPerformed
-        // TODO add your handling code here:
-        FormTableManagement tableMan = null;
         try {
+            // TODO add your handling code here:
+            FormTableManagement tableMan = null;
             tableMan = new FormTableManagement(this);
-
+            tableMan.setVisible(true);
+            this.setVisible(false);
         } catch (IOException ex) {
             Logger.getLogger(FormDashboardAdmin.class.getName()).log(Level.SEVERE, null, ex);
         }
-        tableMan.setVisible(true);
-        this.setVisible(false);
     }//GEN-LAST:event_menuItemTableActionPerformed
 
     private void menuItemLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemLogoutActionPerformed

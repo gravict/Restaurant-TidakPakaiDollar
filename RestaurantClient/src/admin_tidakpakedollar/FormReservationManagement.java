@@ -276,8 +276,15 @@ public class FormReservationManagement extends javax.swing.JFrame {
                 dashboard.restaurantClient.sendMessageToServer(request);
 
                 try {
-                    String balasanCancel = dashboard.restaurantClient.getMessageFromServer();
+                    String balasanCancel = dashboard.restaurantClient.getMessageFromServer();                   
+                    
                     System.out.println("Balasan Cancel: " + balasanCancel);
+                    
+                    if (balasanCancel.equals("Cancel Reservation SUCCESS"))
+                    {
+                        JOptionPane.showMessageDialog(this, "Reservasi berhasil di cancel");
+                    }
+                    
                     refreshTable();
                 } catch (IOException ex) {
                     Logger.getLogger(FormReservationManagement.class.getName()).log(Level.SEVERE, null, ex);

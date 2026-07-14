@@ -109,7 +109,7 @@ public class Account extends MyModel {
     }
     
     @Override
-    public void insertData() {
+    public String insertData() {
         try {
             if (!MyModel.conn.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
@@ -122,14 +122,16 @@ public class Account extends MyModel {
                 sql.executeUpdate();
                 System.out.println("Data account berhasil ditambahkan!");
                 sql.close();
+                return("REGISTER_SUCCESS");
             }
         } catch (Exception ex) {
             System.out.println("Error di insert data Account: " + ex.getMessage());
         }
+        return ("REGISTER_FAILED");
     }
 
     @Override
-    public void updateData() {
+    public String updateData() {
         try {
             if (!MyModel.conn.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
@@ -141,12 +143,13 @@ public class Account extends MyModel {
                 sql.setString(5, this.role);
                 sql.setInt(6, this.id);
                 sql.executeUpdate();
-                System.out.println("Data account berhasil diupdate!");
                 sql.close();
+                return "UPDATE_SUCCESS";
             }
         } catch (Exception ex) {
             System.out.println("Error di update data Account: " + ex.getMessage());
         }
+        return "UPDATE_FAILED";
     }
     
     public String getDetails(String pUsername) {
@@ -175,7 +178,7 @@ public class Account extends MyModel {
     }
 
     @Override
-    public void deleteData() {
+    public String deleteData() {
         try {
             if (!MyModel.conn.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
@@ -184,10 +187,12 @@ public class Account extends MyModel {
                 sql.executeUpdate();
                 System.out.println("Data account berhasil dihapus!");
                 sql.close();
+                return "SUCCESS";
             }
         } catch (Exception ex) {
             System.out.println("Error di delete data Account: " + ex.getMessage());
         }
+        return "FAILED";
     }
     
     public ArrayList<Object> checkUsername() {
@@ -216,37 +221,6 @@ public class Account extends MyModel {
             System.out.println("Error checkUsername: " + e.getMessage());
         }
         return collections;
-    }
-    public boolean register(String username, String password) {
-        try {
-            if (!MyModel.conn.isClosed()) {
-                PreparedStatement cekSql = (PreparedStatement) MyModel.conn.prepareStatement(
-                    "SELECT * FROM account WHERE username = ?"
-                );
-                cekSql.setString(1, username);
-                this.result = cekSql.executeQuery();
-                if (this.result.next()) {
-                    System.out.println("Register ditolak: Username sudah terpakai.");
-                    cekSql.close();
-                    return false;
-                }
-                cekSql.close();
-                
-                PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
-                    "INSERT INTO account(username, password) VALUES(?,SHA2(?,256))"
-                );
-                sql.setString(1, username);
-                sql.setString(2, password);
-                
-                int rowsInserted = sql.executeUpdate();
-                sql.close();
-                
-                return rowsInserted > 0;
-            }
-        } catch (Exception ex) {
-            System.out.println("Error di register: " + ex.getMessage());
-        }
-        return false;
     }
     public String checkLogin(String username, String password) {
         try {

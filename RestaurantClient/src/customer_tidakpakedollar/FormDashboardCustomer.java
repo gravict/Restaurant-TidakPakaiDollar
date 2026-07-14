@@ -30,6 +30,7 @@ public class FormDashboardCustomer extends javax.swing.JFrame {
     
     public FormDashboardCustomer(Restaurant_tidakpakaidollar parent, int userId, String username) {
         initComponents();
+        setLocationRelativeTo(this);
         this.restaurantClient = parent;
         this.currentUserId = userId;
         this.currentUsername = username;
@@ -167,22 +168,22 @@ public class FormDashboardCustomer extends javax.swing.JFrame {
 
     private void menuItemProfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemProfilActionPerformed
         try {
-            FormProfil profilForm = new FormProfil(restaurantClient, currentUserId, currentUsername);
+            FormProfil profilForm = new FormProfil(this);
             profilForm.setVisible(true);
-            this.dispose();
+            this.setVisible(false);
         } catch (IOException ex) {
             Logger.getLogger(FormDashboardCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_menuItemProfilActionPerformed
 
     private void menuItemReservationHisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemReservationHisActionPerformed
-        FormReservation reservationHisForm = new FormReservation(restaurantClient, currentUserId, currentUsername);
-        reservationHisForm.setVisible(true);
-        this.dispose();
+//        FormReservation reservationHisForm = new FormReservation(this);
+//        reservationHisForm.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_menuItemReservationHisActionPerformed
 
     private void menuItemNewReservationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemNewReservationActionPerformed
-        FormNewReservation reservationForm = new FormNewReservation(restaurantClient, currentUserId, currentUsername);
+        FormNewReservation reservationForm = new FormNewReservation(this);
         reservationForm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_menuItemNewReservationActionPerformed

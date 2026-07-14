@@ -101,7 +101,7 @@ public class Menu extends MyModel {
     }
 
     @Override
-    public void insertData() {
+    public String insertData() {
         try {
             if (!MyModel.conn.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
@@ -111,16 +111,17 @@ public class Menu extends MyModel {
                 sql.setInt(3, this.price);
                 sql.setString(4, this.description);
                 sql.executeUpdate();
-                System.out.println("Data menu berhasil ditambahkan!");
                 sql.close();
+                return "SUCCESS";
             }
         } catch (Exception ex) {
             System.out.println("Error di insert data Menu: " + ex.getMessage());
         }
+        return "FAILED";
     }
 
     @Override
-    public void updateData() {
+    public String updateData() {
         try {
             if (!MyModel.conn.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
@@ -131,12 +132,14 @@ public class Menu extends MyModel {
                 sql.setString(4, this.description);
                 sql.setInt(5, this.id);
                 sql.executeUpdate();
-                System.out.println("Data menu berhasil diupdate!");
                 sql.close();
+                return "SUCCESS";
+
             }
         } catch (Exception ex) {
             System.out.println("Error di update data Menu: " + ex.getMessage());
         }
+        return "FAILED";
     }
 
     public boolean addStock(int id, int addedStock) {
@@ -157,7 +160,7 @@ public class Menu extends MyModel {
     }
 
     @Override
-    public void deleteData() {
+    public String deleteData() {
         try {
             if (!MyModel.conn.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
@@ -166,10 +169,12 @@ public class Menu extends MyModel {
                 sql.executeUpdate();
                 System.out.println("Data menu berhasil dihapus!");
                 sql.close();
+                return "SUCCESS";
             }
         } catch (Exception ex) {
             System.out.println("Error di delete data Menu: " + ex.getMessage());
         }
+        return "FAILED";
     }
 
     @Override

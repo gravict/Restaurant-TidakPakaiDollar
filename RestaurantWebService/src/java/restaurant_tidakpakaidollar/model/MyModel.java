@@ -42,8 +42,8 @@ public abstract class MyModel {
     }
 }
     
-    public abstract void insertData();
-    public abstract void updateData();
-    public abstract void deleteData();
+    public abstract String insertData();
+    public abstract String updateData();
+    public abstract String deleteData();
     public abstract String viewListData();
 }

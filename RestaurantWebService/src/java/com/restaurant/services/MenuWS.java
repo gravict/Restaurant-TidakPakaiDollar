@@ -49,8 +49,7 @@ public class MenuWS {
     @WebMethod(operationName = "insertMenu")
     public String insertMenu(@WebParam(name = "name") String name, @WebParam(name = "category") String category, @WebParam(name = "price") int price, @WebParam(name = "description") String description) {
         Menu newMenu = new Menu(0, name, category, 0, price, description);
-        newMenu.insertData();
-        return "SUCCESS";
+        return newMenu.insertData();
     }
     
     /**
