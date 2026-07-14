@@ -193,7 +193,12 @@ public class FormDashboardAdmin extends javax.swing.JFrame {
 
     private void menuItemOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemOrderActionPerformed
         // TODO add your handling code here:
-        FormOrderMonitoring orderMon = new FormOrderMonitoring(this);
+        FormOrderMonitoring orderMon = null;
+        try{
+            orderMon = new FormOrderMonitoring(this);
+        } catch(IOException ex){
+            Logger.getLogger(FormDashboardAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
         orderMon.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_menuItemOrderActionPerformed

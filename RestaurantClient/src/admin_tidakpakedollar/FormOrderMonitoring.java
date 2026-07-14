@@ -4,19 +4,42 @@
  */
 package admin_tidakpakedollar;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Nicholas
  */
 public class FormOrderMonitoring extends javax.swing.JFrame {
 
-    FormDashboardAdmin dashboard;
+    private FormDashboardAdmin dashboard;
+    String[][] allOrder; 
+    int id_reserv;
     /**
      * Creates new form FormOrderMonitoring
      */
-    public FormOrderMonitoring(FormDashboardAdmin admin) {
+    public FormOrderMonitoring(FormDashboardAdmin admin) throws IOException {
         initComponents();
         this.dashboard = admin;
+        
+        String request = "GET_ORDER_MONITORING";
+        dashboard.restaurantClient.sendMessageToServer(request);
+        
+        String orders = dashboard.restaurantClient.getMessageFromServer();
+        
+        String[] order_data = orders.split("#");
+        allOrder = new String[order_data.length][3];
+        
+        for(int i=0; i<order_data.length; i++){
+            String orderMonitor[]=order_data[i].split(";");
+            for(int j=0; j<3; j++){
+                allOrder[i][j] = orderMonitor[j];
+            }
+        }
+        refreshTable();
     }
 
     /**
@@ -72,6 +95,11 @@ public class FormOrderMonitoring extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableOrderMonitor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableOrderMonitorMouseClicked(evt);
+            }
+        });
         jScrollPaneOrderMonitoring.setViewportView(tableOrderMonitor);
 
         btnUpdateStatus.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -125,6 +153,20 @@ public class FormOrderMonitoring extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    public void refreshTable(){
+        DefaultTableModel model = (DefaultTableModel) tableOrderMonitor.getModel();
+        model.setRowCount(0);
+        
+        Object[] rowData = new Object[3];
+        
+        for(int i=0; i<allOrder.length; i++){
+            for(int j=0; j<3; j++){
+                rowData[j] = allOrder[i][j];
+            }
+            model.addRow(rowData);
+        }
+    }
+    
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         // TODO add your handling code here:
         dashboard.setVisible(true);
@@ -133,7 +175,40 @@ public class FormOrderMonitoring extends javax.swing.JFrame {
 
     private void btnUpdateStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateStatusActionPerformed
         // TODO add your handling code here:
+        String request = "UPDATE_ORDER_STATUS;"+id_reserv;
+        try {
+            dashboard.restaurantClient.sendMessageToServer(request);
+            String orderStat_result = dashboard.restaurantClient.getMessageFromServer();
+            System.out.println("Pesan Update: "+orderStat_result);
+            
+            
+            String req_data = "GET_ORDER_MONITORING";
+            dashboard.restaurantClient.sendMessageToServer(req_data);
+            String orders = dashboard.restaurantClient.getMessageFromServer();
+        
+            String[] order_data = orders.split("#");
+            allOrder = new String[order_data.length][3];
+        
+        for(int i=0; i<order_data.length; i++){
+            String orderMonitor[]=order_data[i].split(";");
+            for(int j=0; j<3; j++){
+                allOrder[i][j] = orderMonitor[j];
+            }
+        }
+        refreshTable();
+        } catch (IOException ex) {
+            Logger.getLogger(FormOrderMonitoring.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnUpdateStatusActionPerformed
+
+    private void tableOrderMonitorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableOrderMonitorMouseClicked
+        // TODO add your handling code here:
+        int row = tableOrderMonitor.getSelectedRow();
+        if (row >= 0) {
+        id_reserv = Integer.parseInt(tableOrderMonitor.getValueAt(row, 0).toString());
+            lblStatus.setText("Reservation Id: " + id_reserv);
+        }
+    }//GEN-LAST:event_tableOrderMonitorMouseClicked
 
     /**
      * @param args the command line arguments
@@ -165,7 +240,11 @@ public class FormOrderMonitoring extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormOrderMonitoring(null).setVisible(true);
+                try {
+                    new FormOrderMonitoring(null).setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(FormOrderMonitoring.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

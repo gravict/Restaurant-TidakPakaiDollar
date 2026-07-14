@@ -358,4 +358,60 @@ public class Reservation extends MyModel {
         }
         return "Update Status Reservation FAILED";
     }
+        
+    public String viewOrderStatusData() {
+        String order = "";
+        try {
+            this.statement = (Statement) MyModel.conn.createStatement();
+            this.result = this.statement.executeQuery(""
+                    + "SELECT r.id, r.order_status, a.fullname "
+                    + "FROM reservation r INNER JOIN account a ON r.account_id = a.id");
+            while (this.result.next()) {
+                order += this.result.getInt("id") + ";"
+                        + this.result.getString("order_status") + ";"
+                        + this.result.getString("fullname") + "#";
+            }
+        } catch (Exception e) {
+            System.out.println("Error ViewOrderStatusData " + e);
+        }
+        return order;
+    }
+
+    public String updateStatusOrder(int idReservasi) {
+        try {
+            String currentStatus = "";
+            String sql = "SELECT r.order_status FROM reservation r INNER JOIN account a ON r.account_id = a.id WHERE r.id = ?;";
+            PreparedStatement psql = MyModel.conn.prepareStatement(sql);
+            psql.setInt(1, idReservasi);
+            this.result = psql.executeQuery();
+            while (this.result.next()) {
+                currentStatus = this.result.getString("order_status");
+            }
+
+            String nextStatus = "";
+            if (currentStatus.equals("PENDING")) {
+                nextStatus = "PREPARING";
+            } else if (currentStatus.equals("PREPARING")) {
+                nextStatus = "READY";
+            } else if (currentStatus.equals("READY")) {
+                nextStatus = "SERVED";
+            } else {
+                return "SERVED Update Order Status FAILED";
+            }
+
+            if (!MyModel.conn.isClosed()) {
+                PreparedStatement presql = (PreparedStatement) MyModel.conn.prepareStatement(
+                        "UPDATE reservation SET order_status = ?, updated_at = NOW() WHERE id = ?");
+                presql.setString(1, nextStatus);
+                presql.setInt(2, idReservasi);
+                presql.executeUpdate();
+                presql.close();
+                return "Update Status SUCCESS";
+            }
+        } catch (Exception ex) {
+            System.out.println("Error di update status_order table Reservation: " + ex.getMessage());
+        }
+        return "Update Order Status FAILED";
+    }
+    
 }

@@ -11,6 +11,8 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import restaurant_tidakpakaidollar.model.DetailOrder;
 import restaurant_tidakpakaidollar.model.Invoice;
+import restaurant_tidakpakaidollar.model.Reservation;
+
 
 /**
  *
@@ -28,6 +30,7 @@ public class FoodOrderWS {
     }
     DetailOrder model = new DetailOrder();
     Invoice invoice = new Invoice();
+    Reservation reserv = new Reservation();
 
     /**
      * Web service operation
@@ -71,5 +74,24 @@ public class FoodOrderWS {
         //TODO write your implementation code here:
         return invoice.getOrderDetailsByInvoice(reservationId);
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getOrderStatusData")
+    public String getOrderStatusData() {
+        //TODO write your implementation code here:
+        return reserv.viewOrderStatusData();
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "updateOrderStatus")
+    public String updateOrderStatus(@WebParam(name = "id_reservation") int id_reservation) {
+        //TODO write your implementation code here:
+        return reserv.updateStatusOrder(id_reservation);
+    }
+
 
 }
