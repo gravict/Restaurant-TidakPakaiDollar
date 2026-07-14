@@ -16,11 +16,10 @@ import restaurant_tidakpakaidollar.model.*;
 @WebService(serviceName = "ReservationWS")
 public class ReservationWS {
 
-    Reservation model =new Reservation();
+    Reservation model = new Reservation();
     /**
      * This is a sample web service operation
      */
-    Reservation reservation = new Reservation();
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
         return "Hello " + txt + " !";
@@ -31,6 +30,7 @@ public class ReservationWS {
      */
     @WebMethod(operationName = "createReservation")
     public String createReservation(@WebParam(name = "userId") int userId, @WebParam(name = "guest") int guest, @WebParam(name = "datetime") String datetime) {
+        Reservation reservation = new Reservation();
         reservation.setAccountId(userId);
         reservation.setNumber_guest(guest);
         reservation.setStart_reservation(datetime);

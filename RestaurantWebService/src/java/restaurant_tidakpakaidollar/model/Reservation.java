@@ -141,7 +141,7 @@ public class Reservation extends MyModel {
                         + "LEFT JOIN reservation r "
                         + "ON t.id = r.restaurant_table_id "
                         + "AND r.start_reservation = ? "
-                        + "AND r.reservation_status IN = 'ACCEPTED' "
+                        + "AND r.reservation_status = 'ACCEPTED' "
                         + "WHERE t.capacity BETWEEN ? AND ? "
                         + "AND r.id IS NULL "
                         + "ORDER BY t.capacity ASC "
