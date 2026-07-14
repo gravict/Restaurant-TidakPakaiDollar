@@ -113,6 +113,7 @@ public class FormTableManagement extends javax.swing.JFrame {
         lblTableNum.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTableNum.setText("0");
 
+        tableTableReservationInfo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tableTableReservationInfo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -159,9 +160,9 @@ public class FormTableManagement extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(397, 397, 397)
                         .addComponent(lblTableManagement)))
-                .addContainerGap(491, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 554, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,8 +253,6 @@ public class FormTableManagement extends javax.swing.JFrame {
                 dashboard.restaurantClient.sendMessageToServer(request);
 
                 String table_res = dashboard.restaurantClient.getMessageFromServer();
-                
-                JOptionPane.showMessageDialog(this, table_res);
                 
                 String[] tableRes_data = table_res.split("#");
                 allTableRes = new String[tableRes_data.length][5];

@@ -136,7 +136,6 @@ public class RestaurantServer implements Runnable{
         else if (request.contains("GET_TABLE_RESERVED;")) {
             String[] req = request.split(";");
             int id_table = Integer.parseInt(req[1]);
-            System.out.println(id_table);
             return getTableReserved(id_table);
         }
         else if (request.contains("CANCEL_RESERVATION"))
