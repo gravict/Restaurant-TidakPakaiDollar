@@ -50,6 +50,7 @@ public class FormReservationManagement extends javax.swing.JFrame {
         lblReservationManagement3 = new javax.swing.JLabel();
         lblReservationManagement4 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
+        btnUpdate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,16 +100,17 @@ public class FormReservationManagement extends javax.swing.JFrame {
         });
         jScrollPaneReservationManagement.setViewportView(tableReservation);
 
-        lblReservationManagement1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblReservationManagement1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblReservationManagement1.setText("Customer name:");
 
-        lblReservationManagement2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblReservationManagement2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblReservationManagement2.setText("Reservation date:");
 
         txtName.setEnabled(false);
 
         txtDate.setEnabled(false);
 
+        btnCancel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnCancel.setText("Cancel Reservation");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,13 +120,21 @@ public class FormReservationManagement extends javax.swing.JFrame {
 
         txtTime.setEnabled(false);
 
-        lblReservationManagement3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblReservationManagement3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblReservationManagement3.setText("Reservation Time:");
 
-        lblReservationManagement4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblReservationManagement4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblReservationManagement4.setText("Id Reservation:");
 
         txtId.setEnabled(false);
+
+        btnUpdate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnUpdate.setText("Update Status");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -136,33 +146,37 @@ public class FormReservationManagement extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnExit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(lblReservationManagement3)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(lblReservationManagement4)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(8, 8, 8)
                                     .addComponent(lblReservationManagement1)
                                     .addGap(18, 18, 18)
-                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPaneReservationManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblReservationManagement)
-                            .addGap(189, 189, 189)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblReservationManagement2)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                                    .addComponent(txtName))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addGap(3, 3, 3)
+                                    .addComponent(lblReservationManagement4)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(lblReservationManagement2)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblReservationManagement3)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPaneReservationManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblReservationManagement)
+                                .addGap(189, 189, 189)))))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,28 +185,28 @@ public class FormReservationManagement extends javax.swing.JFrame {
                 .addComponent(lblReservationManagement)
                 .addGap(28, 28, 28)
                 .addComponent(jScrollPaneReservationManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblReservationManagement4)
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblReservationManagement1)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblReservationManagement2)
+                    .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblReservationManagement3)
+                    .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnExit, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblReservationManagement1)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblReservationManagement2)
-                            .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblReservationManagement3)
-                            .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(29, 29, 29))
+                    .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(28, 28, 28))
         );
 
         pack();
@@ -262,7 +276,7 @@ public class FormReservationManagement extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         int confirm = JOptionPane.showConfirmDialog(
-                this, 
+                this,
                 "Yakin mau cancel reservasi?",
                 "Konfirmasi",
                 JOptionPane.YES_NO_OPTION
@@ -276,25 +290,58 @@ public class FormReservationManagement extends javax.swing.JFrame {
                 dashboard.restaurantClient.sendMessageToServer(request);
 
                 try {
-                    String balasanCancel = dashboard.restaurantClient.getMessageFromServer();                   
-                    
-                    System.out.println("Balasan Cancel: " + balasanCancel);
-                    
-                    if (balasanCancel.equals("Cancel Reservation SUCCESS"))
-                    {
-                        JOptionPane.showMessageDialog(this, "Reservasi berhasil di cancel");
+                    String balasan = dashboard.restaurantClient.getMessageFromServer();
+
+                    System.out.println("Balasan : " + balasan);
+
+                    if (balasan.contains("SUCCESS")) {
+                        JOptionPane.showMessageDialog(this, "Reservasi " + idReservasi + " berhasil di cancel");
+                        refreshTable();
                     }
-                    
-                    refreshTable();
                 } catch (IOException ex) {
                     Logger.getLogger(FormReservationManagement.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                JOptionPane.showMessageDialog(this, "Reservvasi dengan id " + idReservasi + " berhasil di cancel");
             } else {
                 JOptionPane.showMessageDialog(this, "Pilih reservasi dulu!");
             }
         }
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Update status reservasi?",
+                "Konfirmasi",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            if (txtId.getText() != "") {
+                String idReservasi = txtId.getText();
+
+                String request = "UPDATE_STATUS_RESERVATION;" + idReservasi;
+                dashboard.restaurantClient.sendMessageToServer(request);
+
+                try {
+                    String balasan = dashboard.restaurantClient.getMessageFromServer();
+
+                    System.out.println("Balasan : " + balasan);
+
+                    if (balasan.contains("SUCCESS")) {
+                        JOptionPane.showMessageDialog(this, "Update Status Reservasi " + idReservasi + " berhasil!");
+                        refreshTable();
+                    } else {
+                        JOptionPane.showMessageDialog(this, balasan);
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(FormReservationManagement.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Pilih reservasi dulu!");
+            }
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -338,6 +385,7 @@ public class FormReservationManagement extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JScrollPane jScrollPaneReservationManagement;
     private javax.swing.JLabel lblReservationManagement;
     private javax.swing.JLabel lblReservationManagement1;

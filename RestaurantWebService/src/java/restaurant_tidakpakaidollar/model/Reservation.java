@@ -141,7 +141,7 @@ public class Reservation extends MyModel {
                         + "LEFT JOIN reservation r "
                         + "ON t.id = r.restaurant_table_id "
                         + "AND r.start_reservation = ? "
-                        + "AND r.reservation_status IN ('PENDING','ACCEPTED') "
+                        + "AND r.reservation_status IN = 'ACCEPTED' "
                         + "WHERE t.capacity BETWEEN ? AND ? "
                         + "AND r.id IS NULL "
                         + "ORDER BY t.capacity ASC "
@@ -157,10 +157,9 @@ public class Reservation extends MyModel {
                     this.tableId = this.result.getInt("id");
                     this.setReservation_status("ACCEPTED");
                     this.setOrder_status("PENDING");
-                    if (this.insertData().equals("SUCCESS"))
-                    {
+                    if (this.insertData().equals("SUCCESS")) {
                         PreparedStatement idSql = MyModel.conn.prepareStatement(
-                            "SELECT LAST_INSERT_ID()"
+                                "SELECT LAST_INSERT_ID()"
                         );
                         ResultSet idResult = idSql.executeQuery();
                         int reservationId = 0;
@@ -170,7 +169,7 @@ public class Reservation extends MyModel {
                         idResult.close();
                         idSql.close();
                         response = "RESERVATION_SUCCESS;" + reservationId;
-                    }                    
+                    }
                 }
                 sql.close();
             }
@@ -275,8 +274,88 @@ public class Reservation extends MyModel {
                 return "Cancel Reservation SUCCESS";
             }
         } catch (Exception ex) {
-            System.out.println("Error di update data Reservation: " + ex.getMessage());
+            System.out.println("Error di cancel data Reservation: " + ex.getMessage());
         }
         return "Cancel Reservation FAILED";
+    }
+
+    public String cekStatus(int id) {
+        String status = "";
+        try {
+            this.statement = (Statement) MyModel.conn.createStatement();
+            this.result = this.statement.executeQuery("SELECT reservation_status FROM reservation WHERE id = " + id);
+            this.result.next();
+            status = this.result.getString("reservation_status");
+        } catch (Exception e) {
+            System.out.println("Error cek status " + e);
+        }
+        return status;
+    }
+
+    public String updateStatus(int id) {
+        try {
+            String statusReservation = cekStatus(id);
+            if (!MyModel.conn.isClosed()) {
+                this.statement = (Statement) MyModel.conn.createStatement();
+                this.result = this.statement.executeQuery("SELECT order_status FROM reservation WHERE id = " + id);
+                this.result.next();
+                String orderStat = this.result.getString("order_status");
+
+                if (orderStat.equals("SERVED")) {
+                    if (statusReservation.equals("ACCEPTED")) {
+
+                        PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                                "UPDATE reservation r INNER JOIN restaurant_table t ON r.restaurant_table_id = t.id "
+                                + "SET r.reservation_status = 'ONGOING', r.updated_at = NOW(), t.status = 'USED' WHERE r.id = ?");
+                        sql.setInt(1, id);
+                        sql.executeUpdate();
+                        sql.close();
+                        return "Update Status Reservation to ONGOING SUCCESS";
+
+                    } else if (statusReservation.equals("ONGOING")) {
+
+                        PreparedStatement sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                                "UPDATE reservation r INNER JOIN restaurant_table t ON r.restaurant_table_id = t.id "
+                                + "SET r.reservation_status = 'FINISHED', r.updated_at = NOW() WHERE r.id = ?");
+                        sql.setInt(1, id);
+                        sql.executeUpdate();
+
+                        this.result = this.statement.executeQuery("SELECT restaurant_table_id FROM reservation WHERE id = " + id);
+                        this.result.next();
+                        int idTable = this.result.getInt("restaurant_table_id");
+
+                        sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                                "SELECT * FROM reservation WHERE restaurant_table_id = ? AND reservation_status = 'ACCEPTED' AND start_reservation  > NOW()");
+                        sql.setInt(1, idTable);
+                        this.result = sql.executeQuery();
+
+                        if (this.result.next()) {
+                            sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                                    "UPDATE restaurant_table SET status = 'BOOKED' WHERE id = ?");
+                            sql.setInt(1, idTable);
+                            sql.executeUpdate();
+                        }
+                        else
+                        {
+                            sql = (PreparedStatement) MyModel.conn.prepareStatement(
+                                    "UPDATE restaurant_table SET status = 'AVAILABLE' WHERE id = ?");
+                            sql.setInt(1, idTable);
+                            sql.executeUpdate();
+                        }
+
+                        sql.close();
+                        return "Update Status Reservation to FINISHED SUCCESS";
+
+                    } else {
+                        return "Status Reservasi sudah tidak bisa di update";
+                    }
+                } else {
+                    return "Status order belum SERVED";
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println("Error di cancel data Reservation: " + ex.getMessage());
+        }
+        return "Update Status Reservation FAILED";
     }
 }

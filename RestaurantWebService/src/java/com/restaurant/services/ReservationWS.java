@@ -55,4 +55,22 @@ public class ReservationWS {
         //TODO write your implementation code here:        
         return model.cancelReservation(idReservasi);
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "cekStatus")
+    public String cekStatus(@WebParam(name = "id") int id) {
+        //TODO write your implementation code here:
+        return model.cekStatus(id);
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "updateStatus")
+    public String updateStatus(@WebParam(name = "id") int id) {
+        //TODO write your implementation code here:
+        return model.updateStatus(id);
+    }
 }

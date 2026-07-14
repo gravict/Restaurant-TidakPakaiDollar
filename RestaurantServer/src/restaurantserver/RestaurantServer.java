@@ -157,6 +157,11 @@ public class RestaurantServer implements Runnable{
             String[] invoice = request.split(";");
             return createInvoice(Integer.parseInt(invoice[1]), Integer.parseInt(invoice[2]));
         }
+        else if (request.contains("UPDATE_STATUS_RESERVATION")) {
+            String[] reservasi = request.split(";");
+            int idReservasi = Integer.parseInt(reservasi[1]);
+            return updateStatus(idReservasi);
+        }
         else 
         {
             return ""; 
@@ -281,6 +286,18 @@ public class RestaurantServer implements Runnable{
         com.restaurant.services.FoodOrderWS_Service service = new com.restaurant.services.FoodOrderWS_Service();
         com.restaurant.services.FoodOrderWS port = service.getFoodOrderWSPort();
         return port.createInvoice(reservationId, total);
+    }
+
+    private static String cekStatus(int id) {
+        com.restaurant.services.ReservationWS_Service service = new com.restaurant.services.ReservationWS_Service();
+        com.restaurant.services.ReservationWS port = service.getReservationWSPort();
+        return port.cekStatus(id);
+    }
+
+    private static String updateStatus(int id) {
+        com.restaurant.services.ReservationWS_Service service = new com.restaurant.services.ReservationWS_Service();
+        com.restaurant.services.ReservationWS port = service.getReservationWSPort();
+        return port.updateStatus(id);
     }
     
     
