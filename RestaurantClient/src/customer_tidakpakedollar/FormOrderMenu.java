@@ -475,6 +475,10 @@ public class FormOrderMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTambahOrderActionPerformed
 
     private void btnPesanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesanActionPerformed
+        if (keranjang.size() == 0) {
+            JOptionPane.showMessageDialog(this, "Pilih menu terlebih dahulu");
+            return;
+        }
         int confirm = javax.swing.JOptionPane.showConfirmDialog(
                 this, "Buat pesanan? Anda tidak bisa mengubah pesanan setelah konfirmasi dan pembayaran", "Konfirmasi",
                 javax.swing.JOptionPane.YES_NO_OPTION
